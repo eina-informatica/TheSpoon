@@ -6,4 +6,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="buttonLabel">#FFFFFF</color>
+    <color name="bgCard">#E5E7EB</color>
 </resources>
