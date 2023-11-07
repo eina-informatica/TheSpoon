@@ -43,9 +43,6 @@ public class Notepad extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_notepad);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         mRecyclerView = findViewById(id.recyclerview);
         mAdapter = new NoteListAdapter(new NoteListAdapter.NoteDiff());
         mRecyclerView.setAdapter(mAdapter);
