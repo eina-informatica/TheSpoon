@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".ui.Notepad">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:layout_collapseMode="pin"
+        app:contentInsetStartWithNavigation="0dp"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"
+        app:titleMarginStart="140dp"
+        app:titleMarginEnd="140dp"
+        tools:ignore="MissingConstraints" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="0dp"

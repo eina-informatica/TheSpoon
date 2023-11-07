@@ -1,4 +1,4 @@
-package es.unizar.eina.notepad.ui;
+package es.unizar.eina.thespoon.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
-import es.unizar.eina.notepad.R;
+import es.unizar.eina.thespoon.R;
 
 /** Pantalla utilizada para la creación o edición de una nota */
 public class NoteEdit extends AppCompatActivity {

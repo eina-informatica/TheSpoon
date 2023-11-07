@@ -1,4 +1,4 @@
-package es.unizar.eina.notepad.ui;
+package es.unizar.eina.thespoon.ui;
 
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import es.unizar.eina.notepad.R;
+import es.unizar.eina.thespoon.R;
 
 class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
     private final TextView mNoteItemView;

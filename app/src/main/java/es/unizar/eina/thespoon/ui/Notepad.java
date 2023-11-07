@@ -1,6 +1,9 @@
-package es.unizar.eina.notepad.ui;
+package es.unizar.eina.thespoon.ui;
+
+import static es.unizar.eina.thespoon.R.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import es.unizar.eina.notepad.database.Note;
-import es.unizar.eina.notepad.R;
+import es.unizar.eina.thespoon.database.Note;
+import es.unizar.eina.thespoon.R;
 
 /** Pantalla principal de la aplicación Notepad */
 public class Notepad extends AppCompatActivity {
@@ -37,8 +41,12 @@ public class Notepad extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notepad);
-        mRecyclerView = findViewById(R.id.recyclerview);
+        setContentView(layout.activity_notepad);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mRecyclerView = findViewById(id.recyclerview);
         mAdapter = new NoteListAdapter(new NoteListAdapter.NoteDiff());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -50,7 +58,7 @@ public class Notepad extends AppCompatActivity {
             mAdapter.submitList(notes);
         });
 
-        mFab = findViewById(R.id.fab);
+        mFab = findViewById(id.fab);
         mFab.setOnClickListener(view -> {
             createNote();
         });
@@ -60,11 +68,11 @@ public class Notepad extends AppCompatActivity {
 
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
+    /*public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
         menu.add(Menu.NONE, INSERT_ID, Menu.NONE, R.string.add_note);
         return result;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -84,7 +92,7 @@ public class Notepad extends AppCompatActivity {
         if (resultCode != RESULT_OK) {
             Toast.makeText(
                     getApplicationContext(),
-                    R.string.empty_not_saved,
+                    string.empty_not_saved,
                     Toast.LENGTH_LONG).show();
         } else {
 

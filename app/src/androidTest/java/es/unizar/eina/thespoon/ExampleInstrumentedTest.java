@@ -1,4 +1,4 @@
-package es.unizar.eina.notepad;
+package es.unizar.eina.thespoon;
 
 import android.content.Context;
 

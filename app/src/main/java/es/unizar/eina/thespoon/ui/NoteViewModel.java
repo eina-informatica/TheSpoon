@@ -1,4 +1,4 @@
-package es.unizar.eina.notepad.ui;
+package es.unizar.eina.thespoon.ui;
 
 import android.app.Application;
 
@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import es.unizar.eina.notepad.database.Note;
-import es.unizar.eina.notepad.database.NoteRepository;
+import es.unizar.eina.thespoon.database.Note;
+import es.unizar.eina.thespoon.database.NoteRepository;
 
 public class NoteViewModel extends AndroidViewModel {
 
