@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import es.unizar.eina.thespoon.R;
 
-class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+class PlatoViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
     private final TextView mNoteItemView;
 
 
 
-    private NoteViewHolder(View itemView) {
+    private PlatoViewHolder(View itemView) {
         super(itemView);
         mNoteItemView = itemView.findViewById(R.id.textView);
 
@@ -27,18 +27,18 @@ class NoteViewHolder extends RecyclerView.ViewHolder implements View.OnCreateCon
         mNoteItemView.setText(text);
     }
 
-    static NoteViewHolder create(ViewGroup parent) {
+    static PlatoViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
-        return new NoteViewHolder(view);
+        return new PlatoViewHolder(view);
     }
 
 
     public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         //super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Menu.NONE, Notepad.DELETE_ID, Menu.NONE, R.string.menu_delete);
-        menu.add(Menu.NONE, Notepad.EDIT_ID, Menu.NONE, R.string.menu_edit);
+        menu.add(Menu.NONE, Platos.DELETE_ID, Menu.NONE, R.string.menu_delete);
+        menu.add(Menu.NONE, Platos.EDIT_ID, Menu.NONE, R.string.menu_edit);
     }
 
 

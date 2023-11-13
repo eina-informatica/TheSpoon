@@ -11,7 +11,7 @@ import android.widget.EditText;
 import es.unizar.eina.thespoon.R;
 
 /** Pantalla utilizada para la creación o edición de una nota */
-public class NoteEdit extends AppCompatActivity {
+public class PlatoEdit extends AppCompatActivity {
 
     public static final String NOTE_TITLE = "title";
     public static final String NOTE_BODY = "body";
@@ -39,10 +39,10 @@ public class NoteEdit extends AppCompatActivity {
             if (TextUtils.isEmpty(mTitleText.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
             } else {
-                replyIntent.putExtra(NoteEdit.NOTE_TITLE, mTitleText.getText().toString());
-                replyIntent.putExtra(NoteEdit.NOTE_BODY, mBodyText.getText().toString());
+                replyIntent.putExtra(PlatoEdit.NOTE_TITLE, mTitleText.getText().toString());
+                replyIntent.putExtra(PlatoEdit.NOTE_BODY, mBodyText.getText().toString());
                 if (mRowId!=null) {
-                    replyIntent.putExtra(NoteEdit.NOTE_ID, mRowId.intValue());
+                    replyIntent.putExtra(PlatoEdit.NOTE_ID, mRowId.intValue());
                 }
                 setResult(RESULT_OK, replyIntent);
             }
@@ -57,9 +57,9 @@ public class NoteEdit extends AppCompatActivity {
         mRowId = null;
         Bundle extras = getIntent().getExtras();
         if (extras!=null) {
-            mTitleText.setText(extras.getString(NoteEdit.NOTE_TITLE));
-            mBodyText.setText(extras.getString(NoteEdit.NOTE_BODY));
-            mRowId = extras.getInt(NoteEdit.NOTE_ID);
+            mTitleText.setText(extras.getString(PlatoEdit.NOTE_TITLE));
+            mBodyText.setText(extras.getString(PlatoEdit.NOTE_BODY));
+            mRowId = extras.getInt(PlatoEdit.NOTE_ID);
         }
     }
 

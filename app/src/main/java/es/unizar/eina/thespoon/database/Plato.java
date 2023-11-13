@@ -6,8 +6,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 /** Clase anotada como entidad que representa una nota y que consta de título y cuerpo */
-@Entity(tableName = "note")
-public class Note {
+@Entity(tableName = "plato")
+public class Plato {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int id;
@@ -19,7 +19,7 @@ public class Note {
     @ColumnInfo(name = "body")
     private String body;
 
-    public Note(@NonNull String title, String body) {
+    public Plato(@NonNull String title, String body) {
         this.title = title;
         this.body = body;
     }

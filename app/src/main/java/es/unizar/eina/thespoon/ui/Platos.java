@@ -3,7 +3,6 @@ package es.unizar.eina.thespoon.ui;
 import static es.unizar.eina.thespoon.R.*;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,18 +10,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import es.unizar.eina.thespoon.database.Note;
-import es.unizar.eina.thespoon.R;
+import es.unizar.eina.thespoon.database.Plato;
 
 /** Pantalla principal de la aplicación Notepad */
-public class Notepad extends AppCompatActivity {
-    private NoteViewModel mNoteViewModel;
+public class Platos extends AppCompatActivity {
+    private PlatoViewModel mNoteViewModel;
 
     public static final int ACTIVITY_CREATE = 1;
 
@@ -34,7 +31,7 @@ public class Notepad extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
 
-    NoteListAdapter mAdapter;
+    PlatoListAdapter mAdapter;
 
     FloatingActionButton mFab;
 
@@ -44,13 +41,13 @@ public class Notepad extends AppCompatActivity {
         setContentView(layout.activity_notepad);
 
         mRecyclerView = findViewById(id.recyclerview);
-        mAdapter = new NoteListAdapter(new NoteListAdapter.NoteDiff());
+        mAdapter = new PlatoListAdapter(new PlatoListAdapter.NoteDiff());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mNoteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
+        mNoteViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 
-        mNoteViewModel.getAllNotes().observe(this, notes -> {
+        mNoteViewModel.getAllPlatos().observe(this, notes -> {
             // Update the cached copy of the notes in the adapter.
             mAdapter.submitList(notes);
         });
@@ -95,15 +92,15 @@ public class Notepad extends AppCompatActivity {
 
             switch (requestCode) {
                 case ACTIVITY_CREATE:
-                    Note newNote = new Note(extras.getString(NoteEdit.NOTE_TITLE)
-                            , extras.getString(NoteEdit.NOTE_BODY));
+                    Plato newNote = new Plato(extras.getString(PlatoEdit.NOTE_TITLE)
+                            , extras.getString(PlatoEdit.NOTE_BODY));
                     mNoteViewModel.insert(newNote);
                     break;
                 case ACTIVITY_EDIT:
 
-                    int id = extras.getInt(NoteEdit.NOTE_ID);
-                    Note updatedNote = new Note(extras.getString(NoteEdit.NOTE_TITLE)
-                            , extras.getString(NoteEdit.NOTE_BODY));
+                    int id = extras.getInt(PlatoEdit.NOTE_ID);
+                    Plato updatedNote = new Plato(extras.getString(PlatoEdit.NOTE_TITLE)
+                            , extras.getString(PlatoEdit.NOTE_BODY));
                     updatedNote.setId(id);
                     mNoteViewModel.update(updatedNote);
                     break;
@@ -113,7 +110,7 @@ public class Notepad extends AppCompatActivity {
 
 
     public boolean onContextItemSelected(MenuItem item) {
-        Note current = mAdapter.getCurrent();
+        Plato current = mAdapter.getCurrent();
         switch (item.getItemId()) {
             case DELETE_ID:
                 Toast.makeText(
@@ -130,16 +127,16 @@ public class Notepad extends AppCompatActivity {
     }
 
     private void createNote() {
-        Intent intent = new Intent(this, NoteEdit.class);
+        Intent intent = new Intent(this, PlatoEdit.class);
         startActivityForResult(intent, ACTIVITY_CREATE);
     }
 
 
-    private void editNote(Note current) {
-        Intent intent = new Intent(this, NoteEdit.class);
-        intent.putExtra(NoteEdit.NOTE_TITLE, current.getTitle());
-        intent.putExtra(NoteEdit.NOTE_BODY, current.getBody());
-        intent.putExtra(NoteEdit.NOTE_ID, current.getId());
+    private void editNote(Plato current) {
+        Intent intent = new Intent(this, PlatoEdit.class);
+        intent.putExtra(PlatoEdit.NOTE_TITLE, current.getTitle());
+        intent.putExtra(PlatoEdit.NOTE_BODY, current.getBody());
+        intent.putExtra(PlatoEdit.NOTE_ID, current.getId());
         startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
