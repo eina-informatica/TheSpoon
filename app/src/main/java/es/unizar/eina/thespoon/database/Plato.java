@@ -13,15 +13,15 @@ public class Plato {
     private int id;
 
     @NonNull
-    @ColumnInfo(name = "title")
-    private String title;
+    @ColumnInfo(name = "nombre")
+    private String nombre;
 
-    @ColumnInfo(name = "body")
-    private String body;
+    @ColumnInfo(name = "descripcion")
+    private String descripcion;
 
-    public Plato(@NonNull String title, String body) {
-        this.title = title;
-        this.body = body;
+    public Plato(@NonNull String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     /** Devuelve el identificador de la nota */
@@ -35,13 +35,13 @@ public class Plato {
     }
 
     /** Devuelve el título de la nota */
-    public String getTitle(){
-        return this.title;
+    public String getNombre(){
+        return this.nombre;
     }
 
     /** Devuelve el cuerpo de la nota */
-    public String getBody(){
-        return this.body;
+    public String getDescripcion(){
+        return this.descripcion;
     }
 
 }

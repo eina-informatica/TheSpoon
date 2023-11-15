@@ -28,7 +28,7 @@ public class PlatoEdit extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_noteedit);
+        setContentView(R.layout.activity_editar_plato);
 
         mTitleText = findViewById(R.id.title);
         mBodyText = findViewById(R.id.body);

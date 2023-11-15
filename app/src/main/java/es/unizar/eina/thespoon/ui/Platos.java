@@ -38,7 +38,7 @@ public class Platos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_notepad);
+        setContentView(layout.activity_platos);
 
         mRecyclerView = findViewById(id.recyclerview);
         mAdapter = new PlatoListAdapter(new PlatoListAdapter.NoteDiff());
@@ -115,7 +115,7 @@ public class Platos extends AppCompatActivity {
             case DELETE_ID:
                 Toast.makeText(
                         getApplicationContext(),
-                        "Deleting " + current.getTitle(),
+                        "Deleting " + current.getNombre(),
                         Toast.LENGTH_LONG).show();
                 mNoteViewModel.delete(current);
                 return true;
@@ -134,8 +134,8 @@ public class Platos extends AppCompatActivity {
 
     private void editNote(Plato current) {
         Intent intent = new Intent(this, PlatoEdit.class);
-        intent.putExtra(PlatoEdit.NOTE_TITLE, current.getTitle());
-        intent.putExtra(PlatoEdit.NOTE_BODY, current.getBody());
+        intent.putExtra(PlatoEdit.NOTE_TITLE, current.getNombre());
+        intent.putExtra(PlatoEdit.NOTE_BODY, current.getDescripcion());
         intent.putExtra(PlatoEdit.NOTE_ID, current.getId());
         startActivityForResult(intent, ACTIVITY_EDIT);
     }
