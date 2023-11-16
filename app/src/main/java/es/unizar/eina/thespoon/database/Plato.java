@@ -19,29 +19,35 @@ public class Plato {
     @ColumnInfo(name = "descripcion")
     private String descripcion;
 
-    public Plato(@NonNull String nombre, String descripcion) {
+    @ColumnInfo(name = "categoria")
+    private Categoria categoria;
+
+    public Plato(@NonNull String nombre, String descripcion, Categoria categoria) {
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.categoria = categoria;
     }
 
-    /** Devuelve el identificador de la nota */
+    /** Devuelve el identificador del plato */
     public int getId(){
         return this.id;
     }
 
-    /** Permite actualizar el identificador de una nota */
+    /** Permite actualizar el identificador de un plato */
     public void setId(int id) {
         this.id = id;
     }
 
-    /** Devuelve el título de la nota */
+    /** Devuelve el título del plato */
     public String getNombre(){
         return this.nombre;
     }
 
-    /** Devuelve el cuerpo de la nota */
+    /** Devuelve el cuerpo del plato */
     public String getDescripcion(){
         return this.descripcion;
     }
 
+    /** Devuelve la categoría del plato */
+    public Categoria getCategoria() { return this.categoria; }
 }
