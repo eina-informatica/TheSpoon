@@ -94,14 +94,14 @@ public class Platos extends AppCompatActivity {
             switch (requestCode) {
                 case ACTIVITY_CREATE:
                     Plato newNote = new Plato(extras.getString(PlatoEdit.NOTE_TITLE)
-                            , extras.getString(PlatoEdit.NOTE_BODY), Categoria.PRIMERO);
+                            , extras.getString(PlatoEdit.NOTE_BODY), Categoria.PRIMERO, 33);
                     mNoteViewModel.insert(newNote);
                     break;
                 case ACTIVITY_EDIT:
 
                     int id = extras.getInt(PlatoEdit.NOTE_ID);
                     Plato updatedNote = new Plato(extras.getString(PlatoEdit.NOTE_TITLE)
-                            , extras.getString(PlatoEdit.NOTE_BODY), Categoria.PRIMERO);
+                            , extras.getString(PlatoEdit.NOTE_BODY), Categoria.PRIMERO, 33);
                     updatedNote.setId(id);
                     mNoteViewModel.update(updatedNote);
                     break;

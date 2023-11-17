@@ -48,9 +48,9 @@ public abstract class PlatoRoomDatabase extends RoomDatabase {
                 PlatoDao dao = INSTANCE.platoDao();
                 dao.deleteAll();
 
-                Plato plato = new Plato("Plato 1's title", "Plato 1's body", Categoria.PRIMERO);
+                Plato plato = new Plato("Plato 1's title", "Plato 1's body", Categoria.PRIMERO, 33);
                 dao.insert(plato);
-                plato = new Plato("Plato 2's title", "Plato 2's body", Categoria.SEGUNDO);
+                plato = new Plato("Plato 2's title", "Plato 2's body", Categoria.SEGUNDO, 13);
                 dao.insert(plato);
             });
         }
