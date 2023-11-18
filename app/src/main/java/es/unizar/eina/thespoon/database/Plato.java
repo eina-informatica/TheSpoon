@@ -5,7 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-/** Clase anotada como entidad que representa una nota y que consta de título y cuerpo */
+/** Clase anotada como entidad que representa un plato y que consta de nombre,
+ * descripción, categoría y precio */
 @Entity(tableName = "plato")
 public class Plato {
     @PrimaryKey(autoGenerate = true)
@@ -21,13 +22,16 @@ public class Plato {
 
     @NonNull
     @ColumnInfo(name = "categoria")
-    private Categoria categoria;
+    private CategoriaPlato categoria;
 
     @NonNull
     @ColumnInfo(name = "precio")
     private double precio;
 
-    public Plato(@NonNull String nombre, String descripcion, Categoria categoria, double precio) {
+    public Plato(@NonNull String nombre,
+                 String descripcion,
+                 @NonNull CategoriaPlato categoria,
+                 @NonNull double precio) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
@@ -49,13 +53,13 @@ public class Plato {
         return this.nombre;
     }
 
-    /** Devuelve el cuerpo del plato */
+    /** Devuelve la descripción del plato */
     public String getDescripcion(){
         return this.descripcion;
     }
 
     /** Devuelve la categoría del plato */
-    public Categoria getCategoria() { return this.categoria; }
+    public CategoriaPlato getCategoria() { return this.categoria; }
 
     /** Devuelve el precio del plato */
     public double getPrecio() { return this.precio; }

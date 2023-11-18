@@ -1,4 +1,4 @@
-package es.unizar.eina.thespoon;
+package es.unizar.eina.thespoon.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import es.unizar.eina.thespoon.ui.Platos;
+import es.unizar.eina.thespoon.R;
 
 public class MainActivity extends AppCompatActivity {
 

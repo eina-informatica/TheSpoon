@@ -10,23 +10,22 @@ import androidx.room.Update;
 
 import java.util.List;
 
-/** Definición de un Data Access Object para los platos */
+/** Definición de un Data Access Object para la relación pedido-plato */
 @Dao
-public interface PlatoDao {
+public interface PedidoPlatoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long insert(Plato plato);
+    long insert(PedidoPlato pedidoPlato);
 
     @Update
-    int update(Plato plato);
+    int update(PedidoPlato pedidoPlato);
 
     @Delete
-    int delete(Plato plato);
+    int delete(PedidoPlato pedidoPlato);
 
-    @Query("DELETE FROM Plato")
+    @Query("DELETE FROM PedidoPlato")
     void deleteAll();
 
-    @Query("SELECT * FROM Plato ORDER BY nombre ASC")
-    LiveData<List<Plato>> getOrderedPlatos();
+    @Query("SELECT * FROM PedidoPlato ORDER BY cantidad ASC")
+    LiveData<List<PedidoPlato>> getOrderedPedidosPlatos();
 }
-

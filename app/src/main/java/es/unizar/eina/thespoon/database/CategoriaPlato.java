@@ -1,5 +1,5 @@
 package es.unizar.eina.thespoon.database;
 
-public enum Categoria {
+public enum CategoriaPlato {
     PRIMERO, SEGUNDO, POSTRE
 }
