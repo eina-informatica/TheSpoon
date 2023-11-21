@@ -10,12 +10,12 @@ import android.widget.EditText;
 
 import es.unizar.eina.thespoon.R;
 
-/** Pantalla utilizada para la creación o edición de una nota */
+/** Pantalla utilizada para la creación o edición de un plato */
 public class PlatoEdit extends AppCompatActivity {
 
-    public static final String NOTE_TITLE = "title";
-    public static final String NOTE_BODY = "body";
-    public static final String NOTE_ID = "id";
+    public static final String PLATO_TITLE = "title";
+    public static final String PLATO_BODY = "body";
+    public static final String PLATO_ID = "id";
 
     private EditText mTitleText;
 
@@ -39,10 +39,10 @@ public class PlatoEdit extends AppCompatActivity {
             if (TextUtils.isEmpty(mTitleText.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
             } else {
-                replyIntent.putExtra(PlatoEdit.NOTE_TITLE, mTitleText.getText().toString());
-                replyIntent.putExtra(PlatoEdit.NOTE_BODY, mBodyText.getText().toString());
+                replyIntent.putExtra(PlatoEdit.PLATO_TITLE, mTitleText.getText().toString());
+                replyIntent.putExtra(PlatoEdit.PLATO_BODY, mBodyText.getText().toString());
                 if (mRowId!=null) {
-                    replyIntent.putExtra(PlatoEdit.NOTE_ID, mRowId.intValue());
+                    replyIntent.putExtra(PlatoEdit.PLATO_ID, mRowId.intValue());
                 }
                 setResult(RESULT_OK, replyIntent);
             }
@@ -57,9 +57,9 @@ public class PlatoEdit extends AppCompatActivity {
         mRowId = null;
         Bundle extras = getIntent().getExtras();
         if (extras!=null) {
-            mTitleText.setText(extras.getString(PlatoEdit.NOTE_TITLE));
-            mBodyText.setText(extras.getString(PlatoEdit.NOTE_BODY));
-            mRowId = extras.getInt(PlatoEdit.NOTE_ID);
+            mTitleText.setText(extras.getString(PlatoEdit.PLATO_TITLE));
+            mBodyText.setText(extras.getString(PlatoEdit.PLATO_BODY));
+            mRowId = extras.getInt(PlatoEdit.PLATO_ID);
         }
     }
 

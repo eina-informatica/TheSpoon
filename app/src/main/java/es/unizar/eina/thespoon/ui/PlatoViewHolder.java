@@ -12,19 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import es.unizar.eina.thespoon.R;
 
 class PlatoViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
-    private final TextView mNoteItemView;
+    private final TextView mPlatoItemView;
 
 
 
     private PlatoViewHolder(View itemView) {
         super(itemView);
-        mNoteItemView = itemView.findViewById(R.id.textView);
+        mPlatoItemView = itemView.findViewById(R.id.textView);
 
         itemView.setOnCreateContextMenuListener(this);
     }
 
     public void bind(String text) {
-        mNoteItemView.setText(text);
+        mPlatoItemView.setText(text);
     }
 
     static PlatoViewHolder create(ViewGroup parent) {

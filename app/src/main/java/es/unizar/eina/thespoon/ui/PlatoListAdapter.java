@@ -49,17 +49,17 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
     }
 
 
-    static class NoteDiff extends DiffUtil.ItemCallback<Plato> {
+    static class PlatoDiff extends DiffUtil.ItemCallback<Plato> {
 
         @Override
         public boolean areItemsTheSame(@NonNull Plato oldItem, @NonNull Plato newItem) {
-            //android.util.Log.d ( "NoteDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
+            //android.util.Log.d ( "PlatoDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
             return oldItem.getId() == newItem.getId();
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull Plato oldItem, @NonNull Plato newItem) {
-            //android.util.Log.d ( "NoteDiff" , "areContentsTheSame " + oldItem.getNombre() + " vs " + newItem.getNombre() + " " + oldItem.getNombre().equals(newItem.getNombre()));
+            //android.util.Log.d ( "PlatoDiff" , "areContentsTheSame " + oldItem.getNombre() + " vs " + newItem.getNombre() + " " + oldItem.getNombre().equals(newItem.getNombre()));
             // We are just worried about differences in visual representation, i.e. changes in the title
             return oldItem.getNombre().equals(newItem.getNombre());
         }

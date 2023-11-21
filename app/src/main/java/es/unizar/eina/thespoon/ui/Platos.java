@@ -42,7 +42,7 @@ public class Platos extends AppCompatActivity {
         setContentView(layout.activity_platos);
 
         mRecyclerView = findViewById(id.recyclerview);
-        mAdapter = new PlatoListAdapter(new PlatoListAdapter.NoteDiff());
+        mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff());
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -55,7 +55,7 @@ public class Platos extends AppCompatActivity {
 
         mFab = findViewById(id.fab);
         mFab.setOnClickListener(view -> {
-            createNote();
+            createPlato();
         });
 
         // It doesn't affect if we comment the following instruction
@@ -73,7 +73,7 @@ public class Platos extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case INSERT_ID:
-                createNote();
+                createPlato();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -93,15 +93,15 @@ public class Platos extends AppCompatActivity {
 
             switch (requestCode) {
                 case ACTIVITY_CREATE:
-                    Plato newNote = new Plato(extras.getString(PlatoEdit.NOTE_TITLE)
-                            , extras.getString(PlatoEdit.NOTE_BODY), CategoriaPlato.PRIMERO, 33);
+                    Plato newNote = new Plato(extras.getString(PlatoEdit.PLATO_TITLE)
+                            , extras.getString(PlatoEdit.PLATO_BODY), CategoriaPlato.PRIMERO, 33);
                     mNoteViewModel.insert(newNote);
                     break;
                 case ACTIVITY_EDIT:
 
-                    int id = extras.getInt(PlatoEdit.NOTE_ID);
-                    Plato updatedNote = new Plato(extras.getString(PlatoEdit.NOTE_TITLE)
-                            , extras.getString(PlatoEdit.NOTE_BODY), CategoriaPlato.PRIMERO, 33);
+                    int id = extras.getInt(PlatoEdit.PLATO_ID);
+                    Plato updatedNote = new Plato(extras.getString(PlatoEdit.PLATO_TITLE)
+                            , extras.getString(PlatoEdit.PLATO_BODY), CategoriaPlato.PRIMERO, 33);
                     updatedNote.setId(id);
                     mNoteViewModel.update(updatedNote);
                     break;
@@ -121,23 +121,23 @@ public class Platos extends AppCompatActivity {
                 mNoteViewModel.delete(current);
                 return true;
             case EDIT_ID:
-                editNote(current);
+                editPlato(current);
                 return true;
         }
         return super.onContextItemSelected(item);
     }
 
-    private void createNote() {
+    private void createPlato() {
         Intent intent = new Intent(this, PlatoEdit.class);
         startActivityForResult(intent, ACTIVITY_CREATE);
     }
 
 
-    private void editNote(Plato current) {
+    private void editPlato(Plato current) {
         Intent intent = new Intent(this, PlatoEdit.class);
-        intent.putExtra(PlatoEdit.NOTE_TITLE, current.getNombre());
-        intent.putExtra(PlatoEdit.NOTE_BODY, current.getDescripcion());
-        intent.putExtra(PlatoEdit.NOTE_ID, current.getId());
+        intent.putExtra(PlatoEdit.PLATO_TITLE, current.getNombre());
+        intent.putExtra(PlatoEdit.PLATO_BODY, current.getDescripcion());
+        intent.putExtra(PlatoEdit.PLATO_ID, current.getId());
         startActivityForResult(intent, ACTIVITY_EDIT);
     }
 
