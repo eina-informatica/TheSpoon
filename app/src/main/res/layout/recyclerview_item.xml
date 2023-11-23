@@ -21,19 +21,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/myImageView1"
+        android:id="@+id/editPlato"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:clickable="true"
         android:onClick="onImageViewClick"
         android:src="@drawable/pencil"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/myImageView2"
+        app:layout_constraintEnd_toStartOf="@+id/deletePlato"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
-        android:id="@+id/myImageView2"
+        android:id="@+id/deletePlato"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:clickable="true"

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +14,14 @@ import es.unizar.eina.thespoon.R;
 
 class PlatoViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
     private final TextView mPlatoItemView;
-
-
+    ImageView mPlatoEditButton;
+    ImageView mPlatoDeleteButton;
 
     private PlatoViewHolder(View itemView) {
         super(itemView);
         mPlatoItemView = itemView.findViewById(R.id.textView);
+        mPlatoEditButton = itemView.findViewById(R.id.editPlato);
+        mPlatoDeleteButton= itemView.findViewById(R.id.deletePlato);
 
         itemView.setOnCreateContextMenuListener(this);
     }

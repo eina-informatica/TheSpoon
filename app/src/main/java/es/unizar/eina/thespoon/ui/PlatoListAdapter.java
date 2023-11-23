@@ -2,6 +2,7 @@ package es.unizar.eina.thespoon.ui;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -44,6 +45,20 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
             public boolean onLongClick(View v) {
                 setPosition(holder.getAdapterPosition());
                 return false;
+            }
+        });
+
+        holder.mPlatoEditButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Toast.makeText(view.getContext(), "Editar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.mPlatoDeleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Toast.makeText(view.getContext(), "Borrar", Toast.LENGTH_SHORT).show();
             }
         });
     }
