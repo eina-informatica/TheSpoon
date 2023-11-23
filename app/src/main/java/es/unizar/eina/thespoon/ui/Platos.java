@@ -42,7 +42,8 @@ public class Platos extends AppCompatActivity {
         setContentView(layout.activity_platos);
 
         mRecyclerView = findViewById(id.recyclerview);
-        mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff());
+        PlatoViewModel platoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
+        mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff(),platoViewModel);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
