@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">TheSpoon</string>
-    <string name="hint_title">Escribe un título</string>
-    <string name="hint_body">Escribe una descripción</string>
+    <string name="hint_nombre">Escribe un nombre</string>
+    <string name="hint_descripcion">Escribe una descripción</string>
+    <string name="hint_precio">Introduce un precio</string>
     <string name="button_save">Guardar</string>
     <string name="empty_not_saved">Plato no guardado porque hay campos vacíos.</string>
     <string name="add_note">Añadir plato</string>
@@ -9,4 +10,7 @@
     <string name="menu_edit">Editar plato</string>
     <string name="nombre_plato">Nombre del plato</string>
     <string name="descripcion_plato">Descripción</string>
+    <string name="precio_plato">Precio (€)</string>
+    <string name="categoria_plato">Categoría</string>
+    <string name="seleccionar_categoria">Selecciona una categoría</string>
 </resources>

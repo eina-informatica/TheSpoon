@@ -67,8 +67,8 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
                 Plato platoToEdit = getItem(clickedPosition);
 
                 Intent intent = new Intent(view.getContext(), PlatoEdit.class);
-                intent.putExtra(PlatoEdit.PLATO_TITLE, platoToEdit.getNombre());
-                intent.putExtra(PlatoEdit.PLATO_BODY, platoToEdit.getDescripcion());
+                intent.putExtra(PlatoEdit.PLATO_NOMBRE, platoToEdit.getNombre());
+                intent.putExtra(PlatoEdit.PLATO_DESCRIPCION, platoToEdit.getDescripcion());
                 intent.putExtra(PlatoEdit.PLATO_ID, platoToEdit.getId());
 
                 // Start the activity for result

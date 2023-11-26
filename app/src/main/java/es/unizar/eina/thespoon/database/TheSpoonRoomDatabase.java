@@ -52,9 +52,9 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
                 PlatoDao platoDao = INSTANCE.platoDao();
                 platoDao.deleteAll();
 
-                Plato plato = new Plato("Plato 1's title", "Plato 1's body", CategoriaPlato.PRIMERO, 33);
+                Plato plato = new Plato("Macarrones a la boloñesa", "- Macarrones\n- Salda boloñesa", CategoriaPlato.PRIMERO, 8);
                 platoDao.insert(plato);
-                plato = new Plato("Plato 2's title", "Plato 2's body", CategoriaPlato.SEGUNDO, 13);
+                plato = new Plato("Ternasco al horno", "- Ternasco\n- Patatas", CategoriaPlato.SEGUNDO, 13);
                 platoDao.insert(plato);
 
                 // Populate database with pedidos

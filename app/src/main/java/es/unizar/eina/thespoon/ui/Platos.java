@@ -94,15 +94,15 @@ public class Platos extends AppCompatActivity {
 
             switch (requestCode) {
                 case ACTIVITY_CREATE:
-                    Plato newNote = new Plato(extras.getString(PlatoEdit.PLATO_TITLE)
-                            , extras.getString(PlatoEdit.PLATO_BODY), CategoriaPlato.PRIMERO, 33);
+                    Plato newNote = new Plato(extras.getString(PlatoEdit.PLATO_NOMBRE)
+                            , extras.getString(PlatoEdit.PLATO_DESCRIPCION), CategoriaPlato.PRIMERO, 33);
                     mNoteViewModel.insert(newNote);
                     break;
                 case ACTIVITY_EDIT:
 
                     int id = extras.getInt(PlatoEdit.PLATO_ID);
-                    Plato updatedNote = new Plato(extras.getString(PlatoEdit.PLATO_TITLE)
-                            , extras.getString(PlatoEdit.PLATO_BODY), CategoriaPlato.PRIMERO, 33);
+                    Plato updatedNote = new Plato(extras.getString(PlatoEdit.PLATO_NOMBRE)
+                            , extras.getString(PlatoEdit.PLATO_DESCRIPCION), CategoriaPlato.PRIMERO, 33);
                     updatedNote.setId(id);
                     mNoteViewModel.update(updatedNote);
                     break;
@@ -130,16 +130,18 @@ public class Platos extends AppCompatActivity {
 
     private void createPlato() {
         Intent intent = new Intent(this, PlatoEdit.class);
-        startActivityForResult(intent, ACTIVITY_CREATE);
+        startActivity(intent);
+        //startActivityForResult(intent, ACTIVITY_CREATE);
     }
 
 
     private void editPlato(Plato current) {
         Intent intent = new Intent(this, PlatoEdit.class);
-        intent.putExtra(PlatoEdit.PLATO_TITLE, current.getNombre());
-        intent.putExtra(PlatoEdit.PLATO_BODY, current.getDescripcion());
+        intent.putExtra(PlatoEdit.PLATO_NOMBRE, current.getNombre());
+        intent.putExtra(PlatoEdit.PLATO_DESCRIPCION, current.getDescripcion());
+        intent.putExtra(PlatoEdit.PLATO_PRECIO, current.getPrecio());
         intent.putExtra(PlatoEdit.PLATO_ID, current.getId());
-        startActivityForResult(intent, ACTIVITY_EDIT);
+        startActivity(intent);
+        //startActivityForResult(intent, ACTIVITY_EDIT);
     }
-
 }
