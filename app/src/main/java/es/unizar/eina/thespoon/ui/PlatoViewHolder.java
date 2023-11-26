@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import es.unizar.eina.thespoon.R;
 
-class PlatoViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+class PlatoViewHolder extends RecyclerView.ViewHolder /*implements View.OnCreateContextMenuListener*/ {
     private final TextView mPlatoItemView;
     ImageView mPlatoEditButton;
     ImageView mPlatoDeleteButton;
@@ -23,7 +23,7 @@ class PlatoViewHolder extends RecyclerView.ViewHolder implements View.OnCreateCo
         mPlatoEditButton = itemView.findViewById(R.id.editPlato);
         mPlatoDeleteButton= itemView.findViewById(R.id.deletePlato);
 
-        itemView.setOnCreateContextMenuListener(this);
+        //itemView.setOnCreateContextMenuListener(this);
     }
 
     public void bind(String text) {
@@ -37,12 +37,10 @@ class PlatoViewHolder extends RecyclerView.ViewHolder implements View.OnCreateCo
     }
 
 
-    public void onCreateContextMenu(ContextMenu menu, View v,
+    /*public void onCreateContextMenu(ContextMenu menu, View v,
                                     ContextMenu.ContextMenuInfo menuInfo) {
         //super.onCreateContextMenu(menu, v, menuInfo);
         menu.add(Menu.NONE, Platos.DELETE_ID, Menu.NONE, R.string.menu_delete);
         menu.add(Menu.NONE, Platos.EDIT_ID, Menu.NONE, R.string.menu_edit);
-    }
-
-
+    }*/
 }

@@ -4,17 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_layout" />
 
-
-    <LinearLayout android:orientation="horizontal"
+    <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/big_padding">
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/title"
-            android:layout_margin="@dimen/big_padding"
-            android:textSize="18sp" />
+            android:text="@string/nombre_plato"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
         <EditText
             android:id="@+id/title"
             android:layout_width="match_parent"
@@ -23,34 +26,42 @@
             android:fontFamily="sans-serif-light"
             android:hint="@string/hint_title"
             android:inputType="textAutoComplete"
-            android:layout_margin="@dimen/big_padding"
-            android:textSize="18sp" />
+            android:textSize="20dp" />
     </LinearLayout>
 
-    <TextView android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/body"
-        android:layout_margin="@dimen/big_padding"
-        android:textSize="18sp" />
-    <EditText android:id="@+id/body"
+    <LinearLayout android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:fontFamily="sans-serif-light"
-        android:hint="@string/hint_body"
-        android:inputType="textAutoComplete"
-        android:layout_margin="@dimen/big_padding"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/big_padding">
 
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/descripcion_plato"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
+        <EditText
+            android:id="@+id/body"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:gravity="top|start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/min_height"
+            android:fontFamily="sans-serif-light"
+            android:hint="@string/hint_body"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/rounded_border_red"
         android:text="@string/button_save"
         android:layout_margin="@dimen/big_padding"
+        android:textSize="20dp"
         android:textColor="@color/buttonLabel" />
 
 </LinearLayout>

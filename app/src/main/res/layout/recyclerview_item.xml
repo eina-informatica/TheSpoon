@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_border"
-    android:gravity="center_vertical"
+    android:background="@drawable/rounded_border_gray"
     android:orientation="horizontal"
     android:padding="10dp"
     android:layout_marginBottom="15dp">
@@ -16,6 +15,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:background="@color/bgCard"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

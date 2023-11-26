@@ -7,6 +7,6 @@
     <string name="add_note">Añadir plato</string>
     <string name="menu_delete">Eliminar plato</string>
     <string name="menu_edit">Editar plato</string>
-    <string name="title">Title</string>
-    <string name="body">Body</string>
+    <string name="nombre_plato">Nombre del plato</string>
+    <string name="descripcion_plato">Descripción</string>
 </resources>

@@ -111,7 +111,7 @@ public class Platos extends AppCompatActivity {
     }
 
 
-    public boolean onContextItemSelected(MenuItem item) {
+    /*public boolean onContextItemSelected(MenuItem item) {
         Plato current = mAdapter.getCurrent();
         switch (item.getItemId()) {
             case DELETE_ID:
@@ -126,7 +126,7 @@ public class Platos extends AppCompatActivity {
                 return true;
         }
         return super.onContextItemSelected(item);
-    }
+    }*/
 
     private void createPlato() {
         Intent intent = new Intent(this, PlatoEdit.class);
