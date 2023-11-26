@@ -2,6 +2,8 @@ package es.unizar.eina.thespoon.ui;
 
 import static es.unizar.eina.thespoon.R.*;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +25,14 @@ import es.unizar.eina.thespoon.database.Plato;
 public class Platos extends AppCompatActivity {
     private PlatoViewModel mNoteViewModel;
 
+    /*public static final String RESULT_CODE = "resultCode";
+
+    public static final int RESULT_OK = 1;
+
+    public static final int RESULT_CANCELED = 2;
+
+    public static final String REQUEST_CODE = "requestCode";*/
+
     public static final int ACTIVITY_CREATE = 1;
 
     public static final int ACTIVITY_EDIT = 2;
@@ -36,6 +46,8 @@ public class Platos extends AppCompatActivity {
     PlatoListAdapter mAdapter;
 
     FloatingActionButton mFab;
+
+    //public ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +75,23 @@ public class Platos extends AppCompatActivity {
         // It doesn't affect if we comment the following instruction
         registerForContextMenu(mRecyclerView);
 
+        /*activityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    // Handle the result from the other activity
+                    Intent data = result.getData();
+                    Bundle extras = data.getExtras();
+                    //String resultValue = data.getStringExtra("key_name"); // Replace with the key used to pass data
+                    // Do something with the result
+                } else {
+                    Toast.makeText(
+                        getApplicationContext(),
+                        string.empty_not_saved,
+                        Toast.LENGTH_LONG).show();
+                }
+            }
+        );*/
     }
 
     /*public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,6 +113,8 @@ public class Platos extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        Log.d("RequestCode", String.valueOf(requestCode));
+
         Bundle extras = data.getExtras();
 
         if (resultCode != RESULT_OK) {
@@ -92,7 +123,6 @@ public class Platos extends AppCompatActivity {
                     string.empty_not_saved,
                     Toast.LENGTH_LONG).show();
         } else {
-
             switch (requestCode) {
                 case ACTIVITY_CREATE:
                     Plato newNote = new Plato(extras.getString(PlatoEdit.PLATO_NOMBRE)
@@ -100,7 +130,6 @@ public class Platos extends AppCompatActivity {
                     mNoteViewModel.insert(newNote);
                     break;
                 case ACTIVITY_EDIT:
-
                     int id = extras.getInt(PlatoEdit.PLATO_ID);
                     Plato updatedNote = new Plato(extras.getString(PlatoEdit.PLATO_NOMBRE)
                             , extras.getString(PlatoEdit.PLATO_DESCRIPCION), CategoriaPlato.PRIMERO, 33);
@@ -110,7 +139,6 @@ public class Platos extends AppCompatActivity {
             }
         }
     }
-
 
     /*public boolean onContextItemSelected(MenuItem item) {
         Plato current = mAdapter.getCurrent();
@@ -131,7 +159,9 @@ public class Platos extends AppCompatActivity {
 
     private void createPlato() {
         Intent intent = new Intent(this, PlatoEdit.class);
-        startActivity(intent);
-        //startActivityForResult(intent, ACTIVITY_CREATE);
+        /*intent.putExtra(REQUEST_CODE, ACTIVITY_CREATE);
+        activityResultLauncher.launch(intent);*/
+        //startActivity(intent);
+        startActivityForResult(intent, ACTIVITY_CREATE);
     }
 }

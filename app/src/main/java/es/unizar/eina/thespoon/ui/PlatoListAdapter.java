@@ -66,21 +66,25 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
                 // Get the item associated with the clicked position
                 Plato platoToEdit = getItem(clickedPosition);
 
-                /*Intent intent = new Intent(view.getContext(), PlatoEdit.class);
+                Intent intent = new Intent(view.getContext(), PlatoEdit.class);
                 intent.putExtra(PlatoEdit.PLATO_NOMBRE, platoToEdit.getNombre());
                 intent.putExtra(PlatoEdit.PLATO_DESCRIPCION, platoToEdit.getDescripcion());
-                intent.putExtra(PlatoEdit.PLATO_ID, platoToEdit.getId());*/
+                intent.putExtra(PlatoEdit.PLATO_CATEGORIA, current.getCategoria().ordinal());
+                intent.putExtra(PlatoEdit.PLATO_PRECIO, current.getPrecio());
+                intent.putExtra(PlatoEdit.PLATO_ID, platoToEdit.getId());
 
-                Intent intent = new Intent(view.getContext(), PlatoEdit.class);
+                /*Intent intent = new Intent(view.getContext(), PlatoEdit.class);
                 intent.putExtra(PlatoEdit.PLATO_NOMBRE, current.getNombre());
                 intent.putExtra(PlatoEdit.PLATO_DESCRIPCION, current.getDescripcion());
                 intent.putExtra(PlatoEdit.PLATO_CATEGORIA, current.getCategoria().ordinal());
                 intent.putExtra(PlatoEdit.PLATO_PRECIO, current.getPrecio());
                 intent.putExtra(PlatoEdit.PLATO_ID, current.getId());
-                view.getContext().startActivity(intent);
+                intent.putExtra(Platos.REQUEST_CODE, ACTIVITY_EDIT);
+                //Platos.activityResultLauncher.launch(intent);
+                view.getContext().startActivity(intent);*/
 
                 // Start the activity for result
-                //((Activity) view.getContext()).startActivityForResult(intent, ACTIVITY_EDIT);
+                ((Activity) view.getContext()).startActivityForResult(intent, ACTIVITY_EDIT);
 
                 //Toast.makeText(view.getContext(), "Editar", Toast.LENGTH_SHORT).show();
             }

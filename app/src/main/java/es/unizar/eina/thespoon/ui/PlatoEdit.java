@@ -44,6 +44,8 @@ public class PlatoEdit extends AppCompatActivity {
 
     ArrayAdapter<String> adapterItems;
 
+    int requestCode;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +54,18 @@ public class PlatoEdit extends AppCompatActivity {
         mNombreText = findViewById(R.id.nombrePlato);
         mDescripcionText = findViewById(R.id.descripcionPlato);
         mPrecioText = findViewById(R.id.precioPlato);
+
+        // Selector de categoría
+        autoCompleteTextView = findViewById(R.id.autocompletePlato);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.text_item, categoria);
+        autoCompleteTextView.setAdapter(adapterItems);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //String item = parent.getItemAtPosition(position).toString();
+                Toast.makeText(PlatoEdit.this, "Categoria: " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
@@ -69,18 +83,6 @@ public class PlatoEdit extends AppCompatActivity {
             finish();
         });
 
-        // Selector de categoría
-        autoCompleteTextView = findViewById(R.id.autocompletePlato);
-        adapterItems = new ArrayAdapter<String>(this, R.layout.text_item, categoria);
-        autoCompleteTextView.setAdapter(adapterItems);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(PlatoEdit.this, "Categoria: " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         populateFields();
 
     }
@@ -96,5 +98,4 @@ public class PlatoEdit extends AppCompatActivity {
             mRowId = extras.getInt(PlatoEdit.PLATO_ID);
         }
     }
-
 }
