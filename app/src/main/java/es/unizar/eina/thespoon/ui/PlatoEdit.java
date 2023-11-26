@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +21,8 @@ public class PlatoEdit extends AppCompatActivity {
 
     public static final String PLATO_NOMBRE = "nombre";
     public static final String PLATO_DESCRIPCION = "descripcion";
+
+    public static final String PLATO_CATEGORIA = "categoria";
 
     public static final String PLATO_PRECIO = "precio";
     public static final String PLATO_ID = "id";
@@ -89,6 +92,7 @@ public class PlatoEdit extends AppCompatActivity {
             mNombreText.setText(extras.getString(PlatoEdit.PLATO_NOMBRE));
             mDescripcionText.setText(extras.getString(PlatoEdit.PLATO_DESCRIPCION));
             mPrecioText.setText(String.valueOf(extras.getDouble(PlatoEdit.PLATO_PRECIO)));
+            autoCompleteTextView.setText(adapterItems.getItem(extras.getInt(PlatoEdit.PLATO_CATEGORIA)).toString());
             mRowId = extras.getInt(PlatoEdit.PLATO_ID);
         }
     }

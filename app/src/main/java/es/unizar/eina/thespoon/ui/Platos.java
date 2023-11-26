@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -132,16 +133,5 @@ public class Platos extends AppCompatActivity {
         Intent intent = new Intent(this, PlatoEdit.class);
         startActivity(intent);
         //startActivityForResult(intent, ACTIVITY_CREATE);
-    }
-
-
-    private void editPlato(Plato current) {
-        Intent intent = new Intent(this, PlatoEdit.class);
-        intent.putExtra(PlatoEdit.PLATO_NOMBRE, current.getNombre());
-        intent.putExtra(PlatoEdit.PLATO_DESCRIPCION, current.getDescripcion());
-        intent.putExtra(PlatoEdit.PLATO_PRECIO, current.getPrecio());
-        intent.putExtra(PlatoEdit.PLATO_ID, current.getId());
-        startActivity(intent);
-        //startActivityForResult(intent, ACTIVITY_EDIT);
     }
 }
