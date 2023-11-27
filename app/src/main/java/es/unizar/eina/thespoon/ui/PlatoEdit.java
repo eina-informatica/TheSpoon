@@ -89,7 +89,6 @@ public class PlatoEdit extends AppCompatActivity {
         });
 
         populateFields();
-
     }
 
     private void populateFields () {
@@ -98,7 +97,9 @@ public class PlatoEdit extends AppCompatActivity {
         if (extras!=null) {
             mNombreText.setText(extras.getString(PlatoEdit.PLATO_NOMBRE));
             mDescripcionText.setText(extras.getString(PlatoEdit.PLATO_DESCRIPCION));
-            autoCompleteTextView.setText(categoria[extras.getInt(PlatoEdit.PLATO_CATEGORIA)]);
+            categoriaSeleccionada = extras.getInt(PlatoEdit.PLATO_CATEGORIA);
+            autoCompleteTextView.setText(categoria[categoriaSeleccionada], false);
+            autoCompleteTextView.setListSelection(extras.getInt(PlatoEdit.PLATO_CATEGORIA));
             mPrecioText.setText(String.valueOf(extras.getDouble(PlatoEdit.PLATO_PRECIO)));
             mRowId = extras.getInt(PlatoEdit.PLATO_ID);
         }

@@ -2,10 +2,13 @@ package es.unizar.eina.thespoon.database;
 
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+
+import es.unizar.eina.thespoon.ui.PlatoEdit;
 
 public class PlatoRepository {
 
@@ -51,6 +54,8 @@ public class PlatoRepository {
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPlatoDao.update(plato);
         });
+        Log.d("Categoria editada", String.valueOf(plato.getCategoria()));
+        Log.d("Precio editado", String.valueOf(plato.getPrecio()));
         return result[0];
     }
 
