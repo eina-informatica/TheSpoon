@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import es.unizar.eina.thespoon.R;
+import es.unizar.eina.thespoon.database.Plato;
 
 /** Pantalla utilizada para la creación o edición de un plato */
 public class PlatoEdit extends AppCompatActivity {
@@ -44,7 +45,7 @@ public class PlatoEdit extends AppCompatActivity {
 
     ArrayAdapter<String> adapterItems;
 
-    int requestCode;
+    private int categoriaSeleccionada = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,18 +64,22 @@ public class PlatoEdit extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String item = parent.getItemAtPosition(position).toString();
-                Toast.makeText(PlatoEdit.this, "Categoria: " + position, Toast.LENGTH_SHORT).show();
+                categoriaSeleccionada = position;
             }
         });
 
         mSaveButton = findViewById(R.id.button_save);
         mSaveButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
-            if (TextUtils.isEmpty(mNombreText.getText())) {
+            if (TextUtils.isEmpty(mNombreText.getText()) ||
+                    TextUtils.isEmpty(mPrecioText.getText()) ||
+                    categoriaSeleccionada == -1) {
                 setResult(RESULT_CANCELED, replyIntent);
             } else {
                 replyIntent.putExtra(PlatoEdit.PLATO_NOMBRE, mNombreText.getText().toString());
                 replyIntent.putExtra(PlatoEdit.PLATO_DESCRIPCION, mDescripcionText.getText().toString());
+                replyIntent.putExtra(PlatoEdit.PLATO_CATEGORIA, categoriaSeleccionada);
+                replyIntent.putExtra(PlatoEdit.PLATO_PRECIO, Double.parseDouble(mPrecioText.getText().toString()));
                 if (mRowId!=null) {
                     replyIntent.putExtra(PlatoEdit.PLATO_ID, mRowId.intValue());
                 }
@@ -93,8 +98,8 @@ public class PlatoEdit extends AppCompatActivity {
         if (extras!=null) {
             mNombreText.setText(extras.getString(PlatoEdit.PLATO_NOMBRE));
             mDescripcionText.setText(extras.getString(PlatoEdit.PLATO_DESCRIPCION));
+            autoCompleteTextView.setText(categoria[extras.getInt(PlatoEdit.PLATO_CATEGORIA)]);
             mPrecioText.setText(String.valueOf(extras.getDouble(PlatoEdit.PLATO_PRECIO)));
-            autoCompleteTextView.setText(adapterItems.getItem(extras.getInt(PlatoEdit.PLATO_CATEGORIA)).toString());
             mRowId = extras.getInt(PlatoEdit.PLATO_ID);
         }
     }

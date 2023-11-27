@@ -73,20 +73,10 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
                 intent.putExtra(PlatoEdit.PLATO_PRECIO, current.getPrecio());
                 intent.putExtra(PlatoEdit.PLATO_ID, platoToEdit.getId());
 
-                /*Intent intent = new Intent(view.getContext(), PlatoEdit.class);
-                intent.putExtra(PlatoEdit.PLATO_NOMBRE, current.getNombre());
-                intent.putExtra(PlatoEdit.PLATO_DESCRIPCION, current.getDescripcion());
-                intent.putExtra(PlatoEdit.PLATO_CATEGORIA, current.getCategoria().ordinal());
-                intent.putExtra(PlatoEdit.PLATO_PRECIO, current.getPrecio());
-                intent.putExtra(PlatoEdit.PLATO_ID, current.getId());
-                intent.putExtra(Platos.REQUEST_CODE, ACTIVITY_EDIT);
-                //Platos.activityResultLauncher.launch(intent);
-                view.getContext().startActivity(intent);*/
-
                 // Start the activity for result
                 ((Activity) view.getContext()).startActivityForResult(intent, ACTIVITY_EDIT);
 
-                //Toast.makeText(view.getContext(), "Editar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Editar", Toast.LENGTH_SHORT).show();
             }
         });
 

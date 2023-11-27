@@ -47,7 +47,7 @@ public class Platos extends AppCompatActivity {
 
     FloatingActionButton mFab;
 
-    //public ActivityResultLauncher<Intent> activityResultLauncher;
+    public ActivityResultLauncher<Intent> activityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class Platos extends AppCompatActivity {
         // It doesn't affect if we comment the following instruction
         registerForContextMenu(mRecyclerView);
 
-        /*activityResultLauncher = registerForActivityResult(
+        activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK) {
@@ -91,7 +91,7 @@ public class Platos extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
                 }
             }
-        );*/
+        );
     }
 
     /*public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,8 +113,6 @@ public class Platos extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("RequestCode", String.valueOf(requestCode));
-
         Bundle extras = data.getExtras();
 
         if (resultCode != RESULT_OK) {
@@ -125,16 +123,22 @@ public class Platos extends AppCompatActivity {
         } else {
             switch (requestCode) {
                 case ACTIVITY_CREATE:
-                    Plato newNote = new Plato(extras.getString(PlatoEdit.PLATO_NOMBRE)
-                            , extras.getString(PlatoEdit.PLATO_DESCRIPCION), CategoriaPlato.PRIMERO, 33);
-                    mNoteViewModel.insert(newNote);
+                    Plato newPlato = new Plato(
+                        extras.getString(PlatoEdit.PLATO_NOMBRE),
+                        extras.getString(PlatoEdit.PLATO_DESCRIPCION),
+                        CategoriaPlato.values()[extras.getInt(PlatoEdit.PLATO_CATEGORIA)],
+                        extras.getDouble(PlatoEdit.PLATO_PRECIO));
+                    mNoteViewModel.insert(newPlato);
                     break;
                 case ACTIVITY_EDIT:
                     int id = extras.getInt(PlatoEdit.PLATO_ID);
-                    Plato updatedNote = new Plato(extras.getString(PlatoEdit.PLATO_NOMBRE)
-                            , extras.getString(PlatoEdit.PLATO_DESCRIPCION), CategoriaPlato.PRIMERO, 33);
-                    updatedNote.setId(id);
-                    mNoteViewModel.update(updatedNote);
+                    Plato updatedPlato = new Plato(
+                        extras.getString(PlatoEdit.PLATO_NOMBRE),
+                        extras.getString(PlatoEdit.PLATO_DESCRIPCION),
+                        CategoriaPlato.values()[extras.getInt(PlatoEdit.PLATO_CATEGORIA)],
+                        extras.getDouble(PlatoEdit.PLATO_PRECIO));
+                    updatedPlato.setId(id);
+                    mNoteViewModel.update(updatedPlato);
                     break;
             }
         }
