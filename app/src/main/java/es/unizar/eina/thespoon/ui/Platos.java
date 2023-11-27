@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -23,7 +22,7 @@ import es.unizar.eina.thespoon.database.Plato;
 
 /** Pantalla principal de la aplicación Notepad */
 public class Platos extends AppCompatActivity {
-    private PlatoViewModel mNoteViewModel;
+    private PlatoViewModel mPlatoViewModel;
 
     /*public static final String RESULT_CODE = "resultCode";
 
@@ -60,9 +59,9 @@ public class Platos extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mNoteViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
+        mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 
-        mNoteViewModel.getAllPlatos().observe(this, notes -> {
+        mPlatoViewModel.getAllPlatos().observe(this, notes -> {
             // Update the cached copy of the notes in the adapter.
             mAdapter.submitList(notes);
         });
@@ -128,7 +127,7 @@ public class Platos extends AppCompatActivity {
                         extras.getString(PlatoEdit.PLATO_DESCRIPCION),
                         CategoriaPlato.values()[extras.getInt(PlatoEdit.PLATO_CATEGORIA)],
                         extras.getDouble(PlatoEdit.PLATO_PRECIO));
-                    mNoteViewModel.insert(newPlato);
+                    mPlatoViewModel.insert(newPlato);
                     break;
                 case ACTIVITY_EDIT:
                     int id = extras.getInt(PlatoEdit.PLATO_ID);
@@ -138,7 +137,7 @@ public class Platos extends AppCompatActivity {
                         CategoriaPlato.values()[extras.getInt(PlatoEdit.PLATO_CATEGORIA)],
                         extras.getDouble(PlatoEdit.PLATO_PRECIO));
                     updatedPlato.setId(id);
-                    mNoteViewModel.update(updatedPlato);
+                    mPlatoViewModel.update(updatedPlato);
                     break;
             }
         }
@@ -152,7 +151,7 @@ public class Platos extends AppCompatActivity {
                         getApplicationContext(),
                         "Deleting " + current.getNombre(),
                         Toast.LENGTH_LONG).show();
-                mNoteViewModel.delete(current);
+                mPlatoViewModel.delete(current);
                 return true;
             case EDIT_ID:
                 editPlato(current);
