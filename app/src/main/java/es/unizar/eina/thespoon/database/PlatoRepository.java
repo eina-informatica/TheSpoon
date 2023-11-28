@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import es.unizar.eina.thespoon.ui.PlatoEdit;
+import es.unizar.eina.thespoon.ui.Pedidos;
 
 public class PlatoRepository {
 
@@ -70,4 +70,6 @@ public class PlatoRepository {
         });
         return result[0];
     }
+
+
 }

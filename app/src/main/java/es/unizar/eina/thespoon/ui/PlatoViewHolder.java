@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import es.unizar.eina.thespoon.R;
 
 class PlatoViewHolder extends RecyclerView.ViewHolder /*implements View.OnCreateContextMenuListener*/ {
-    private final TextView mPlatoItemView;
+    final TextView mPlatoItemView;
     ImageView mPlatoEditButton;
     ImageView mPlatoDeleteButton;
-
     private PlatoViewHolder(View itemView) {
         super(itemView);
         mPlatoItemView = itemView.findViewById(R.id.textView);
         mPlatoEditButton = itemView.findViewById(R.id.editPlato);
         mPlatoDeleteButton= itemView.findViewById(R.id.deletePlato);
+        //mPlatoVerButton=itemView.findViewById(R.id.VerPlato);
 
         //itemView.setOnCreateContextMenuListener(this);
     }

@@ -99,7 +99,6 @@ public class PlatoEdit extends AppCompatActivity {
             mDescripcionText.setText(extras.getString(PlatoEdit.PLATO_DESCRIPCION));
             categoriaSeleccionada = extras.getInt(PlatoEdit.PLATO_CATEGORIA);
             autoCompleteTextView.setText(categoria[categoriaSeleccionada], false);
-            autoCompleteTextView.setListSelection(extras.getInt(PlatoEdit.PLATO_CATEGORIA));
             mPrecioText.setText(String.valueOf(extras.getDouble(PlatoEdit.PLATO_PRECIO)));
             mRowId = extras.getInt(PlatoEdit.PLATO_ID);
         }

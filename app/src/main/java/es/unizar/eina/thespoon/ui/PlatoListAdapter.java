@@ -3,6 +3,8 @@ package es.unizar.eina.thespoon.ui;
 import static es.unizar.eina.thespoon.ui.Platos.ACTIVITY_EDIT;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +104,38 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
                     // This might happen if you are using the adapter in a non-Activity, non-Fragment context
                     Toast.makeText(view.getContext(), "Unable to delete item", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        
+        holder.mPlatoItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlatoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PlatoViewModel.class);
+
+                // Retrieve the position of the clicked item
+                int clickedPosition = holder.getAdapterPosition();
+
+                // Get the item associated with the clicked position
+                Plato platoToView = getItem(clickedPosition);
+
+                // Create and show the modal window with the plato details
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Detalles del Plato");
+                builder.setMessage("Nombre: " + platoToView.getNombre() + "\n" +
+                        "Descripción: \n" + platoToView.getDescripcion() + "\n" +
+                        "Categoría: " + platoToView.getCategoria().toString() + "\n" +
+                        "Precio: " + platoToView.getPrecio()+" €");
+
+                builder.setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Close the dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }

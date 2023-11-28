@@ -1,6 +1,14 @@
 package es.unizar.eina.thespoon.ui;
 
-import static es.unizar.eina.thespoon.R.*;
+import static es.unizar.eina.thespoon.R.id;
+import static es.unizar.eina.thespoon.R.layout;
+import static es.unizar.eina.thespoon.R.string;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -9,20 +17,16 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import es.unizar.eina.thespoon.database.CategoriaPlato;
-import es.unizar.eina.thespoon.database.Plato;
+import es.unizar.eina.thespoon.database.CategoriaPedido;
+import es.unizar.eina.thespoon.database.EstadoPedido;
+import es.unizar.eina.thespoon.database.Pedido;
+
 
 /** Pantalla principal de la aplicación Notepad */
-public class Platos extends AppCompatActivity {
-    private PlatoViewModel mPlatoViewModel;
+public class Pedidos extends AppCompatActivity {
+    private PedidoViewModel mPedidoViewModel;
 
     /*public static final String RESULT_CODE = "resultCode";
 
@@ -42,7 +46,7 @@ public class Platos extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
 
-    PlatoListAdapter mAdapter;
+    PedidoListAdapter mAdapter;
 
     FloatingActionButton mFab;
 
@@ -51,24 +55,24 @@ public class Platos extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_platos);
+        setContentView(layout.activity_pedidos);
 
         mRecyclerView = findViewById(id.recyclerview);
-        PlatoViewModel platoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
-        mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff(),platoViewModel);
+        PedidoViewModel PedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
+        mAdapter = new PedidoListAdapter(new PedidoListAdapter.PedidoDiff(),PedidoViewModel);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
+        mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
 
-        mPlatoViewModel.getAllPlatos().observe(this, notes -> {
+        mPedidoViewModel.getAllPedidos().observe(this, notes -> {
             // Update the cached copy of the notes in the adapter.
             mAdapter.submitList(notes);
         });
 
         mFab = findViewById(id.fab);
         mFab.setOnClickListener(view -> {
-            createPlato();
+            createPedido();
         });
 
         // It doesn't affect if we comment the following instruction
@@ -86,7 +90,7 @@ public class Platos extends AppCompatActivity {
                 } else {
                     Toast.makeText(
                         getApplicationContext(),
-                        string.empty_not_saved,
+                        string.empty_pedido,
                         Toast.LENGTH_LONG).show();
                 }
             }
@@ -103,11 +107,12 @@ public class Platos extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case INSERT_ID:
-                createPlato();
+                createPedido();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -122,46 +127,62 @@ public class Platos extends AppCompatActivity {
         } else {
             switch (requestCode) {
                 case ACTIVITY_CREATE:
-                    Plato newPlato = new Plato(
-                        extras.getString(PlatoEdit.PLATO_NOMBRE),
-                        extras.getString(PlatoEdit.PLATO_DESCRIPCION),
-                        CategoriaPlato.values()[extras.getInt(PlatoEdit.PLATO_CATEGORIA)],
-                        extras.getDouble(PlatoEdit.PLATO_PRECIO));
-                    mPlatoViewModel.insert(newPlato);
+                    if (resultCode == RESULT_OK) {
+                        String cliente = extras.getString(PedidoEdit.PEDIDO_NOMBRE_CLIENTE);
+                        String fechaHora = extras.getString(PedidoEdit.PEDIDO_FECHAHORA);
+                        //String nombre = cliente + " - " + fechaHora;
+                        
+                        Pedido newPedido = new Pedido(
+                            cliente,
+                            extras.getString(PedidoEdit.PEDIDO_TELEFONO),
+                            fechaHora,
+                            EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
+                            //extras.getDouble(PedidoEdit.PEDIDO_PRECIO)
+                        );
+                        mPedidoViewModel.insert(newPedido);
+                    }
                     break;
                 case ACTIVITY_EDIT:
-                    int id = extras.getInt(PlatoEdit.PLATO_ID);
-                    Plato updatedPlato = new Plato(
-                        extras.getString(PlatoEdit.PLATO_NOMBRE),
-                        extras.getString(PlatoEdit.PLATO_DESCRIPCION),
-                        CategoriaPlato.values()[extras.getInt(PlatoEdit.PLATO_CATEGORIA)],
-                        extras.getDouble(PlatoEdit.PLATO_PRECIO));
-                    updatedPlato.setId(id);
-                    mPlatoViewModel.update(updatedPlato);
+                    if (resultCode == RESULT_OK) {
+                        int id = extras.getInt(PedidoEdit.PEDIDO_ID);
+                        String cliente = extras.getString(PedidoEdit.PEDIDO_NOMBRE_CLIENTE);
+                        String fechaHora = extras.getString(PedidoEdit.PEDIDO_FECHAHORA);
+                        String nombre = cliente + " - " + fechaHora;
+
+                        Pedido updatedPedido = new Pedido(
+                                cliente,
+                                extras.getString(PedidoEdit.PEDIDO_TELEFONO),
+                                fechaHora,
+                                EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
+                              //  extras.getDouble(PedidoEdit.PEDIDO_PRECIO)
+                        );
+                        updatedPedido.setId(id);
+                        mPedidoViewModel.update(updatedPedido);
+                    }
                     break;
             }
         }
     }
 
     /*public boolean onContextItemSelected(MenuItem item) {
-        Plato current = mAdapter.getCurrent();
+        Pedido current = mAdapter.getCurrent();
         switch (item.getItemId()) {
             case DELETE_ID:
                 Toast.makeText(
                         getApplicationContext(),
                         "Deleting " + current.getNombre(),
                         Toast.LENGTH_LONG).show();
-                mPlatoViewModel.delete(current);
+                mPedidoViewModel.delete(current);
                 return true;
             case EDIT_ID:
-                editPlato(current);
+                editPedido(current);
                 return true;
         }
         return super.onContextItemSelected(item);
     }*/
 
-    private void createPlato() {
-        Intent intent = new Intent(this, PlatoEdit.class);
+    private void createPedido() {
+        Intent intent = new Intent(this, PedidoEdit.class);
         /*intent.putExtra(REQUEST_CODE, ACTIVITY_CREATE);
         activityResultLauncher.launch(intent);*/
         //startActivity(intent);

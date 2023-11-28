@@ -10,6 +10,8 @@ import androidx.room.Update;
 
 import java.util.List;
 
+import es.unizar.eina.thespoon.ui.Pedidos;
+
 /** Definición de un Data Access Object para los pedidos */
 @Dao
 public interface PedidoDao {

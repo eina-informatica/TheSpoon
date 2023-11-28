@@ -14,10 +14,10 @@ import java.util.Date;
  * teléfono móvil, fecha y hora de recogida y número de raciones para cada uno de los platos */
 @Entity(tableName = "pedido")
 public class Pedido {
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     private int id;
-
     @NonNull
     @ColumnInfo(name = "nombreCliente")
     private String nombreCliente;
@@ -38,11 +38,12 @@ public class Pedido {
                   @NonNull String telefonoCliente,
                   @NonNull String fechaHoraRecogida,
                   @NonNull EstadoPedido estado) {
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        // Generar el nombre del pedido concatenando el nombre del cliente y la fecha
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
-        this.fechaHoraRecogida = fechaHoraRecogida /*dateFormat.format(fechaHoraRecogida)*/;
+        this.fechaHoraRecogida = fechaHoraRecogida;
         this.estado = estado;
+        //this.nombre = nombreCliente + " - " + fechaHoraRecogida;
     }
 
     /** Devuelve el identificador del pedido */
@@ -54,6 +55,7 @@ public class Pedido {
     public void setId(int id) {
         this.id = id;
     }
+
 
     /** Devuelve el nombre del cliente asociado al pedido */
     public String getNombreCliente(){
@@ -74,4 +76,8 @@ public class Pedido {
 
     /** Devuelve el estado del pedido */
     public EstadoPedido getEstado() { return this.estado; }
+
+    public String getNombre() {
+        return this.nombreCliente+"-"+this.fechaHoraRecogida;
+    }
 }

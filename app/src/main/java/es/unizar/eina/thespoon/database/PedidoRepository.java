@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import es.unizar.eina.thespoon.ui.Pedidos;
+
 public class PedidoRepository {
 
     private PedidoDao mPedidoDao;
@@ -24,7 +26,7 @@ public class PedidoRepository {
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<Pedido>> getAllPlatos() {
+    public LiveData<List<Pedido>> getAllPedidos() {
         return mAllPedidos;
     }
 

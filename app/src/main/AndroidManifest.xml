@@ -27,6 +27,12 @@
         <activity
             android:name=".ui.Platos"
             android:exported="true" />
+        <activity
+            android:name=".ui.Pedidos"
+            android:exported="true" />
+        <activity
+            android:name=".ui.PedidoEdit"
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@
     <string name="hint_precio">Introduce un precio</string>
     <string name="button_save">Guardar</string>
     <string name="empty_not_saved">Plato no guardado porque hay campos vacíos.</string>
+    <string name="empty_pedido">Pedido no guardado porque hay campos vacíos.</string>
     <string name="add_note">Añadir plato</string>
     <string name="menu_delete">Eliminar plato</string>
     <string name="menu_edit">Editar plato</string>

@@ -1,0 +1,129 @@
+package es.unizar.eina.thespoon.ui;
+
+import static es.unizar.eina.thespoon.ui.Pedidos.ACTIVITY_EDIT;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
+
+import es.unizar.eina.thespoon.database.Pedido;
+
+public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
+    private int position;
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public PedidoListAdapter(@NonNull DiffUtil.ItemCallback<Pedido> diffCallback, PedidoViewModel noteViewModel) {
+        super(diffCallback);
+        PedidoViewModel mNoteViewModel = noteViewModel;
+    }
+
+    @Override
+    public PedidoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return PedidoViewHolder.create(parent);
+    }
+
+    public Pedido getCurrent() {
+        return getItem(getPosition());
+    }
+
+    @Override
+    public void onBindViewHolder(PedidoViewHolder holder, int position) {
+
+        Pedido current = getItem(position);
+        holder.bind(current.getNombre());
+
+        /*holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                setPosition(holder.getAdapterPosition());
+                return false;
+            }
+        });*/
+
+        holder.mPedidoEditButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                PedidoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoViewModel.class);
+
+                // Retrieve the position of the clicked item
+                int clickedPosition = holder.getAdapterPosition();
+
+                // Get the item associated with the clicked position
+                Pedido pedidoToEdit = getItem(clickedPosition);
+
+                Intent intent = new Intent(view.getContext(), PedidoEdit.class);
+                intent.putExtra(PedidoEdit.PEDIDO_NOMBRE, pedidoToEdit.getNombreCliente() + pedidoToEdit.getFechaHoraRecogida());
+                intent.putExtra(PedidoEdit.PEDIDO_NOMBRE_CLIENTE, pedidoToEdit.getNombreCliente());
+                intent.putExtra(PedidoEdit.PEDIDO_FECHAHORA, pedidoToEdit.getFechaHoraRecogida());
+                intent.putExtra(PedidoEdit.PEDIDO_TELEFONO, pedidoToEdit.getTelefonoCliente());
+                intent.putExtra(PedidoEdit.PEDIDO_ESTADO, pedidoToEdit.getEstado());
+                // intent.putExtra(PedidoEdit.PEDIDO_DESCRIPCION, pedidoToEdit.getDescripcion());
+                // intent.putExtra(PedidoEdit.PEDIDO_CATEGORIA, current.pedidoToEdit().ordinal());
+                // intent.putExtra(PedidoEdit.PEDIDO_PRECIO, current.getPrecio());
+                // intent.putExtra(PedidoEdit.PEDIDO_ID, pedidoToEdit.getId());
+
+                // Start the activity for result
+                ((Activity) view.getContext()).startActivityForResult(intent, ACTIVITY_EDIT);
+
+                Toast.makeText(view.getContext(), "Editar", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.mPedidoDeleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if (view.getContext() instanceof ViewModelStoreOwner) {
+                    PedidoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoViewModel.class);
+
+                    // Retrieve the position of the clicked item
+                    int clickedPosition = holder.getAdapterPosition();
+
+                    // Get the item associated with the clicked position
+                    Pedido pedidoToDelete = getItem(clickedPosition);
+                    mNoteViewModel.delete(pedidoToDelete);
+
+                    // Notify the adapter that an item has been removed
+                    notifyItemRemoved(clickedPosition);
+
+                    Toast.makeText(view.getContext(), "Borrar", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Handle the case where the context is not a ViewModelStoreOwner
+                    // This might happen if you are using the adapter in a non-Activity, non-Fragment context
+                    Toast.makeText(view.getContext(), "Unable to delete item", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+    static class PedidoDiff extends DiffUtil.ItemCallback<Pedido> {
+
+        @Override
+        public boolean areItemsTheSame(@NonNull Pedido oldItem, @NonNull Pedido newItem) {
+            //android.util.Log.d ( "PedidoDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));
+            return oldItem.getId() == newItem.getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Pedido oldItem, @NonNull Pedido newItem) {
+            //android.util.Log.d ( "PedidoDiff" , "areContentsTheSame " + oldItem.getNombre() + " vs " + newItem.getNombre() + " " + oldItem.getNombre().equals(newItem.getNombre()));
+            // We are just worried about differences in visual representation, i.e. changes in the title
+            return oldItem.getNombre().equals(newItem.getNombre());
+        }
+    }
+}
