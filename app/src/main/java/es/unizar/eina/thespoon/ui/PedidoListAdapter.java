@@ -47,15 +47,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
         Pedido current = getItem(position);
         holder.bind(current.getNombre());
 
-        /*holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                setPosition(holder.getAdapterPosition());
-                return false;
-            }
-        });*/
-
-        holder.mPedidoEditButton.setOnClickListener(new View.OnClickListener(){
+        /*holder.mPedidoEditButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 PedidoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoViewModel.class);
@@ -107,7 +99,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                     Toast.makeText(view.getContext(), "Unable to delete item", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
+        });*/
     }
 
 

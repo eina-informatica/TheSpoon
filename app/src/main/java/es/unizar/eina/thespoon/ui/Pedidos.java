@@ -65,9 +65,9 @@ public class Pedidos extends AppCompatActivity {
 
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
 
-        mPedidoViewModel.getAllPedidos().observe(this, notes -> {
+        mPedidoViewModel.getAllPedidos().observe(this, pedidos -> {
             // Update the cached copy of the notes in the adapter.
-            mAdapter.submitList(notes);
+            mAdapter.submitList(pedidos);
         });
 
         mFab = findViewById(id.fab);
@@ -77,24 +77,6 @@ public class Pedidos extends AppCompatActivity {
 
         // It doesn't affect if we comment the following instruction
         registerForContextMenu(mRecyclerView);
-
-        /*activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK) {
-                    // Handle the result from the other activity
-                    Intent data = result.getData();
-                    Bundle extras = data.getExtras();
-                    //String resultValue = data.getStringExtra("key_name"); // Replace with the key used to pass data
-                    // Do something with the result
-                } else {
-                    Toast.makeText(
-                        getApplicationContext(),
-                        string.empty_pedido,
-                        Toast.LENGTH_LONG).show();
-                }
-            }
-        );*/
     }
 
     /*public boolean onCreateOptionsMenu(Menu menu) {
