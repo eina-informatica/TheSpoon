@@ -61,11 +61,11 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
                 PedidoDao pedidoDao = INSTANCE.pedidoDao();
                 pedidoDao.deleteAll();
 
-                /*Calendar date = Calendar.getInstance();
+                Calendar date = Calendar.getInstance();
                 date.set(2023, Calendar.NOVEMBER, 18, 9, 33);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Pedido pedido = new Pedido("Plato 1's title", "Plato 1's body", dateFormat.format(date), EstadoPedido.SOLICITADO);
-                pedidoDao.insert(pedido);*/
+                Pedido pedido = new Pedido("Maricon", "67579784", "no va esta mierda",EstadoPedido.SOLICITADO/*dateFormat.format(date)*/);
+                pedidoDao.insert(pedido);
             });
         }
     };

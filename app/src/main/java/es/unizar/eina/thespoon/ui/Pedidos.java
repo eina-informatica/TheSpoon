@@ -116,28 +116,34 @@ public class Pedidos extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            // Handle the case where the Intent data is null (possibly canceled operation)
+            Toast.makeText(
+                    getApplicationContext(),
+                    string.empty_pedido,
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         Bundle extras = data.getExtras();
 
         if (resultCode != RESULT_OK) {
             Toast.makeText(
                     getApplicationContext(),
-                    string.empty_not_saved,
+                    string.empty_pedido,
                     Toast.LENGTH_LONG).show();
         } else {
             switch (requestCode) {
                 case ACTIVITY_CREATE:
                     if (resultCode == RESULT_OK) {
-                        String cliente = extras.getString(PedidoEdit.PEDIDO_NOMBRE_CLIENTE);
+                       /* String cliente = extras.getString(PedidoEdit.PEDIDO_NOMBRE_CLIENTE);
                         String fechaHora = extras.getString(PedidoEdit.PEDIDO_FECHAHORA);
-                        //String nombre = cliente + " - " + fechaHora;
-                        
+                        String nombre = cliente + " - " + fechaHora;*/
                         Pedido newPedido = new Pedido(
-                            cliente,
+                            extras.getString(PedidoEdit.PEDIDO_NOMBRE_CLIENTE),
                             extras.getString(PedidoEdit.PEDIDO_TELEFONO),
-                            fechaHora,
+                            extras.getString(PedidoEdit.PEDIDO_FECHAHORA),
                             EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
-                            //extras.getDouble(PedidoEdit.PEDIDO_PRECIO)
                         );
                         mPedidoViewModel.insert(newPedido);
                     }
