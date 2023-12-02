@@ -30,7 +30,7 @@ class PedidoViewHolder extends RecyclerView.ViewHolder /*implements View.OnCreat
 
     static PedidoViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recyclerview_item, parent, false);
+                .inflate(R.layout.recyclerview_item_pedido, parent, false);
         return new PedidoViewHolder(view);
     }
 

@@ -6,12 +6,18 @@
     <string name="button_save">Guardar</string>
     <string name="empty_not_saved">Plato no guardado porque hay campos vacíos.</string>
     <string name="empty_pedido">Pedido no guardado porque hay campos vacíos.</string>
-    <string name="add_note">Añadir plato</string>
-    <string name="menu_delete">Eliminar plato</string>
-    <string name="menu_edit">Editar plato</string>
+    <string name="add_plato">Añadir plato</string>
+    <string name="delete_plato">Eliminar plato</string>
+    <string name="edit_plato">Editar plato</string>
     <string name="nombre_plato">Nombre del plato</string>
     <string name="descripcion_plato">Descripción</string>
     <string name="precio_plato">Precio (€)</string>
     <string name="categoria_plato">Categoría</string>
     <string name="seleccionar_categoria">Selecciona una categoría</string>
+    <string name="add_pedido">Añadir pedido</string>
+    <string name="delete_pedido">Eliminar pedido</string>
+    <string name="edit_pedido">Editar pedido</string>
+    <string name="customer_data">Datos del cliente</string>
+    <string name="nombre">Nombre</string>
+    <string name="telefono">Telefono</string>
 </resources>

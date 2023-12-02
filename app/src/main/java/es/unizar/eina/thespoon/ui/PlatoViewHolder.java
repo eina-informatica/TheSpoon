@@ -1,8 +1,6 @@
 package es.unizar.eina.thespoon.ui;
 
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -32,7 +30,7 @@ class PlatoViewHolder extends RecyclerView.ViewHolder /*implements View.OnCreate
 
     static PlatoViewHolder create(ViewGroup parent) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recyclerview_item, parent, false);
+                .inflate(R.layout.recyclerview_item_plato, parent, false);
         return new PlatoViewHolder(view);
     }
 

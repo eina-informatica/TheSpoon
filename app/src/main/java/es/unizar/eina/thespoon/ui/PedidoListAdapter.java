@@ -47,7 +47,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
         Pedido current = getItem(position);
         holder.bind(current.getNombre());
 
-        /*holder.mPedidoEditButton.setOnClickListener(new View.OnClickListener(){
+        holder.mPedidoEditButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 PedidoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoViewModel.class);
@@ -59,8 +59,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                 Pedido pedidoToEdit = getItem(clickedPosition);
 
                 Intent intent = new Intent(view.getContext(), PedidoEdit.class);
-                intent.putExtra(PedidoEdit.PEDIDO_NOMBRE, pedidoToEdit.getNombreCliente() + pedidoToEdit.getFechaHoraRecogida());
-                intent.putExtra(PedidoEdit.PEDIDO_NOMBRE_CLIENTE, pedidoToEdit.getNombreCliente());
+                intent.putExtra(PedidoEdit.PEDIDO_CLIENTE, pedidoToEdit.getNombreCliente());
                 intent.putExtra(PedidoEdit.PEDIDO_FECHAHORA, pedidoToEdit.getFechaHoraRecogida());
                 intent.putExtra(PedidoEdit.PEDIDO_TELEFONO, pedidoToEdit.getTelefonoCliente());
                 intent.putExtra(PedidoEdit.PEDIDO_ESTADO, pedidoToEdit.getEstado());
@@ -99,12 +98,11 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                     Toast.makeText(view.getContext(), "Unable to delete item", Toast.LENGTH_SHORT).show();
                 }
             }
-        });*/
+        });
     }
 
 
     static class PedidoDiff extends DiffUtil.ItemCallback<Pedido> {
-
         @Override
         public boolean areItemsTheSame(@NonNull Pedido oldItem, @NonNull Pedido newItem) {
             //android.util.Log.d ( "PedidoDiff" , "areItemsTheSame " + oldItem.getId() + " vs " + newItem.getId() + " " +  (oldItem.getId() == newItem.getId()));

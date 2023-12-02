@@ -114,15 +114,12 @@ public class Pedidos extends AppCompatActivity {
                     getApplicationContext(),
                     string.empty_pedido,
                     Toast.LENGTH_LONG).show();
-        } else {
+        } /*else {
             switch (requestCode) {
                 case ACTIVITY_CREATE:
                     if (resultCode == RESULT_OK) {
-                       /* String cliente = extras.getString(PedidoEdit.PEDIDO_NOMBRE_CLIENTE);
-                        String fechaHora = extras.getString(PedidoEdit.PEDIDO_FECHAHORA);
-                        String nombre = cliente + " - " + fechaHora;*/
                         Pedido newPedido = new Pedido(
-                            extras.getString(PedidoEdit.PEDIDO_NOMBRE_CLIENTE),
+                            extras.getString(PedidoEdit.PEDIDO_CLIENTE),
                             extras.getString(PedidoEdit.PEDIDO_TELEFONO),
                             extras.getString(PedidoEdit.PEDIDO_FECHAHORA),
                             EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
@@ -133,7 +130,7 @@ public class Pedidos extends AppCompatActivity {
                 case ACTIVITY_EDIT:
                     if (resultCode == RESULT_OK) {
                         int id = extras.getInt(PedidoEdit.PEDIDO_ID);
-                        String cliente = extras.getString(PedidoEdit.PEDIDO_NOMBRE_CLIENTE);
+                        String cliente = extras.getString(PedidoEdit.PEDIDO_CLIENTE);
                         String fechaHora = extras.getString(PedidoEdit.PEDIDO_FECHAHORA);
                         String nombre = cliente + " - " + fechaHora;
 
@@ -149,7 +146,7 @@ public class Pedidos extends AppCompatActivity {
                     }
                     break;
             }
-        }
+        }*/
     }
 
     /*public boolean onContextItemSelected(MenuItem item) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,60 +12,70 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="228dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/big_padding">
 
-        <TextView
-            android:id="@+id/nombrePEDIDO"
-            android:layout_width="88dp"
+        <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/customer_data"
             android:textColor="@color/colorAccent"
             android:textSize="20dp" />
 
-        <EditText
-            android:id="@+id/clientePEDIDO"
-            android:layout_width="173dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:hint="Nombre Cliente"
-            android:inputType="textAutoComplete"
-            android:minHeight="@dimen/min_height"
-            android:textSize="20dp"
-            android:translationY="25px" />
-
-        <EditText
-            android:id="@+id/telefonoPEDIDO"
-            android:layout_width="172dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:hint="Telefono"
-            android:inputType="textAutoComplete"
-            android:minHeight="@dimen/min_height"
-            android:textSize="20dp"
-            android:translationX="520px"
-            android:translationY="-100px" />
-
-        <EditText
-            android:id="@+id/fechaHoraPEDIDO"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:hint="Fecha y Hora"
-            android:inputType="textAutoComplete"
-            android:minHeight="@dimen/min_height"
-            android:textSize="20dp" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/clientePedido"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/nombre"
+                android:inputType="textAutoComplete"
+                android:minHeight="@dimen/min_height"
+                android:textSize="20dp"/>
+
+            <EditText
+                android:id="@+id/telefonoPedido"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/telefono"
+                android:inputType="phone"
+                android:minHeight="@dimen/min_height"
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
        <!-- <DatePicker
-            android:id="@+id/fechaHoraPEDIDO"
+            android:id="@+id/fechaHoraPedido"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
             />-->
-
-
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/big_padding">
 
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customer_data"
+            android:textColor="@color/colorAccent"
+            android:textSize="20dp" />
+
+
+        <DatePicker
+             android:id="@+id/fechaHoraPedido"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"/>
+        />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -74,7 +85,7 @@
 
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="METEER PLATOS"
+            android:text="Meter platos"
             android:textColor="@color/colorAccent"
             android:textSize="20dp" />
 
