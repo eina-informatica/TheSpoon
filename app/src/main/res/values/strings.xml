@@ -26,4 +26,6 @@
     <string name="platos">Platos</string>
     <string name="estado_pedido">Estado del pedido</string>
     <string name="pedidos">Pedidos</string>
+    <string name="categoria">Categoría</string>
+    <string name="nombre_categoria">Nombre y categoría</string>
 </resources>

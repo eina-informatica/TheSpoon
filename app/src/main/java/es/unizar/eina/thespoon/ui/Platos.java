@@ -13,24 +13,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import es.unizar.eina.thespoon.R;
 import es.unizar.eina.thespoon.database.CategoriaPlato;
 import es.unizar.eina.thespoon.database.Plato;
 
 /** Pantalla principal de la aplicación Notepad */
-public class Platos extends AppCompatActivity {
+public class Platos extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private PlatoViewModel mPlatoViewModel;
-
-    /*public static final String RESULT_CODE = "resultCode";
-
-    public static final int RESULT_OK = 1;
-
-    public static final int RESULT_CANCELED = 2;
-
-    public static final String REQUEST_CODE = "requestCode";*/
 
     public static final int ACTIVITY_CREATE = 1;
 
@@ -55,14 +50,14 @@ public class Platos extends AppCompatActivity {
 
         mRecyclerView = findViewById(id.recyclerview);
         PlatoViewModel platoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
-        mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff(),platoViewModel);
+        mAdapter = new PlatoListAdapter(new PlatoListAdapter.PlatoDiff(), platoViewModel);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
 
         mPlatoViewModel.getAllPlatos().observe(this, platos -> {
-            // Update the cached copy of the notes in the adapter.
+            // Update the cached copy of the plates in the adapter.
             mAdapter.submitList(platos);
         });
 
@@ -74,12 +69,6 @@ public class Platos extends AppCompatActivity {
         // It doesn't affect if we comment the following instruction
         registerForContextMenu(mRecyclerView);
     }
-
-    /*public boolean onCreateOptionsMenu(Menu menu) {
-        boolean result = super.onCreateOptionsMenu(menu);
-        menu.add(Menu.NONE, INSERT_ID, Menu.NONE, R.string.add_note);
-        return result;
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -125,28 +114,33 @@ public class Platos extends AppCompatActivity {
         }
     }
 
-    /*public boolean onContextItemSelected(MenuItem item) {
-        Plato current = mAdapter.getCurrent();
-        switch (item.getItemId()) {
-            case DELETE_ID:
-                Toast.makeText(
-                        getApplicationContext(),
-                        "Deleting " + current.getTitle(),
-                        Toast.LENGTH_LONG).show();
-                mPlatoViewModel.delete(current);
-                return true;
-            case EDIT_ID:
-                editPlato(current);
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }*/
-
     private void createPlato() {
         Intent intent = new Intent(this, PlatoEdit.class);
-        /*intent.putExtra(REQUEST_CODE, ACTIVITY_CREATE);
-        activityResultLauncher.launch(intent);*/
-        //startActivity(intent);
         startActivityForResult(intent, ACTIVITY_CREATE);
+    }
+
+    public void showPopupOrdenar(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(menu.popup_menu_plato);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Toast.makeText(this, "Ordenar por: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        int itemId = item.getItemId();
+        if (itemId == R.id.ordenarPorNombre) {
+            mPlatoViewModel.getAllPlatos().observe(this, platos -> {
+                // Update the cached copy of the plates in the adapter.
+                mAdapter.submitList(platos);
+            });
+            return true;
+        } else if (itemId == id.ordenarPorCategoria) {
+            return true;
+        } else if (itemId == id.ordenarPorAmbos) {
+            return true;
+        }
+        return false;
     }
 }
