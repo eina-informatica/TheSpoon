@@ -62,6 +62,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                 intent.putExtra(PedidoEdit.PEDIDO_ID, pedidoToEdit.getId());
                 intent.putExtra(PedidoEdit.PEDIDO_CLIENTE, pedidoToEdit.getNombreCliente());
                 intent.putExtra(PedidoEdit.PEDIDO_TELEFONO, pedidoToEdit.getTelefonoCliente());
+                intent.putExtra(PedidoEdit.PEDIDO_FECHA_HORA, pedidoToEdit.getFechaHoraRecogida());
                 intent.putExtra(PedidoEdit.PEDIDO_ESTADO, pedidoToEdit.getEstado().ordinal());
 
                 // Start the activity for result

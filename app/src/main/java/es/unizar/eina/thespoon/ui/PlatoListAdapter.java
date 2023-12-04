@@ -120,7 +120,7 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
 
                 // Create and show the modal window with the plato details
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("Detalles del Plato");
+                builder.setTitle("Detalles del plato");
                 builder.setMessage("Nombre: " + platoToView.getNombre() + "\n" +
                         "Descripción: \n" + platoToView.getDescripcion() + "\n" +
                         "Categoría: " + platoToView.getCategoria() + "\n" +

@@ -41,8 +41,7 @@ public class SDF {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         return String.format(Locale.getDefault(),"%02d:%02d",
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.YEAR));
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE));
     }
 }

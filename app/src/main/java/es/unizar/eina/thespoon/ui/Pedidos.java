@@ -123,7 +123,7 @@ public class Pedidos extends AppCompatActivity {
                         Pedido newPedido = new Pedido(
                             extras.getString(PedidoEdit.PEDIDO_CLIENTE),
                             extras.getString(PedidoEdit.PEDIDO_TELEFONO),
-                            "03/12/2023",
+                            extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
                             EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
                         mPedidoViewModel.insert(newPedido);
@@ -135,7 +135,7 @@ public class Pedidos extends AppCompatActivity {
                         Pedido updatedPedido = new Pedido(
                             extras.getString(PedidoEdit.PEDIDO_CLIENTE),
                             extras.getString(PedidoEdit.PEDIDO_TELEFONO),
-                            "08:33",
+                            extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
                             EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
                         updatedPedido.setId(id);
