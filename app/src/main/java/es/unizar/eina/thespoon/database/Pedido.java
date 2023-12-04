@@ -7,7 +7,9 @@ import androidx.room.PrimaryKey;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 
 /** Clase anotada como entidad que representa un pedido y que consta de nombre del cliente,
@@ -38,12 +40,10 @@ public class Pedido {
                   @NonNull String telefonoCliente,
                   @NonNull String fechaHoraRecogida,
                   @NonNull EstadoPedido estado) {
-        // Generar el nombre del pedido concatenando el nombre del cliente y la fecha
         this.nombreCliente = nombreCliente;
         this.telefonoCliente = telefonoCliente;
         this.fechaHoraRecogida = fechaHoraRecogida;
         this.estado = estado;
-        //this.nombre = nombreCliente + " - " + fechaHoraRecogida;
     }
 
     /** Devuelve el identificador del pedido */
@@ -77,7 +77,7 @@ public class Pedido {
     /** Devuelve el estado del pedido */
     public EstadoPedido getEstado() { return this.estado; }
 
-    public String getNombre() {
-        return this.nombreCliente+"-"+this.fechaHoraRecogida;
-    }
+    /** Devuelve el título del pedido */
+    public String getTitle() { return this.nombreCliente + " - " + SDF.getDate(this.fechaHoraRecogida); }
+
 }

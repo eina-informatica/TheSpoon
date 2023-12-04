@@ -71,8 +71,8 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
                 Intent intent = new Intent(view.getContext(), PlatoEdit.class);
                 intent.putExtra(PlatoEdit.PLATO_NOMBRE, platoToEdit.getNombre());
                 intent.putExtra(PlatoEdit.PLATO_DESCRIPCION, platoToEdit.getDescripcion());
-                intent.putExtra(PlatoEdit.PLATO_CATEGORIA, current.getCategoria().ordinal());
-                intent.putExtra(PlatoEdit.PLATO_PRECIO, current.getPrecio());
+                intent.putExtra(PlatoEdit.PLATO_CATEGORIA, platoToEdit.getCategoria().ordinal());
+                intent.putExtra(PlatoEdit.PLATO_PRECIO, platoToEdit.getPrecio());
                 intent.putExtra(PlatoEdit.PLATO_ID, platoToEdit.getId());
 
                 // Start the activity for result
@@ -123,7 +123,7 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
                 builder.setTitle("Detalles del Plato");
                 builder.setMessage("Nombre: " + platoToView.getNombre() + "\n" +
                         "Descripción: \n" + platoToView.getDescripcion() + "\n" +
-                        "Categoría: " + platoToView.getCategoria().toString() + "\n" +
+                        "Categoría: " + platoToView.getCategoria() + "\n" +
                         "Precio: " + platoToView.getPrecio()+" €");
 
                 builder.setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
@@ -151,7 +151,7 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
 
         @Override
         public boolean areContentsTheSame(@NonNull Plato oldItem, @NonNull Plato newItem) {
-            //android.util.Log.d ( "PlatoDiff" , "areContentsTheSame " + oldItem.getNombre() + " vs " + newItem.getNombre() + " " + oldItem.getNombre().equals(newItem.getNombre()));
+            //android.util.Log.d ( "PlatoDiff" , "areContentsTheSame " + oldItem.getTitle() + " vs " + newItem.getTitle() + " " + oldItem.getTitle().equals(newItem.getTitle()));
             // We are just worried about differences in visual representation, i.e. changes in the title
             return oldItem.getNombre().equals(newItem.getNombre());
         }

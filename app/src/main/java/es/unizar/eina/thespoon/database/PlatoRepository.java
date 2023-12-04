@@ -2,11 +2,15 @@ package es.unizar.eina.thespoon.database;
 
 
 import android.app.Application;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import es.unizar.eina.thespoon.ui.Pedidos;
 
@@ -54,8 +58,7 @@ public class PlatoRepository {
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPlatoDao.update(plato);
         });
-        Log.d("Categoria editada", String.valueOf(plato.getCategoria()));
-        Log.d("Precio editado", String.valueOf(plato.getPrecio()));
+
         return result[0];
     }
 

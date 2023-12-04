@@ -2,6 +2,7 @@ package es.unizar.eina.thespoon.database;
 
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -51,6 +52,10 @@ public class PedidoRepository {
     public int update(Pedido pedido) {
         final int[] result = {0};
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
+            Log.d("ID", String.valueOf(pedido.getId()));
+            Log.d("Nombre cliente", pedido.getNombreCliente());
+            Log.d("Teléfono cliente", pedido.getTelefonoCliente());
+            Log.d("Estado pedido", String.valueOf(pedido.getEstado()));
             result[0] = mPedidoDao.update(pedido);
         });
         return result[0];

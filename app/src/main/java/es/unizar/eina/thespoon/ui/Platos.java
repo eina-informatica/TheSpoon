@@ -131,7 +131,7 @@ public class Platos extends AppCompatActivity {
             case DELETE_ID:
                 Toast.makeText(
                         getApplicationContext(),
-                        "Deleting " + current.getNombre(),
+                        "Deleting " + current.getTitle(),
                         Toast.LENGTH_LONG).show();
                 mPlatoViewModel.delete(current);
                 return true;

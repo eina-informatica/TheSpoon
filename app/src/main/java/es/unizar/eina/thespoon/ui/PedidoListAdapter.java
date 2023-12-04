@@ -45,7 +45,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
     public void onBindViewHolder(PedidoViewHolder holder, int position) {
 
         Pedido current = getItem(position);
-        holder.bind(current.getNombre());
+        holder.bind(current.getTitle());
 
         holder.mPedidoEditButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -59,14 +59,10 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                 Pedido pedidoToEdit = getItem(clickedPosition);
 
                 Intent intent = new Intent(view.getContext(), PedidoEdit.class);
+                intent.putExtra(PedidoEdit.PEDIDO_ID, pedidoToEdit.getId());
                 intent.putExtra(PedidoEdit.PEDIDO_CLIENTE, pedidoToEdit.getNombreCliente());
-                intent.putExtra(PedidoEdit.PEDIDO_FECHAHORA, pedidoToEdit.getFechaHoraRecogida());
                 intent.putExtra(PedidoEdit.PEDIDO_TELEFONO, pedidoToEdit.getTelefonoCliente());
-                intent.putExtra(PedidoEdit.PEDIDO_ESTADO, pedidoToEdit.getEstado());
-                // intent.putExtra(PedidoEdit.PEDIDO_DESCRIPCION, pedidoToEdit.getDescripcion());
-                // intent.putExtra(PedidoEdit.PEDIDO_CATEGORIA, current.pedidoToEdit().ordinal());
-                // intent.putExtra(PedidoEdit.PEDIDO_PRECIO, current.getPrecio());
-                // intent.putExtra(PedidoEdit.PEDIDO_ID, pedidoToEdit.getId());
+                intent.putExtra(PedidoEdit.PEDIDO_ESTADO, pedidoToEdit.getEstado().ordinal());
 
                 // Start the activity for result
                 ((Activity) view.getContext()).startActivityForResult(intent, ACTIVITY_EDIT);
@@ -111,9 +107,9 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
 
         @Override
         public boolean areContentsTheSame(@NonNull Pedido oldItem, @NonNull Pedido newItem) {
-            //android.util.Log.d ( "PedidoDiff" , "areContentsTheSame " + oldItem.getNombre() + " vs " + newItem.getNombre() + " " + oldItem.getNombre().equals(newItem.getNombre()));
+            //android.util.Log.d ( "PedidoDiff" , "areContentsTheSame " + oldItem.getTitle() + " vs " + newItem.getTitle() + " " + oldItem.getTitle().equals(newItem.getTitle()));
             // We are just worried about differences in visual representation, i.e. changes in the title
-            return oldItem.getNombre().equals(newItem.getNombre());
+            return oldItem.getTitle().equals(newItem.getTitle());
         }
     }
 }

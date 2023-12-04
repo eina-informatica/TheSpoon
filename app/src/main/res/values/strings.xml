@@ -20,4 +20,9 @@
     <string name="customer_data">Datos del cliente</string>
     <string name="nombre">Nombre</string>
     <string name="telefono">Telefono</string>
+    <string name="pickup_data">Datos de recogida</string>
+    <string name="elegir_fecha">Elegir fecha</string>
+    <string name="elegir_hora">Elegir hora</string>
+    <string name="platos">Platos</string>
+    <string name="estado_pedido">Estado del pedido</string>
 </resources>

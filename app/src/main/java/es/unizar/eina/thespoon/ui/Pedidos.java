@@ -6,6 +6,7 @@ import static es.unizar.eina.thespoon.R.string;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import es.unizar.eina.thespoon.database.CategoriaPedido;
+import es.unizar.eina.thespoon.database.CategoriaPlato;
 import es.unizar.eina.thespoon.database.EstadoPedido;
 import es.unizar.eina.thespoon.database.Pedido;
 
@@ -114,14 +116,14 @@ public class Pedidos extends AppCompatActivity {
                     getApplicationContext(),
                     string.empty_pedido,
                     Toast.LENGTH_LONG).show();
-        } /*else {
+        } else {
             switch (requestCode) {
                 case ACTIVITY_CREATE:
                     if (resultCode == RESULT_OK) {
                         Pedido newPedido = new Pedido(
                             extras.getString(PedidoEdit.PEDIDO_CLIENTE),
                             extras.getString(PedidoEdit.PEDIDO_TELEFONO),
-                            extras.getString(PedidoEdit.PEDIDO_FECHAHORA),
+                            "03/12/2023",
                             EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
                         mPedidoViewModel.insert(newPedido);
@@ -130,23 +132,18 @@ public class Pedidos extends AppCompatActivity {
                 case ACTIVITY_EDIT:
                     if (resultCode == RESULT_OK) {
                         int id = extras.getInt(PedidoEdit.PEDIDO_ID);
-                        String cliente = extras.getString(PedidoEdit.PEDIDO_CLIENTE);
-                        String fechaHora = extras.getString(PedidoEdit.PEDIDO_FECHAHORA);
-                        String nombre = cliente + " - " + fechaHora;
-
                         Pedido updatedPedido = new Pedido(
-                                cliente,
-                                extras.getString(PedidoEdit.PEDIDO_TELEFONO),
-                                fechaHora,
-                                EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
-                              //  extras.getDouble(PedidoEdit.PEDIDO_PRECIO)
+                            extras.getString(PedidoEdit.PEDIDO_CLIENTE),
+                            extras.getString(PedidoEdit.PEDIDO_TELEFONO),
+                            "08:33",
+                            EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
                         updatedPedido.setId(id);
                         mPedidoViewModel.update(updatedPedido);
                     }
                     break;
             }
-        }*/
+        }
     }
 
     /*public boolean onContextItemSelected(MenuItem item) {
@@ -155,7 +152,7 @@ public class Pedidos extends AppCompatActivity {
             case DELETE_ID:
                 Toast.makeText(
                         getApplicationContext(),
-                        "Deleting " + current.getNombre(),
+                        "Deleting " + current.getTitle(),
                         Toast.LENGTH_LONG).show();
                 mPedidoViewModel.delete(current);
                 return true;
