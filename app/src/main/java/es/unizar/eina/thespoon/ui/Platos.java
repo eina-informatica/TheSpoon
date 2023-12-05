@@ -137,8 +137,16 @@ public class Platos extends AppCompatActivity implements PopupMenu.OnMenuItemCli
             });
             return true;
         } else if (itemId == id.ordenarPorCategoria) {
+            mPlatoViewModel.getAllPlatosPorCategoria().observe(this, platos -> {
+                // Update the cached copy of the plates in the adapter.
+                mAdapter.submitList(platos);
+            });
             return true;
         } else if (itemId == id.ordenarPorAmbos) {
+            mPlatoViewModel.getAllPlatosPorNombreYCategoria().observe(this, platos -> {
+                // Update the cached copy of the plates in the adapter.
+                mAdapter.submitList(platos);
+            });
             return true;
         }
         return false;

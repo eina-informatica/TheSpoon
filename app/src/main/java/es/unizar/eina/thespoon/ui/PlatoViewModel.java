@@ -14,18 +14,23 @@ public class PlatoViewModel extends AndroidViewModel {
 
     private PlatoRepository mRepository;
 
-    private final LiveData<List<Plato>> mAllPlatos;
+    private final LiveData<List<Plato>> mAllPlatos; // Platos ordenados por nombre
+    private final LiveData<List<Plato>> mAllPlatosPorCategoria; // Platos ordenados por categoria
+
+    private final LiveData<List<Plato>> mAllPlatosPorNombreYCategoria; // Platos ordenados por nombre y categoría
 
     public PlatoViewModel(Application application) {
         super(application);
         mRepository = new PlatoRepository(application);
         mAllPlatos = mRepository.getAllPlatos();
+        mAllPlatosPorCategoria = mRepository.getAllPlatosPorCategoria();
+        mAllPlatosPorNombreYCategoria = mRepository.getAllPlatosPorNombreYCategoria();
     }
 
     LiveData<List<Plato>> getAllPlatos() { return mAllPlatos; }
-    LiveData<List<Plato>> getAllPlatosOrderedByNombre() {
-        return mRepository.getAllPlatosOrderedByNombre()
-    }
+    LiveData<List<Plato>> getAllPlatosPorCategoria() { return mAllPlatosPorCategoria; }
+
+    LiveData<List<Plato>> getAllPlatosPorNombreYCategoria() { return mAllPlatosPorNombreYCategoria; }
 
     public void insert(Plato plato) { mRepository.insert(plato); }
     public void update(Plato plato) { mRepository.update(plato); }

@@ -19,6 +19,10 @@ public class PlatoRepository {
     private PlatoDao mPlatoDao;
     private LiveData<List<Plato>> mAllPlatos;
 
+    private LiveData<List<Plato>> mAllPlatosPorCategoria;
+
+    private LiveData<List<Plato>> mAllPlatosPorNombreYCategoria;
+
     // Plato that in order to unit test the PlatoRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
     // See the BasicSample in the android-architecture-components repository at
@@ -27,6 +31,8 @@ public class PlatoRepository {
         TheSpoonRoomDatabase db = TheSpoonRoomDatabase.getDatabase(application);
         mPlatoDao = db.platoDao();
         mAllPlatos = mPlatoDao.getOrderedPlatos();
+        mAllPlatosPorCategoria = mPlatoDao.getOrderedPlatosPorCategoria();
+        mAllPlatosPorNombreYCategoria = mPlatoDao.getOrderedPlatosPorNombreYCategoria();
     }
 
     // Room executes all queries on a separate thread.
@@ -34,6 +40,10 @@ public class PlatoRepository {
     public LiveData<List<Plato>> getAllPlatos() {
         return mAllPlatos;
     }
+
+    public LiveData<List<Plato>> getAllPlatosPorCategoria() { return mAllPlatosPorCategoria; }
+
+    public LiveData<List<Plato>> getAllPlatosPorNombreYCategoria() { return mAllPlatosPorNombreYCategoria; }
 
     /** Inserta un plato
      * @param plato

@@ -54,7 +54,17 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
 
             Plato plato = new Plato("Macarrones a la boloñesa", "- Macarrones\n- Salda boloñesa", CategoriaPlato.PRIMERO, 8);
             platoDao.insert(plato);
+            plato = new Plato("Torrija", "Pan brioche infusionado con helado de guirlache y petazetas de chocolate", CategoriaPlato.POSTRE, 7);
+            platoDao.insert(plato);
             plato = new Plato("Ternasco al horno", "- Ternasco\n- Patatas", CategoriaPlato.SEGUNDO, 13);
+            platoDao.insert(plato);
+            plato = new Plato("Tabla de jamón DO Teruel", "- Jamón DO Teruel", CategoriaPlato.PRIMERO, 12);
+            platoDao.insert(plato);
+            plato = new Plato("Canelón de pollo al chilindrón con bechamel ligera de azafrán", "- Pollo\n - Pimientos\n - Cebolla", CategoriaPlato.SEGUNDO, 11);
+            platoDao.insert(plato);
+            plato = new Plato("Arroz cremoso de boletus y longaniza de Graus", "- Arroz\n - Boletus\n - Longaniza de Graus", CategoriaPlato.PRIMERO, 10);
+            platoDao.insert(plato);
+            plato = new Plato("Tataki baturro", "- Carne de ternera del Pirineo macerada\n- Tomate\n- Crema de borraja", CategoriaPlato.SEGUNDO, 10);
             platoDao.insert(plato);
 
             // Populate database with pedidos

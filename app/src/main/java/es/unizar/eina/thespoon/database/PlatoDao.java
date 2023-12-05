@@ -28,5 +28,11 @@ public interface PlatoDao {
 
     @Query("SELECT * FROM Plato ORDER BY nombre ASC")
     LiveData<List<Plato>> getOrderedPlatos();
+
+    @Query("SELECT * FROM Plato ORDER BY categoria DESC")
+    LiveData<List<Plato>> getOrderedPlatosPorCategoria();
+
+    @Query("SELECT * FROM Plato ORDER BY nombre ASC, categoria DESC")
+    LiveData<List<Plato>> getOrderedPlatosPorNombreYCategoria();
 }
 
