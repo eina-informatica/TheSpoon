@@ -28,4 +28,8 @@
     <string name="pedidos">Pedidos</string>
     <string name="categoria">Categoría</string>
     <string name="nombre_categoria">Nombre y categoría</string>
+    <string name="nombre_estado">Nombre y Estado</string>
+
+
+    
 </resources>

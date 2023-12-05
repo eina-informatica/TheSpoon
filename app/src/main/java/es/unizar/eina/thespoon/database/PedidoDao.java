@@ -30,4 +30,18 @@ public interface PedidoDao {
 
     @Query("SELECT * FROM Pedido ORDER BY nombreCliente ASC")
     LiveData<List<Pedido>> getOrderedPlatos();
+
+    @Query("SELECT * FROM Pedido ORDER BY " +
+            "CASE WHEN estado = 'SOLICITADO' THEN 1 " +
+            "WHEN estado = 'PREPARADO' THEN 2 " +
+            "WHEN estado = 'RECOGIDO' THEN 3 ELSE 4 END")
+    LiveData<List<Pedido>> getOrderedPedidosPorEstado();
+
+
+    @Query("SELECT * FROM Pedido ORDER BY nombreCliente ASC, estado DESC")
+    LiveData<List<Pedido>> getOrderedPedidosPorNombreYEstado();
+    @Query("SELECT * FROM Pedido WHERE estado = :estadoSeleccionado")
+    LiveData<List<Pedido>> getPedidosPorEstado(EstadoPedido estadoSeleccionado);
+
+
 }

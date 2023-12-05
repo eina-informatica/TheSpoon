@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import es.unizar.eina.thespoon.R;
 
 class PedidoViewHolder extends RecyclerView.ViewHolder /*implements View.OnCreateContextMenuListener*/ {
-    private final TextView mPedidoItemView;
+    final TextView mPedidoItemView;
     ImageView mPedidoEditButton;
     ImageView mPedidoDeleteButton;
 

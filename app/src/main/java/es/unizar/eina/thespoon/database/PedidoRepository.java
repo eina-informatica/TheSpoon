@@ -14,6 +14,8 @@ public class PedidoRepository {
 
     private PedidoDao mPedidoDao;
     private LiveData<List<Pedido>> mAllPedidos;
+    public LiveData<List<Pedido>> mAllPedidosPorEstado;
+    public LiveData<List<Pedido>> mAllPedidosPorNombreYEstado;
 
     // Pedido that in order to unit test the PedidoRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
@@ -23,12 +25,19 @@ public class PedidoRepository {
         TheSpoonRoomDatabase db = TheSpoonRoomDatabase.getDatabase(application);
         mPedidoDao = db.pedidoDao();
         mAllPedidos = mPedidoDao.getOrderedPlatos();
+        mAllPedidosPorEstado=mPedidoDao.getOrderedPedidosPorEstado();
+        mAllPedidosPorNombreYEstado=mPedidoDao.getOrderedPedidosPorNombreYEstado();
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     public LiveData<List<Pedido>> getAllPedidos() {
         return mAllPedidos;
+    }
+    public LiveData<List<Pedido>> getAllPedidosPorEstado() { return mAllPedidosPorEstado; }
+    public LiveData<List<Pedido>> getAllPedidosPorNombreYEstado() { return mAllPedidosPorNombreYEstado; }
+    public LiveData<List<Pedido>> getPedidosPorEstado(EstadoPedido estadoSeleccionado) {
+        return mPedidoDao.getPedidosPorEstado(estadoSeleccionado);
     }
 
     /** Inserta un pedido
@@ -72,4 +81,6 @@ public class PedidoRepository {
         });
         return result[0];
     }
+
+
 }

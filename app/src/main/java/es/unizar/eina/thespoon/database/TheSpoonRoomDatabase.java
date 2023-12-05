@@ -75,6 +75,32 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
             date.set(2023, Calendar.NOVEMBER, 18, 9, 33);
             Pedido pedido = new Pedido("Pablo", "675123456", SDF.format(date.getTime()), EstadoPedido.SOLICITADO);
             pedidoDao.insert(pedido);
+            Calendar date2 = Calendar.getInstance();
+            date.set(2023, Calendar.FEBRUARY, 25, 17, 33);
+            pedido = new Pedido("Abel", "581516684", SDF.format(date.getTime()), EstadoPedido.PREPARADO);
+            pedidoDao.insert(pedido);
+            Calendar date3 = Calendar.getInstance();
+            date.set(2023, Calendar.APRIL, 1, 12, 33);
+            pedido = new Pedido("Jorge", "123456789", SDF.format(date.getTime()), EstadoPedido.RECOGIDO);
+            pedidoDao.insert(pedido);
+
+            // Additional orders
+            Calendar date4 = Calendar.getInstance();
+            date.set(2023, Calendar.MARCH, 15, 19, 45);
+            pedido = new Pedido("Laura", "987654321", SDF.format(date.getTime()), EstadoPedido.PREPARADO);
+            pedidoDao.insert(pedido);
+
+            Calendar date5 = Calendar.getInstance();
+            date.set(2023, Calendar.JULY, 10, 14, 20);
+            pedido = new Pedido("Carlos", "555555555", SDF.format(date.getTime()), EstadoPedido.SOLICITADO);
+            pedidoDao.insert(pedido);
+
+            Calendar date6 = Calendar.getInstance();
+            date.set(2023, Calendar.JANUARY, 5, 10, 0);
+            pedido = new Pedido("Ana", "111111111", SDF.format(date.getTime()), EstadoPedido.RECOGIDO);
+            pedidoDao.insert(pedido);
+            
+            
         });
         }
     };

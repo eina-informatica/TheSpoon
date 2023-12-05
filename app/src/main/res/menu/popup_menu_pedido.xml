@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+   <item
+        android:id="@+id/ordenarPorNombre"
+        android:title="@string/nombre" />
+    <item
+        android:id="@+id/ordenarPorEstado"
+        android:title="@string/estado_pedido" />
+    <item
+        android:id="@+id/ordenarPorAmbos"
+        android:title="@string/nombre_estado" />
+
+</menu>

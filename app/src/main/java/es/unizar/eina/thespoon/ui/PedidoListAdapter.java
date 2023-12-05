@@ -3,6 +3,8 @@ package es.unizar.eina.thespoon.ui;
 import static es.unizar.eina.thespoon.ui.Pedidos.ACTIVITY_EDIT;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,6 +96,37 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                     // This might happen if you are using the adapter in a non-Activity, non-Fragment context
                     Toast.makeText(view.getContext(), "Unable to delete item", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        holder.mPedidoItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PedidoViewModel mPedidoViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoViewModel.class);
+
+                // Retrieve the position of the clicked item
+                int clickedPosition = holder.getAdapterPosition();
+
+                // Get the item associated with the clicked position
+                Pedido pedidoToView = getItem(clickedPosition);
+
+                // Create and show the modal window with the pedido details
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Detalles del pedido");
+                builder.setMessage("Cliente: " + pedidoToView.getNombreCliente() + "\n" +
+                        "Teléfono: " + pedidoToView.getTelefonoCliente() + "\n" +
+                        "Fecha y Hora de Recogida: " + pedidoToView.getFechaHoraRecogida() + "\n" +
+                        "Estado: " + pedidoToView.getEstado());
+
+                builder.setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Close the dialog
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }

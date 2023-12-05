@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/filtrarSolicitados"
+            android:title="Mostrar Solicitados" />
+        <item
+            android:id="@+id/filtrarPreparados"
+            android:title="Mostrar Preparados" />
+        <item
+            android:id="@+id/filtrarRecogidos"
+            android:title="Mostrar Recogidos" />
+        <item
+            android:id="@+id/filtrarTodos"
+            android:title="Mostrar Todos" />
+
+</menu>

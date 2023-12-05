@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -20,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import es.unizar.eina.thespoon.R;
 import es.unizar.eina.thespoon.database.CategoriaPedido;
 import es.unizar.eina.thespoon.database.CategoriaPlato;
 import es.unizar.eina.thespoon.database.EstadoPedido;
@@ -27,7 +30,7 @@ import es.unizar.eina.thespoon.database.Pedido;
 
 
 /** Pantalla principal de la aplicación Notepad */
-public class Pedidos extends AppCompatActivity {
+public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private PedidoViewModel mPedidoViewModel;
 
     /*public static final String RESULT_CODE = "resultCode";
@@ -96,8 +99,71 @@ public class Pedidos extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
+    public void OrdenarPopUpPedido(View view) {
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu_pedido);
+        popup.show();
+    }
+    public void FiltrarPopUp(View view){
+        PopupMenu popup = new PopupMenu(this, view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.popup_menu_filtrar_pedido);
+        popup.show();
+    }
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        Toast.makeText(this, "Ordenar por: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        int itemId = item.getItemId();
+        if (itemId == R.id.ordenarPorNombre) {
+            mPedidoViewModel.getAllPedidos().observe(this, pedidos -> {
+                // Update the cached copy of the plates in the adapter.
+                mAdapter.submitList(pedidos);
+            });
+            return true;
+        } else if (itemId == id.ordenarPorEstado) {
+            mPedidoViewModel.getAllPedidosPorEstado().observe(this, pedidos -> {
+                // Update the cached copy of the plates in the adapter.
+                mAdapter.submitList(pedidos);
+            });
+            return true;
+        } else if (itemId == id.ordenarPorAmbos) {
+            mPedidoViewModel.getAllPedidosPorNombreYEstado().observe(this, pedidos -> {
+                // Update the cached copy of the plates in the adapter.
+                mAdapter.submitList(pedidos);
+            });
+            return true;
+        } else if (itemId == R.id.filtrarSolicitados) {
+        // Filtrar por estado "Solicitado"
+        mPedidoViewModel.filtrarPedidosPorEstado(EstadoPedido.SOLICITADO);
+        mPedidoViewModel.getPedidosFiltrados().observe(this, pedidos -> {
+            mAdapter.submitList(pedidos);
+        });
+        return true;
+    } else if (itemId == R.id.filtrarPreparados) {
+        // Filtrar por estado "Preparado"
+        mPedidoViewModel.filtrarPedidosPorEstado(EstadoPedido.PREPARADO);
+        mPedidoViewModel.getPedidosFiltrados().observe(this, pedidos -> {
+            mAdapter.submitList(pedidos);
+        });
+        return true;
+    } else if (itemId == R.id.filtrarRecogidos) {
+        // Filtrar por estado "Recogido"
+        mPedidoViewModel.filtrarPedidosPorEstado(EstadoPedido.RECOGIDO);
+        mPedidoViewModel.getPedidosFiltrados().observe(this, pedidos -> {
+            mAdapter.submitList(pedidos);
+        });
+        return true;
+    }
+    else if (itemId == R.id.filtrarTodos){
+        mPedidoViewModel.getAllPedidos().observe(this, pedidos -> {
+            // Update the cached copy of the plates in the adapter.
+            mAdapter.submitList(pedidos);
+        });
+        return true;
+    }
+    return false;
+}
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null) {
@@ -121,10 +187,10 @@ public class Pedidos extends AppCompatActivity {
                 case ACTIVITY_CREATE:
                     if (resultCode == RESULT_OK) {
                         Pedido newPedido = new Pedido(
-                            extras.getString(PedidoEdit.PEDIDO_CLIENTE),
-                            extras.getString(PedidoEdit.PEDIDO_TELEFONO),
-                            extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
-                            EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
+                                extras.getString(PedidoEdit.PEDIDO_CLIENTE),
+                                extras.getString(PedidoEdit.PEDIDO_TELEFONO),
+                                extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
+                                EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
                         mPedidoViewModel.insert(newPedido);
                     }
@@ -133,10 +199,10 @@ public class Pedidos extends AppCompatActivity {
                     if (resultCode == RESULT_OK) {
                         int id = extras.getInt(PedidoEdit.PEDIDO_ID);
                         Pedido updatedPedido = new Pedido(
-                            extras.getString(PedidoEdit.PEDIDO_CLIENTE),
-                            extras.getString(PedidoEdit.PEDIDO_TELEFONO),
-                            extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
-                            EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
+                                extras.getString(PedidoEdit.PEDIDO_CLIENTE),
+                                extras.getString(PedidoEdit.PEDIDO_TELEFONO),
+                                extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
+                                EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
                         updatedPedido.setId(id);
                         mPedidoViewModel.update(updatedPedido);
@@ -170,4 +236,5 @@ public class Pedidos extends AppCompatActivity {
         //startActivity(intent);
         startActivityForResult(intent, ACTIVITY_CREATE);
     }
+
 }
