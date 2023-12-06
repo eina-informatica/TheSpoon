@@ -42,6 +42,8 @@ public class PedidoEdit extends AppCompatActivity {
 
     private Integer mRowId;
 
+    Button mAddPlatos;
+
     Button mSaveButton;
 
 
@@ -95,6 +97,15 @@ public class PedidoEdit extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //String item = parent.getItemAtPosition(position).toString();
                 estadoSeleccionado = position;
+            }
+        });
+
+        mAddPlatos = findViewById(R.id.button_add_platos);
+        mAddPlatos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PedidoEdit.this, AddPlatoToPedido.class);
+                startActivity(intent);
             }
         });
 

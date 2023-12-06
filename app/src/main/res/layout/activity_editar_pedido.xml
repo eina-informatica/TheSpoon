@@ -110,13 +110,14 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/button_añadir"
+            android:id="@+id/button_add_platos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/rounded_border_gray"
             android:text="Añadir platos"
             android:textColor="@color/buttonLabel"
+            android:textSize="20dp"
             app:rippleColor="@color/cardview_dark_background" />
     </LinearLayout>
 

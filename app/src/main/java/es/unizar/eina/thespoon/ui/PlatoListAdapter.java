@@ -29,9 +29,9 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
         this.position = position;
     }
 
-    public PlatoListAdapter(@NonNull DiffUtil.ItemCallback<Plato> diffCallback, PlatoViewModel noteViewModel) {
+    public PlatoListAdapter(@NonNull DiffUtil.ItemCallback<Plato> diffCallback, PlatoViewModel platoViewModel) {
         super(diffCallback);
-        PlatoViewModel mNoteViewModel = noteViewModel;
+        PlatoViewModel mPlatoViewModel = platoViewModel;
     }
 
     @Override
