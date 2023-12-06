@@ -28,8 +28,9 @@
     <string name="pedidos">Pedidos</string>
     <string name="categoria">Categoría</string>
     <string name="nombre_categoria">Nombre y categoría</string>
-    <string name="nombre_estado">Nombre y Estado</string>
-
-
-    
+    <string name="nombre_estado">Nombre y estado</string>
+    <string name="mostrar_solicitados">Mostrar solicitados</string>
+    <string name="mostrar_preparados">Mostrar preparados</string>
+    <string name="mostrar_recogidos">Mostrar recogidos</string>
+    <string name="mostrar_todos">Mostrar todos</string>
 </resources>

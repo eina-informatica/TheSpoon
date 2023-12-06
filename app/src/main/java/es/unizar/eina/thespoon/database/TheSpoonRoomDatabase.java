@@ -99,8 +99,6 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
             date.set(2023, Calendar.JANUARY, 5, 10, 0);
             pedido = new Pedido("Ana", "111111111", SDF.format(date.getTime()), EstadoPedido.RECOGIDO);
             pedidoDao.insert(pedido);
-            
-            
         });
         }
     };

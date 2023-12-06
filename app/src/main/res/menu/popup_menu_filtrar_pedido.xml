@@ -2,15 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
             android:id="@+id/filtrarSolicitados"
-            android:title="Mostrar Solicitados" />
+            android:title="@string/mostrar_solicitados" />
         <item
             android:id="@+id/filtrarPreparados"
-            android:title="Mostrar Preparados" />
+            android:title="@string/mostrar_preparados" />
         <item
             android:id="@+id/filtrarRecogidos"
-            android:title="Mostrar Recogidos" />
+            android:title="@string/mostrar_recogidos" />
         <item
             android:id="@+id/filtrarTodos"
-            android:title="Mostrar Todos" />
-
+            android:title="@string/mostrar_todos" />
 </menu>
