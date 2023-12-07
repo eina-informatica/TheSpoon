@@ -9,11 +9,16 @@
     android:padding="10dp"
     android:layout_marginBottom="15dp">
 
-    <CheckBox
-        android:id="@+id/checkbox"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView"
+        style="@style/word_title"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+        android:background="@color/bgCard"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

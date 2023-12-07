@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import es.unizar.eina.thespoon.R;
 
 class PlatoAddViewHolder extends RecyclerView.ViewHolder /*implements View.OnCreateContextMenuListener*/ {
-    final CheckBox mPlatoCheckbox;
+    final TextView mPlatoTextview;
     private PlatoAddViewHolder(View itemView) {
         super(itemView);
-        mPlatoCheckbox = itemView.findViewById(R.id.checkbox);
+        mPlatoTextview = itemView.findViewById(R.id.textView);
     }
 
     public void bind(String text) {
-        mPlatoCheckbox.setText(text);
+        mPlatoTextview.setText(text);
     }
 
     static PlatoAddViewHolder create(ViewGroup parent) {

@@ -33,4 +33,5 @@
     <string name="mostrar_preparados">Mostrar preparados</string>
     <string name="mostrar_recogidos">Mostrar recogidos</string>
     <string name="mostrar_todos">Mostrar todos</string>
+    <string name="add_platos">Añadir platos</string>
 </resources>
