@@ -12,16 +12,23 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import es.unizar.eina.thespoon.database.Plato;
 
 public class PlatoAddListAdapter extends ListAdapter<Pair<Plato, Integer>, PlatoAddViewHolder> {
     private int position;
 
+    public List<Pair<Plato, Integer>> allPlatos;
+
     public int getPosition() {
         return position;
     }
+
+    public void setList(List<Pair<Plato, Integer>> list) { allPlatos = list; }
 
     public void setPosition(int position) {
         this.position = position;
@@ -60,13 +67,21 @@ public class PlatoAddListAdapter extends ListAdapter<Pair<Plato, Integer>, Plato
             @Override
             public void afterTextChanged(Editable s) {
                 String str = s.toString();
-                Log.d("1", str);
                 if (!str.isEmpty()) {
                     int cantidad = Integer.parseInt(str);
                     Pair<Plato, Integer> updatedPair = new Pair<>(current.first, cantidad);
-                    List<Pair<Plato, Integer>> list = getCurrentList();
-                    list.set(position, updatedPair);
-                    notifyItemChanged(position);
+
+                    // Iterar por todos los platos
+                    ListIterator<Pair<Plato, Integer>> iterator = allPlatos.listIterator();
+                    while (iterator.hasNext()) {
+                        Pair<Plato, Integer> pair = iterator.next();
+                        // Si las IDs coinciden, editamos el plato
+                        if (pair.first.getId() == current.first.getId()) {
+                            Log.d("ID", String.valueOf(pair.first.getId()));
+                            Log.d("Cantidad", String.valueOf(cantidad));
+                            iterator.set(updatedPair);
+                        }
+                    }
                 }
             }
         });

@@ -68,6 +68,7 @@ public class AddPlatoToPedido extends AppCompatActivity {
             // Update the cached copy of the plates in the adapter.
             mAdapter.submitList(allPlatos);
         });
+        mAdapter.setList(allPlatos);
     }
 
     private void filterList(String newText) {
