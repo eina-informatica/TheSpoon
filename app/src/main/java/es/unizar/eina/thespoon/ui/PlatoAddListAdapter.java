@@ -2,6 +2,7 @@ package es.unizar.eina.thespoon.ui;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -59,7 +60,8 @@ public class PlatoAddListAdapter extends ListAdapter<Pair<Plato, Integer>, Plato
             @Override
             public void afterTextChanged(Editable s) {
                 String str = s.toString();
-                if (str != "") {
+                Log.d("1", str);
+                if (!str.isEmpty()) {
                     int cantidad = Integer.parseInt(str);
                     Pair<Plato, Integer> updatedPair = new Pair<>(current.first, cantidad);
                     List<Pair<Plato, Integer>> list = getCurrentList();
