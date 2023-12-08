@@ -20,28 +20,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:background="@drawable/rounded_border"
-    android:layout_marginBottom="15dp">
-
-    <TextView
-        android:id="@+id/textView"
-        style="@style/word_title"
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:background="@color/bgCard"
-        android:layout_centerInParent="true"/>
-    <ImageView
-        android:id="@+id/myImageView"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:src="@drawable/trash"
-        android:clickable="true"
-        android:onClick="onImageViewClick" />
-</RelativeLayout>-->
+        android:inputType="number"
+        android:text="0"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

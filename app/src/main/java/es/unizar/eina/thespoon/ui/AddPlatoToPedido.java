@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,16 @@ public class AddPlatoToPedido extends AppCompatActivity {
 
     PlatoAddListAdapter mAdapter;
 
+    LiveData<List<Plato>> allPlatosLiveData;
+    List<Pair<Plato, Integer>> allPlatos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_plato_to_pedido);
+
+        mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
+        allPlatosLiveData = mPlatoViewModel.getAllPlatos();
 
         mSearchView = findViewById(R.id.searchView);
         mSearchView.clearFocus();
@@ -52,37 +59,31 @@ public class AddPlatoToPedido extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mPlatoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
-
-        mPlatoViewModel.getAllPlatos().observe(this, platos -> {
+        allPlatos = new ArrayList<>();
+        allPlatosLiveData.observe(this, platos -> {
+            for (Plato plato : platos) {
+                Pair<Plato, Integer> pair = new Pair<>(plato, 0);
+                allPlatos.add(pair);
+            }
             // Update the cached copy of the plates in the adapter.
-            mAdapter.submitList(platos);
+            mAdapter.submitList(allPlatos);
         });
     }
 
     private void filterList(String newText) {
-        LiveData<List<Plato>> allPlatosLiveData = mPlatoViewModel.getAllPlatos();
+        List<Pair<Plato, Integer>> filteredPlatos = filterPlatos(allPlatos, newText);
 
-        MediatorLiveData<List<Plato>> filteredPlatosLiveData = new MediatorLiveData<>();
-        filteredPlatosLiveData.addSource(allPlatosLiveData, platos -> {
-            // Apply your filtering logic here based on newText
-            List<Plato> filteredPlatos = filterPlatos(platos, newText);
-            filteredPlatosLiveData.setValue(filteredPlatos);
-        });
-
-        // Observe the filtered LiveData and update the adapter
-        filteredPlatosLiveData.observe(this, platos -> {
-            mAdapter.submitList(platos);
-        });
+        // Update the adapter
+        mAdapter.submitList(filteredPlatos);
     }
 
-    private List<Plato> filterPlatos(List<Plato> allPlatos, String newText) {
+    private List<Pair<Plato, Integer>> filterPlatos(List<Pair<Plato, Integer>> allPlatos, String newText) {
         // Implement your filtering logic here based on newText
         // For example, you can filter platos whose name contains the newText
-        List<Plato> filteredPlatos = new ArrayList<>();
-        for (Plato plato : allPlatos) {
-            if (plato.getNombre().toLowerCase().contains(newText.toLowerCase())) {
-                filteredPlatos.add(plato);
+        List<Pair<Plato, Integer>> filteredPlatos = new ArrayList<>();
+        for (Pair<Plato, Integer> pair : allPlatos) {
+            if (pair.first.getNombre().toLowerCase().contains(newText.toLowerCase())) {
+                filteredPlatos.add(pair);
             }
         }
         return filteredPlatos;
