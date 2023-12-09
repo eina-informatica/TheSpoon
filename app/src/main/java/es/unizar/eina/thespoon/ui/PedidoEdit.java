@@ -122,7 +122,7 @@ public class PedidoEdit extends AppCompatActivity {
                 estadoSeleccionado == -1) {
                 setResult(RESULT_CANCELED, replyIntent);
             } else {
-                replyIntent.putExtra(PedidoEdit.PEDIDO_CLIENTE,mClienteText.getText().toString());
+                replyIntent.putExtra(PedidoEdit.PEDIDO_CLIENTE, mClienteText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_TELEFONO, mTelefonoText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_FECHA_HORA, SDF.format(date.getTime()));
                 replyIntent.putExtra(PedidoEdit.PEDIDO_ESTADO, estadoSeleccionado);
