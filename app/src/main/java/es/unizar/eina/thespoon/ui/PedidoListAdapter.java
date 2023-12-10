@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.ListAdapter;
 
 import es.unizar.eina.thespoon.database.Pedido;
 import es.unizar.eina.thespoon.notify.SMSImplementor;
+import es.unizar.eina.thespoon.notify.SendAbstraction;
+import es.unizar.eina.thespoon.notify.SendAbstractionImpl;
 
 public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
     private int position;
@@ -113,19 +115,42 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                 // Create and show the modal window with the pedido details
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("Detalles del pedido");
-                builder.setMessage("Cliente: " + pedidoToView.getNombreCliente() + "\n" +
+                String whatsappMessage ="Cliente: " + pedidoToView.getNombreCliente() + "\n" +
                         "Teléfono: " + pedidoToView.getTelefonoCliente() + "\n" +
                         "Fecha y Hora de Recogida: " + pedidoToView.getFechaHoraRecogida() + "\n" +
-                        "Estado: " + pedidoToView.getEstado());
+                        "Estado: " + pedidoToView.getEstado();
+                /*builder.setMessage("Cliente: " + pedidoToView.getNombreCliente() + "\n" +
+                        "Teléfono: " + pedidoToView.getTelefonoCliente() + "\n" +
+                        "Fecha y Hora de Recogida: " + pedidoToView.getFechaHoraRecogida() + "\n" +
+                        "Estado: " + pedidoToView.getEstado());*/
+                builder.setMessage(whatsappMessage);
 
-                builder.setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
+
+                // Añadir botones para enviar SMS y WhatsApp
+                builder.setPositiveButton("Enviar SMS", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Aquí deberías llamar a la lógica de envío de SMS
+                        SendAbstraction sendAbstraction = new SendAbstractionImpl((Activity) view.getContext(), "SMS");
+                        sendAbstraction.send(pedidoToView.getTelefonoCliente(), "Detalles del pedido:\n"+whatsappMessage);
+                    }
+                });
+
+                builder.setNegativeButton("Enviar WhatsApp", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // Aquí deberías llamar a la lógica de envío de WhatsApp
+                        SendAbstraction sendAbstraction = new SendAbstractionImpl((Activity) view.getContext(), "WhatsApp");
+                        sendAbstraction.send(pedidoToView.getTelefonoCliente(), "Detalles del pedido:\n"+whatsappMessage);
+                    }
+                });
+                builder.setNeutralButton("Cerrar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // Close the dialog
                         dialogInterface.dismiss();
                     }
                 });
-
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }

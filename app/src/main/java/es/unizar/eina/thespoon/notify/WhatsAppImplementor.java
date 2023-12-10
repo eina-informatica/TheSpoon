@@ -47,7 +47,7 @@ public class WhatsAppImplementor implements SendImplementor{
          Uri smsUri = Uri.parse("sms:" + phone);
          Intent sendIntent = new Intent(Intent.ACTION_SENDTO, smsUri);
          sendIntent.putExtra (Intent.EXTRA_TEXT, message);
-         sendIntent.setPackage("com. whatsapp");
+         sendIntent.setPackage("com.whatsapp");
          getSourceActivity().startActivity(sendIntent);
       } else {
          Toast.makeText(getSourceActivity(),"WhatsApp not Installed", Toast.LENGTH_SHORT).show();
