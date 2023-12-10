@@ -19,13 +19,16 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import es.unizar.eina.thespoon.R;
 import es.unizar.eina.thespoon.database.EstadoPedido;
 import es.unizar.eina.thespoon.database.Pedido;
+import es.unizar.eina.thespoon.database.Plato;
 import es.unizar.eina.thespoon.database.SDF;
 
 /** Pantalla utilizada para la creación o edición de un PEDIDO */
@@ -38,6 +41,8 @@ public class PedidoEdit extends AppCompatActivity {
     public static final String PEDIDO_CLIENTE = "cliente";
     public static final String PEDIDO_TELEFONO = "telefono";
     public static final String PEDIDO_FECHA_HORA = "fechaHora";
+
+    public static final String PEDIDO_PLATOS = "platos";
     public static final String PEDIDO_ESTADO = "estado";
     public static final String PEDIDO_ID = "id";
     public static final String PEDIDO_PRECIO = "precio";
@@ -71,6 +76,8 @@ public class PedidoEdit extends AppCompatActivity {
     // Inicialmente supones que no se ha elegido ni fecha ni hora
     boolean fechaEscogida = false;
     boolean horaEscogida = false;
+
+    String platos;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -134,6 +141,7 @@ public class PedidoEdit extends AppCompatActivity {
                 replyIntent.putExtra(PedidoEdit.PEDIDO_CLIENTE, mClienteText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_TELEFONO, mTelefonoText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_FECHA_HORA, SDF.format(date.getTime()));
+                replyIntent.putExtra(PedidoEdit.PEDIDO_PLATOS, platos);
                 replyIntent.putExtra(PedidoEdit.PEDIDO_ESTADO, estadoSeleccionado);
                 if (mRowId != null) {
                     replyIntent.putExtra(PedidoEdit.PEDIDO_ID, mRowId.intValue());
@@ -166,7 +174,8 @@ public class PedidoEdit extends AppCompatActivity {
             switch (requestCode) {
                 case ACTIVITY_PLATOS_ADD:
                     if (resultCode == RESULT_OK) {
-                        Log.d("Platos recibidos", extras.getString(PLATOS));
+                        platos = extras.getString(PLATOS);
+                        //Log.d("Platos recibidos", platos);
                         /*Pedido newPedido = new Pedido(
                                 extras.getString(PedidoEdit.PEDIDO_CLIENTE),
                                 extras.getString(PedidoEdit.PEDIDO_TELEFONO),

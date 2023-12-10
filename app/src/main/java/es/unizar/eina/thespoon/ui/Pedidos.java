@@ -34,14 +34,6 @@ import es.unizar.eina.thespoon.database.Pedido;
 public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private PedidoViewModel mPedidoViewModel;
 
-    /*public static final String RESULT_CODE = "resultCode";
-
-    public static final int RESULT_OK = 1;
-
-    public static final int RESULT_CANCELED = 2;
-
-    public static final String REQUEST_CODE = "requestCode";*/
-
     public static final int ACTIVITY_CREATE = 1;
 
     public static final int ACTIVITY_EDIT = 2;
@@ -194,6 +186,7 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                                 EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
                         mPedidoViewModel.insert(newPedido);
+                        Log.d("Platos",  extras.getString(PedidoEdit.PEDIDO_PLATOS));
                     }
                     break;
                 case ACTIVITY_EDIT:
@@ -207,6 +200,7 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                         );
                         updatedPedido.setId(id);
                         mPedidoViewModel.update(updatedPedido);
+                        Log.d("Platos",  extras.getString(PedidoEdit.PEDIDO_PLATOS));
                     }
                     break;
             }
