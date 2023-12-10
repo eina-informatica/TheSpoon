@@ -23,7 +23,7 @@ import es.unizar.eina.thespoon.R;
 import es.unizar.eina.thespoon.database.CategoriaPlato;
 import es.unizar.eina.thespoon.database.Plato;
 
-/** Pantalla principal de la aplicación Notepad */
+/** Pantalla principal de la aplicación TheSpoon */
 public class Platos extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private PlatoViewModel mPlatoViewModel;
 
