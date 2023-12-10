@@ -1,4 +1,4 @@
-package es.unizar.eina.thespoon.notify;
+package es.unizar.eina.send;
 
 /** Define la interfaz de la abstracción */
 public interface SendAbstraction {

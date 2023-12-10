@@ -1,4 +1,4 @@
-package es.unizar.eina.thespoon.notify;
+package es.unizar.eina.send;
 
 import android.app.Activity;
 import android.content.Intent;

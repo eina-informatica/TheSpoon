@@ -1,5 +1,7 @@
 package es.unizar.eina.thespoon.ui;
 
+import static es.unizar.eina.thespoon.ui.AddPlatoToPedido.PLATOS;
+
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,10 +24,16 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import es.unizar.eina.thespoon.R;
+import es.unizar.eina.thespoon.database.EstadoPedido;
+import es.unizar.eina.thespoon.database.Pedido;
 import es.unizar.eina.thespoon.database.SDF;
 
 /** Pantalla utilizada para la creación o edición de un PEDIDO */
 public class PedidoEdit extends AppCompatActivity {
+
+    public static final int ACTIVITY_PLATOS_ADD = 1;
+
+    public static final int ACTIVITY_PLATOS_EDIT = 2;
 
     public static final String PEDIDO_CLIENTE = "cliente";
     public static final String PEDIDO_TELEFONO = "telefono";
@@ -105,7 +114,7 @@ public class PedidoEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PedidoEdit.this, AddPlatoToPedido.class);
-                startActivity(intent);
+                startActivityForResult(intent, ACTIVITY_PLATOS_ADD);
             }
         });
 
@@ -133,6 +142,42 @@ public class PedidoEdit extends AppCompatActivity {
             }
             finish();
         });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            // Handle the case where the Intent data is null (possibly canceled operation)
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.ningun_plato,
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Bundle extras = data.getExtras();
+
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(
+                getApplicationContext(),
+                R.string.error,
+                Toast.LENGTH_LONG).show();
+        } else {
+            switch (requestCode) {
+                case ACTIVITY_PLATOS_ADD:
+                    if (resultCode == RESULT_OK) {
+                        Log.d("Platos recibidos", extras.getString(PLATOS));
+                        /*Pedido newPedido = new Pedido(
+                                extras.getString(PedidoEdit.PEDIDO_CLIENTE),
+                                extras.getString(PedidoEdit.PEDIDO_TELEFONO),
+                                extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
+                                EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
+                        );
+                        mPedidoViewModel.insert(newPedido);*/
+                    }
+                    break;
+            }
+        }
     }
 
     private void openFechaDialog() {

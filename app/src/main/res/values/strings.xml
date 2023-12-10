@@ -34,4 +34,6 @@
     <string name="mostrar_recogidos">Mostrar recogidos</string>
     <string name="mostrar_todos">Mostrar todos</string>
     <string name="add_platos">Añadir platos</string>
+    <string name="error">Error</string>
+    <string name="ningun_plato">Ningún plato seleccionado</string>
 </resources>

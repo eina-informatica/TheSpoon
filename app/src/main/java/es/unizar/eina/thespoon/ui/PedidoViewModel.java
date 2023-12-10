@@ -44,8 +44,7 @@ public class PedidoViewModel extends AndroidViewModel {
         mPedidosFiltrados = mRepository.getPedidosPorEstado(estadoSeleccionado);
     }
 
-
-        public void insert(Pedido pedido) { mRepository.insert(pedido); }
+    public void insert(Pedido pedido) { mRepository.insert(pedido); }
 
     public void update(Pedido pedido) { mRepository.update(pedido); }
 

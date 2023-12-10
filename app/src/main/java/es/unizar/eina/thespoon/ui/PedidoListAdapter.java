@@ -17,9 +17,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
 import es.unizar.eina.thespoon.database.Pedido;
-import es.unizar.eina.thespoon.notify.SMSImplementor;
-import es.unizar.eina.thespoon.notify.SendAbstraction;
-import es.unizar.eina.thespoon.notify.SendAbstractionImpl;
+import es.unizar.eina.send.SendAbstraction;
+import es.unizar.eina.send.SendAbstractionImpl;
 
 public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
     private int position;

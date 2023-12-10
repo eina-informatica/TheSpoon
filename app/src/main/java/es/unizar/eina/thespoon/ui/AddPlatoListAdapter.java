@@ -7,19 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import android.util.Pair;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 import es.unizar.eina.thespoon.database.Plato;
 
-public class PlatoAddListAdapter extends ListAdapter<Pair<Plato, Integer>, PlatoAddViewHolder> {
+public class AddPlatoListAdapter extends ListAdapter<Pair<Plato, Integer>, AddPlatoViewHolder> {
     private int position;
 
     public List<Pair<Plato, Integer>> allPlatos;
@@ -34,14 +31,14 @@ public class PlatoAddListAdapter extends ListAdapter<Pair<Plato, Integer>, Plato
         this.position = position;
     }
 
-    public PlatoAddListAdapter(@NonNull DiffUtil.ItemCallback<Pair<Plato, Integer>> diffCallback, PlatoViewModel platoViewModel) {
+    public AddPlatoListAdapter(@NonNull DiffUtil.ItemCallback<Pair<Plato, Integer>> diffCallback, PlatoViewModel platoViewModel) {
         super(diffCallback);
         PlatoViewModel mPlatoViewModel = platoViewModel;
     }
 
     @Override
-    public PlatoAddViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return PlatoAddViewHolder.create(parent);
+    public AddPlatoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return AddPlatoViewHolder.create(parent);
     }
 
     public Pair<Plato, Integer> getCurrent() {
@@ -49,7 +46,7 @@ public class PlatoAddListAdapter extends ListAdapter<Pair<Plato, Integer>, Plato
     }
 
     @Override
-    public void onBindViewHolder(PlatoAddViewHolder holder, int position) {
+    public void onBindViewHolder(AddPlatoViewHolder holder, int position) {
         Pair<Plato, Integer> current = getItem(position);
         holder.bind(current.first.getNombre(), current.second);
 
@@ -77,8 +74,8 @@ public class PlatoAddListAdapter extends ListAdapter<Pair<Plato, Integer>, Plato
                         Pair<Plato, Integer> pair = iterator.next();
                         // Si las IDs coinciden, editamos el plato
                         if (pair.first.getId() == current.first.getId()) {
-                            Log.d("ID", String.valueOf(pair.first.getId()));
-                            Log.d("Cantidad", String.valueOf(cantidad));
+                            /*Log.d("ID", String.valueOf(pair.first.getId()));
+                            Log.d("Cantidad", String.valueOf(cantidad));*/
                             iterator.set(updatedPair);
                         }
                     }
