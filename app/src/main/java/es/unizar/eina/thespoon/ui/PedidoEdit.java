@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import es.unizar.eina.thespoon.R;
+import es.unizar.eina.thespoon.database.CategoriaPlato;
 import es.unizar.eina.thespoon.database.EstadoPedido;
 import es.unizar.eina.thespoon.database.Pedido;
 import es.unizar.eina.thespoon.database.Plato;
@@ -175,6 +176,23 @@ public class PedidoEdit extends AppCompatActivity {
                 case ACTIVITY_PLATOS_ADD:
                     if (resultCode == RESULT_OK) {
                         platos = extras.getString(PLATOS);
+                        if (!platos.isEmpty()) { // Eliminar la coma del final
+                            platos = platos.substring(0, platos.length() - 1);
+                        }
+                        String[] platoArray = platos.split(",");
+                        for (String platoStr : platoArray) {
+                            Log.d("Plato", platoStr);
+                            try {
+                                String[] atributos = platoStr.split(":");
+                                int id = Integer.parseInt(atributos[0]);
+                                String nombre = atributos[1];
+                                double precio = Double.parseDouble(atributos[2]);
+                                int cantidad = Integer.parseInt(atributos[3]);
+                                Plato plato = new Plato(nombre, "", CategoriaPlato.PRIMERO, precio);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                         //Log.d("Platos recibidos", platos);
                         /*Pedido newPedido = new Pedido(
                                 extras.getString(PedidoEdit.PEDIDO_CLIENTE),
