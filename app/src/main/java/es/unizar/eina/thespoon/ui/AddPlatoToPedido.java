@@ -14,6 +14,8 @@ import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,7 +87,14 @@ public class AddPlatoToPedido extends AppCompatActivity {
                 String platos = "";
                 for (Pair<Plato, Integer> pair : allPlatos) {
                     if (pair.second > 0) {
-                        platos += String.valueOf(pair.first.getId()) + "-" + String.valueOf(pair.second) + ",";
+                        try {
+                            platos += String.valueOf(pair.first.getId()) + ":"
+                                    + URLEncoder.encode(pair.first.getNombre(), "UTF-8") + ":"
+                                    + String.valueOf(pair.first.getPrecio()) + ":"
+                                    + String.valueOf(pair.second) + ",";
+                        } catch (UnsupportedEncodingException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
                 Log.d("Platos añadidos", platos);
