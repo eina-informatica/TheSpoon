@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class AddPlatoToPedido extends AppCompatActivity {
                     if (pair.second > 0) {
                         try {
                             platos += String.valueOf(pair.first.getId()) + ":"
-                                    + URLEncoder.encode(pair.first.getNombre(), "UTF-8") + ":"
+                                    + URLEncoder.encode(pair.first.getNombre(), StandardCharsets.UTF_8.toString()) + ":"
                                     + String.valueOf(pair.first.getPrecio()) + ":"
                                     + String.valueOf(pair.second) + ",";
                         } catch (UnsupportedEncodingException e) {

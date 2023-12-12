@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,10 +20,15 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import es.unizar.eina.thespoon.R;
@@ -78,7 +84,13 @@ public class PedidoEdit extends AppCompatActivity {
     boolean fechaEscogida = false;
     boolean horaEscogida = false;
 
+    // Platos añadidos al pedido
     String platos;
+
+    public List<Pair<Plato, Integer>> platoList;
+
+    RecyclerView mRecyclerView;
+    AddPlatoListAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,6 +137,14 @@ public class PedidoEdit extends AppCompatActivity {
                 startActivityForResult(intent, ACTIVITY_PLATOS_ADD);
             }
         });
+
+        platoList = new ArrayList<>();
+
+        mRecyclerView = findViewById(R.id.recyclerview);
+        PlatoViewModel platoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
+        mAdapter = new AddPlatoListAdapter(new AddPlatoListAdapter.PlatoDiff(), platoViewModel);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mSaveButton = findViewById(R.id.button_save);
 
@@ -185,22 +205,20 @@ public class PedidoEdit extends AppCompatActivity {
                             try {
                                 String[] atributos = platoStr.split(":");
                                 int id = Integer.parseInt(atributos[0]);
-                                String nombre = atributos[1];
+                                String nombre = URLDecoder.decode(atributos[1], StandardCharsets.UTF_8.toString());
                                 double precio = Double.parseDouble(atributos[2]);
                                 int cantidad = Integer.parseInt(atributos[3]);
                                 Plato plato = new Plato(nombre, "", CategoriaPlato.PRIMERO, precio);
+                                plato.setId(id);
+                                Pair<Plato, Integer> pair = new Pair<>(plato, cantidad);
+                                platoList.add(pair);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
                         }
-                        //Log.d("Platos recibidos", platos);
-                        /*Pedido newPedido = new Pedido(
-                                extras.getString(PedidoEdit.PEDIDO_CLIENTE),
-                                extras.getString(PedidoEdit.PEDIDO_TELEFONO),
-                                extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
-                                EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
-                        );
-                        mPedidoViewModel.insert(newPedido);*/
+                        // Update recycler view
+                        mAdapter.submitList(platoList);
+                        mAdapter.setList(platoList);
                     }
                     break;
             }
