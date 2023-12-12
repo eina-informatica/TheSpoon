@@ -170,7 +170,7 @@ public class PedidoEdit extends AppCompatActivity {
                 replyIntent.putExtra(PedidoEdit.PEDIDO_CLIENTE, mClienteText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_TELEFONO, mTelefonoText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_FECHA_HORA, SDF.format(date.getTime()));
-                replyIntent.putExtra(PedidoEdit.PEDIDO_PLATOS, platos);
+                replyIntent.putExtra(PedidoEdit.PEDIDO_PLATOS, AddPlatoSerializer.serialize(platoList));
                 replyIntent.putExtra(PedidoEdit.PEDIDO_ESTADO, estadoSeleccionado);
                 if (mRowId != null) {
                     replyIntent.putExtra(PedidoEdit.PEDIDO_ID, mRowId.intValue());

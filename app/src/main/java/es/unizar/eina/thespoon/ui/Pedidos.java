@@ -7,6 +7,7 @@ import static es.unizar.eina.thespoon.R.string;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,11 +24,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 import es.unizar.eina.thespoon.R;
 import es.unizar.eina.thespoon.database.CategoriaPedido;
 import es.unizar.eina.thespoon.database.CategoriaPlato;
 import es.unizar.eina.thespoon.database.EstadoPedido;
 import es.unizar.eina.thespoon.database.Pedido;
+import es.unizar.eina.thespoon.database.PedidoPlato;
+import es.unizar.eina.thespoon.database.Plato;
 
 
 /** Pantalla principal de la aplicación Notepad */
@@ -185,8 +190,12 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                                 extras.getString(PedidoEdit.PEDIDO_FECHA_HORA),
                                 EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
-                        mPedidoViewModel.insert(newPedido);
-                        Log.d("Platos",  extras.getString(PedidoEdit.PEDIDO_PLATOS));
+                        long pedidoId = mPedidoViewModel.insert(newPedido);
+                        List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(
+                                extras.getString(PedidoEdit.PEDIDO_PLATOS));
+                        for (Pair<Plato, Integer> pair : platoList) {
+                            PedidoPlato pp = new PedidoPlato((int) pedidoId, pair.first.getId(), pair.second);
+                        }
                     }
                     break;
                 case ACTIVITY_EDIT:
