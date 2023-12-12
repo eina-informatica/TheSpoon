@@ -85,19 +85,7 @@ public class AddPlatoToPedido extends AppCompatActivity {
         mAddPlatos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String platos = "";
-                for (Pair<Plato, Integer> pair : allPlatos) {
-                    if (pair.second > 0) {
-                        try {
-                            platos += String.valueOf(pair.first.getId()) + ":"
-                                    + URLEncoder.encode(pair.first.getNombre(), StandardCharsets.UTF_8.toString()) + ":"
-                                    + String.valueOf(pair.first.getPrecio()) + ":"
-                                    + String.valueOf(pair.second) + ",";
-                        } catch (UnsupportedEncodingException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                }
+                String platos = AddPlatoSerializer.serialize(allPlatos);
                 Log.d("Platos añadidos", platos);
                 // Pasar la información
                 Intent replyIntent = new Intent();

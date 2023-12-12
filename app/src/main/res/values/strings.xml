@@ -11,7 +11,7 @@
     <string name="edit_plato">Editar plato</string>
     <string name="nombre_plato">Nombre del plato</string>
     <string name="descripcion_plato">Descripción</string>
-    <string name="precio_plato">Precio (€)</string>
+    <string name="precio_plato">Precio</string>
     <string name="categoria_plato">Categoría</string>
     <string name="seleccionar_categoria">Selecciona una categoría</string>
     <string name="add_pedido">Añadir pedido</string>

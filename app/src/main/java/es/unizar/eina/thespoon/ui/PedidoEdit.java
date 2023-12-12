@@ -16,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -92,6 +93,9 @@ public class PedidoEdit extends AppCompatActivity {
     RecyclerView mRecyclerView;
     AddPlatoListAdapter mAdapter;
 
+    // Precio del pedido
+    TextView mTextViewPrecio;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,18 +121,7 @@ public class PedidoEdit extends AppCompatActivity {
             }
         });
 
-        // Selector de estado
-        autoCompleteTextView = findViewById(R.id.autocompletePedido);
-        adapterItems = new ArrayAdapter<String>(this, R.layout.text_item, estado);
-        autoCompleteTextView.setAdapter(adapterItems);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //String item = parent.getItemAtPosition(position).toString();
-                estadoSeleccionado = position;
-            }
-        });
-
+        // Añadir platos al pedido
         mAddPlatos = findViewById(R.id.button_add_platos);
         mAddPlatos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +138,21 @@ public class PedidoEdit extends AppCompatActivity {
         mAdapter = new AddPlatoListAdapter(new AddPlatoListAdapter.PlatoDiff(), platoViewModel);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Selector de estado
+        autoCompleteTextView = findViewById(R.id.autocompletePedido);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.text_item, estado);
+        autoCompleteTextView.setAdapter(adapterItems);
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //String item = parent.getItemAtPosition(position).toString();
+                estadoSeleccionado = position;
+            }
+        });
+
+        // Precio del pedido
+        mTextViewPrecio = findViewById(R.id.textviewPrecio);
 
         mSaveButton = findViewById(R.id.button_save);
 
@@ -196,29 +204,13 @@ public class PedidoEdit extends AppCompatActivity {
                 case ACTIVITY_PLATOS_ADD:
                     if (resultCode == RESULT_OK) {
                         platos = extras.getString(PLATOS);
-                        if (!platos.isEmpty()) { // Eliminar la coma del final
-                            platos = platos.substring(0, platos.length() - 1);
-                        }
-                        String[] platoArray = platos.split(",");
-                        for (String platoStr : platoArray) {
-                            Log.d("Plato", platoStr);
-                            try {
-                                String[] atributos = platoStr.split(":");
-                                int id = Integer.parseInt(atributos[0]);
-                                String nombre = URLDecoder.decode(atributos[1], StandardCharsets.UTF_8.toString());
-                                double precio = Double.parseDouble(atributos[2]);
-                                int cantidad = Integer.parseInt(atributos[3]);
-                                Plato plato = new Plato(nombre, "", CategoriaPlato.PRIMERO, precio);
-                                plato.setId(id);
-                                Pair<Plato, Integer> pair = new Pair<>(plato, cantidad);
-                                platoList.add(pair);
-                            } catch (Exception e) {
-                                throw new RuntimeException(e);
-                            }
-                        }
-                        // Update recycler view
+                        platoList = AddPlatoSerializer.deserialize(platos);
+                        // Actualizar recyclerView
                         mAdapter.submitList(platoList);
                         mAdapter.setList(platoList);
+                        // Actualizar precio del pedido
+                        double precioTotal = AddPlatoSerializer.calcularPrecio(platoList);
+                        mTextViewPrecio.setText(String.valueOf(precioTotal) + " €");
                     }
                     break;
             }

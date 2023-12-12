@@ -176,23 +176,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:padding="@dimen/big_padding">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/precio_plato"
                     android:textColor="@color/colorAccent"
                     android:textSize="20dp" />
 
                 <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textviewPrecio"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Calcuclar precio"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:gravity="right"
                     android:textColor="@color/colorAccent"
-                    android:textSize="20dp"
-                    android:translationX="400px" />
+                    android:textSize="20dp" />
             </LinearLayout>
 
             <Button
