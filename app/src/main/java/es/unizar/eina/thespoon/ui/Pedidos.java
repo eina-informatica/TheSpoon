@@ -204,7 +204,16 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                         );
                         updatedPedido.setId(id);
                         mPedidoViewModel.update(updatedPedido);
-                        Log.d("Platos",  extras.getString(PedidoEdit.PEDIDO_PLATOS));
+                        List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(
+                                extras.getString(PedidoEdit.PEDIDO_PLATOS));
+                        for (Pair<Plato, Integer> pair : platoList) {
+                            PedidoPlato pp = new PedidoPlato((int) id, pair.first.getId(), pair.second);
+                            if (pair.second > 0) {
+                                mPedidoPlatoViewModel.update(pp);
+                            } else { // Eliminar relación entre plato y pedido si la cantidad es 0 o negativo
+                                mPedidoPlatoViewModel.delete(pp);
+                            }
+                        }
                     }
                     break;
             }

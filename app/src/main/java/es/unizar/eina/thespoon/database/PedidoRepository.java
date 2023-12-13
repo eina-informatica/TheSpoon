@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 import es.unizar.eina.thespoon.ui.Pedidos;
 
@@ -46,11 +47,20 @@ public class PedidoRepository {
      */
     public long insert(Pedido pedido) {
         final long[] result = {0};
+        CountDownLatch latch = new CountDownLatch(1);
         // You must call this on a non-UI thread or your app will throw an exception. Room ensures
         // that you're not doing any long running operations on the main thread, blocking the UI.
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPedidoDao.insert(pedido);
+            latch.countDown(); // Signal that the operation is complete
         });
+
+        try {
+            latch.await(); // Wait until the count reaches zero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return result[0];
     }
 

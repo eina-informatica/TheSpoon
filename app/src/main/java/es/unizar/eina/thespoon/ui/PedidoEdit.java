@@ -265,12 +265,14 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
             estadoSeleccionado = extras.getInt(PedidoEdit.PEDIDO_ESTADO);
             autoCompleteTextView.setText(estado[estadoSeleccionado], false);
             mRowId = extras.getInt(PedidoEdit.PEDIDO_ID);
-            Log.d("PedidoId", String.valueOf(mRowId));
             mPedidoPlatoViewModel.getPlatosPorPedidoId(mRowId).observe(this, pedidoPlatos -> {
                 for (PlatoPedido pp : pedidoPlatos) {
-                    Log.d("Nombre", pp.plato.getNombre());
-                    Log.d("Cantidad", String.valueOf(pp.pedidoPlato.getCantidad()));
+                    Pair<Plato, Integer> pair = new Pair<>(pp.plato, pp.pedidoPlato.getCantidad());
+                    platoList.add(pair);
                 }
+                mAdapter.submitList(platoList);
+                // Actualizar precio del pedido
+                onQuantityChanged(platoList);
             });
         }
     }

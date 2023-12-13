@@ -1,6 +1,7 @@
 package es.unizar.eina.thespoon.ui;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -44,7 +45,9 @@ public class PedidoViewModel extends AndroidViewModel {
         mPedidosFiltrados = mRepository.getPedidosPorEstado(estadoSeleccionado);
     }
 
-    public long insert(Pedido pedido) { return mRepository.insert(pedido); }
+    public long insert(Pedido pedido) {
+        return mRepository.insert(pedido);
+    }
 
     public void update(Pedido pedido) { mRepository.update(pedido); }
 
