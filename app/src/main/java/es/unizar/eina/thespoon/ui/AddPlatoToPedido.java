@@ -24,7 +24,7 @@ import es.unizar.eina.thespoon.R;
 import es.unizar.eina.thespoon.database.Plato;
 import es.unizar.eina.thespoon.database.SDF;
 
-public class AddPlatoToPedido extends AppCompatActivity {
+public class AddPlatoToPedido extends AppCompatActivity implements AddPlatoListAdapter.PriceChangeListener {
 
     private PlatoViewModel mPlatoViewModel;
 
@@ -65,8 +65,7 @@ public class AddPlatoToPedido extends AppCompatActivity {
         });*/
 
         mRecyclerView = findViewById(R.id.recyclerview);
-        PlatoViewModel platoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
-        mAdapter = new AddPlatoListAdapter(new AddPlatoListAdapter.PlatoDiff(), platoViewModel);
+        mAdapter = new AddPlatoListAdapter(new AddPlatoListAdapter.PlatoDiff(), mPlatoViewModel, this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -114,4 +113,7 @@ public class AddPlatoToPedido extends AppCompatActivity {
         }
         return filteredPlatos;
     }*/
+
+    @Override
+    public void onQuantityChanged(List<Pair<Plato, Integer>> platoList) {}
 }

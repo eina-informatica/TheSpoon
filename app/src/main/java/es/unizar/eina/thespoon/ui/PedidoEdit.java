@@ -21,26 +21,22 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import es.unizar.eina.thespoon.R;
-import es.unizar.eina.thespoon.database.CategoriaPlato;
-import es.unizar.eina.thespoon.database.EstadoPedido;
-import es.unizar.eina.thespoon.database.Pedido;
 import es.unizar.eina.thespoon.database.Plato;
+import es.unizar.eina.thespoon.database.PlatoPedido;
 import es.unizar.eina.thespoon.database.SDF;
 
 /** Pantalla utilizada para la creación o edición de un PEDIDO */
-public class PedidoEdit extends AppCompatActivity {
+public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter.PriceChangeListener {
 
     public static final int ACTIVITY_PLATOS_ADD = 1;
 
@@ -86,6 +82,8 @@ public class PedidoEdit extends AppCompatActivity {
     boolean horaEscogida = false;
 
     // Platos añadidos al pedido
+    private PedidoPlatoViewModel mPedidoPlatoViewModel;
+
     String platos;
 
     public List<Pair<Plato, Integer>> platoList;
@@ -135,9 +133,11 @@ public class PedidoEdit extends AppCompatActivity {
 
         mRecyclerView = findViewById(R.id.recyclerview);
         PlatoViewModel platoViewModel = new ViewModelProvider(this).get(PlatoViewModel.class);
-        mAdapter = new AddPlatoListAdapter(new AddPlatoListAdapter.PlatoDiff(), platoViewModel);
+        mAdapter = new AddPlatoListAdapter(new AddPlatoListAdapter.PlatoDiff(), platoViewModel, this);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mPedidoPlatoViewModel = new ViewModelProvider(this).get(PedidoPlatoViewModel.class);
 
         // Selector de estado
         autoCompleteTextView = findViewById(R.id.autocompletePedido);
@@ -209,8 +209,7 @@ public class PedidoEdit extends AppCompatActivity {
                         mAdapter.submitList(platoList);
                         mAdapter.setList(platoList);
                         // Actualizar precio del pedido
-                        double precioTotal = AddPlatoSerializer.calcularPrecio(platoList);
-                        mTextViewPrecio.setText(String.valueOf(precioTotal) + " €");
+                        onQuantityChanged(platoList);
                     }
                     break;
             }
@@ -266,6 +265,20 @@ public class PedidoEdit extends AppCompatActivity {
             estadoSeleccionado = extras.getInt(PedidoEdit.PEDIDO_ESTADO);
             autoCompleteTextView.setText(estado[estadoSeleccionado], false);
             mRowId = extras.getInt(PedidoEdit.PEDIDO_ID);
+            Log.d("PedidoId", String.valueOf(mRowId));
+            mPedidoPlatoViewModel.getPlatosPorPedidoId(mRowId).observe(this, pedidoPlatos -> {
+                for (PlatoPedido pp : pedidoPlatos) {
+                    Log.d("Nombre", pp.plato.getNombre());
+                    Log.d("Cantidad", String.valueOf(pp.pedidoPlato.getCantidad()));
+                }
+            });
         }
+    }
+
+    @Override
+    public void onQuantityChanged(List<Pair<Plato, Integer>> platoList) {
+        // Actualizar precio del pedido
+        double precioTotal = AddPlatoSerializer.calcularPrecio(platoList);
+        mTextViewPrecio.setText(String.valueOf(precioTotal) + " €");
     }
 }

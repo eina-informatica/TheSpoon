@@ -10,7 +10,7 @@ import java.util.List;
 public class PedidoPlatoRepository {
 
     private PedidoPlatoDao mPedidoPlatoDao;
-    private LiveData<List<PedidoPlato>> mAllPedidoPlatos;
+    //private LiveData<List<PedidoPlato>> mAllPedidoPlatos;
 
     // Plato that in order to unit test the PlatoRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
@@ -19,13 +19,16 @@ public class PedidoPlatoRepository {
     public PedidoPlatoRepository(Application application) {
         TheSpoonRoomDatabase db = TheSpoonRoomDatabase.getDatabase(application);
         mPedidoPlatoDao = db.pedidoPlatoDao();
-        mAllPedidoPlatos = mPedidoPlatoDao.getOrderedPedidosPlatos();
+        //mAllPedidoPlatos = mPedidoPlatoDao.getOrderedPedidosPlatos();
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<PedidoPlato>> getAllPedidoPlatos() {
+    /*public LiveData<List<PedidoPlato>> getAllPedidoPlatos() {
         return mAllPedidoPlatos;
+    }*/
+    public LiveData<List<PlatoPedido>> getPlatosPorPedidoId(int pedidoId) {
+        return mPedidoPlatoDao.getPlatosPorPedidoId(pedidoId);
     }
 
     /** Inserta un plato

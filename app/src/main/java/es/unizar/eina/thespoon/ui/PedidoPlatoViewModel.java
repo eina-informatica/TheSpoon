@@ -7,24 +7,24 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import es.unizar.eina.thespoon.database.EstadoPedido;
-import es.unizar.eina.thespoon.database.Pedido;
 import es.unizar.eina.thespoon.database.PedidoPlato;
 import es.unizar.eina.thespoon.database.PedidoPlatoRepository;
+import es.unizar.eina.thespoon.database.PlatoPedido;
 
-public class AddPlatoViewModel extends AndroidViewModel {
+public class PedidoPlatoViewModel extends AndroidViewModel {
 
     private PedidoPlatoRepository mRepository;
 
-    private final LiveData<List<PedidoPlato>> mAllPedidoPlatos;
+    //private final LiveData<List<PedidoPlato>> mAllPedidoPlatos;
 
-    public AddPlatoViewModel(Application application) {
+    public PedidoPlatoViewModel(Application application) {
         super(application);
         mRepository = new PedidoPlatoRepository(application);
-        mAllPedidoPlatos = mRepository.getAllPedidoPlatos();
+        //mAllPedidoPlatos = mRepository.getAllPedidoPlatos();
     }
 
-    LiveData<List<PedidoPlato>> getAllPedidoPlatos() { return mAllPedidoPlatos; }
+    //LiveData<List<PedidoPlato>> getAllPedidoPlatos() { return mAllPedidoPlatos; }
+    LiveData<List<PlatoPedido>> getPlatosPorPedidoId(int pedidoId) { return mRepository.getPlatosPorPedidoId(pedidoId); }
 
     public long insert(PedidoPlato pedidoPlato) { return mRepository.insert(pedidoPlato); }
 

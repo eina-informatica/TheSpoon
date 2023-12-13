@@ -11,12 +11,10 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,8 +25,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import es.unizar.eina.thespoon.R;
-import es.unizar.eina.thespoon.database.CategoriaPedido;
-import es.unizar.eina.thespoon.database.CategoriaPlato;
 import es.unizar.eina.thespoon.database.EstadoPedido;
 import es.unizar.eina.thespoon.database.Pedido;
 import es.unizar.eina.thespoon.database.PedidoPlato;
@@ -38,6 +34,8 @@ import es.unizar.eina.thespoon.database.Plato;
 /** Pantalla principal de la aplicación Notepad */
 public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private PedidoViewModel mPedidoViewModel;
+
+    private PedidoPlatoViewModel mPedidoPlatoViewModel;
 
     public static final int ACTIVITY_CREATE = 1;
 
@@ -73,6 +71,8 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
             mAdapter.submitList(pedidos);
         });
 
+        mPedidoPlatoViewModel = new ViewModelProvider(this).get(PedidoPlatoViewModel.class);
+
         mFab = findViewById(id.fab);
         mFab.setOnClickListener(view -> {
             createPedido();
@@ -81,12 +81,6 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
         // It doesn't affect if we comment the following instruction
         registerForContextMenu(mRecyclerView);
     }
-
-    /*public boolean onCreateOptionsMenu(Menu menu) {
-        boolean result = super.onCreateOptionsMenu(menu);
-        menu.add(Menu.NONE, INSERT_ID, Menu.NONE, R.string.add_note);
-        return result;
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -195,6 +189,7 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                                 extras.getString(PedidoEdit.PEDIDO_PLATOS));
                         for (Pair<Plato, Integer> pair : platoList) {
                             PedidoPlato pp = new PedidoPlato((int) pedidoId, pair.first.getId(), pair.second);
+                            mPedidoPlatoViewModel.insert(pp);
                         }
                     }
                     break;
@@ -216,28 +211,8 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
         }
     }
 
-    /*public boolean onContextItemSelected(MenuItem item) {
-        Pedido current = mAdapter.getCurrent();
-        switch (item.getItemId()) {
-            case DELETE_ID:
-                Toast.makeText(
-                        getApplicationContext(),
-                        "Deleting " + current.getTitle(),
-                        Toast.LENGTH_LONG).show();
-                mPedidoViewModel.delete(current);
-                return true;
-            case EDIT_ID:
-                editPedido(current);
-                return true;
-        }
-        return super.onContextItemSelected(item);
-    }*/
-
     private void createPedido() {
         Intent intent = new Intent(this, PedidoEdit.class);
-        /*intent.putExtra(REQUEST_CODE, ACTIVITY_CREATE);
-        activityResultLauncher.launch(intent);*/
-        //startActivity(intent);
         startActivityForResult(intent, ACTIVITY_CREATE);
     }
 }

@@ -31,9 +31,14 @@ public class AddPlatoListAdapter extends ListAdapter<Pair<Plato, Integer>, AddPl
         this.position = position;
     }
 
-    public AddPlatoListAdapter(@NonNull DiffUtil.ItemCallback<Pair<Plato, Integer>> diffCallback, PlatoViewModel platoViewModel) {
+    private PriceChangeListener priceChangeListener;
+
+    public AddPlatoListAdapter(@NonNull DiffUtil.ItemCallback<Pair<Plato, Integer>> diffCallback,
+                               PlatoViewModel platoViewModel,
+                               PriceChangeListener priceChangeListener) {
         super(diffCallback);
         PlatoViewModel mPlatoViewModel = platoViewModel;
+        this.priceChangeListener = priceChangeListener;
     }
 
     @Override
@@ -74,10 +79,11 @@ public class AddPlatoListAdapter extends ListAdapter<Pair<Plato, Integer>, AddPl
                         Pair<Plato, Integer> pair = iterator.next();
                         // Si las IDs coinciden, editamos el plato
                         if (pair.first.getId() == current.first.getId()) {
-                            /*Log.d("ID", String.valueOf(pair.first.getId()));
-                            Log.d("Cantidad", String.valueOf(cantidad));*/
                             iterator.set(updatedPair);
                         }
+                    }
+                    if (priceChangeListener != null) {
+                        priceChangeListener.onQuantityChanged(allPlatos);
                     }
                 }
             }
@@ -99,5 +105,9 @@ public class AddPlatoListAdapter extends ListAdapter<Pair<Plato, Integer>, AddPl
             // We are just worried about differences in visual representation, i.e. changes in the title
             return oldItem.first.getNombre().equals(newItem.first.getNombre());
         }
+    }
+
+    public interface PriceChangeListener {
+        void onQuantityChanged(List<Pair<Plato, Integer>> platoList);
     }
 }
