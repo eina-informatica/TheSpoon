@@ -23,8 +23,8 @@ public interface PedidoPlatoDao {
     @Delete
     int delete(PedidoPlato pedidoPlato);
 
-    @Query("DELETE FROM PedidoPlato")
-    void deleteAll();
+    @Query("DELETE FROM PedidoPlato WHERE pedidoId = :pedidoId")
+    void deleteAllFromPedido(int pedidoId);
 
     /*@Query("SELECT * FROM PedidoPlato ORDER BY cantidad ASC")
     LiveData<List<PedidoPlato>> getOrderedPedidosPlatos();*/

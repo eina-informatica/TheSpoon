@@ -32,4 +32,6 @@ public class PedidoPlatoViewModel extends AndroidViewModel {
 
     public void delete(PedidoPlato pedidoPlato) { mRepository.delete(pedidoPlato); }
 
+    public void deleteAllFromPedido(int pedidoId) { mRepository.deleteAllFromPedido(pedidoId); }
+
 }

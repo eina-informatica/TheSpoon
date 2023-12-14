@@ -271,6 +271,7 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
                     platoList.add(pair);
                 }
                 mAdapter.submitList(platoList);
+                mAdapter.setList(platoList);
                 // Actualizar precio del pedido
                 onQuantityChanged(platoList);
             });
