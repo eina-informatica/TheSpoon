@@ -51,11 +51,20 @@ public class PlatoRepository {
      */
     public long insert(Plato plato) {
         final long[] result = {0};
+        CountDownLatch latch = new CountDownLatch(1);
         // You must call this on a non-UI thread or your app will throw an exception. Room ensures
         // that you're not doing any long running operations on the main thread, blocking the UI.
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPlatoDao.insert(plato);
+            latch.countDown(); // Signal that the operation is complete
         });
+
+        try {
+            latch.await(); // Wait until the count reaches zero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return result[0];
     }
 
@@ -84,5 +93,18 @@ public class PlatoRepository {
         return result[0];
     }
 
+    /** Elimina todos los platos*/
+    public void deleteAll() {
+        CountDownLatch latch = new CountDownLatch(1);
+        TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mPlatoDao.deleteAll();
+            latch.countDown(); // Signal that the operation is complete
+        });
 
+        try {
+            latch.await(); // Wait until the count reaches zero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

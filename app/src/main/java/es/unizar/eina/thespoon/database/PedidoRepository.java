@@ -92,5 +92,18 @@ public class PedidoRepository {
         return result[0];
     }
 
+    /** Elimina todos los pedidos */
+    public void deleteAll() {
+        CountDownLatch latch = new CountDownLatch(1);
+        TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mPedidoDao.deleteAll();
+            latch.countDown(); // Signal that the operation is complete
+        });
 
+        try {
+            latch.await(); // Wait until the count reaches zero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

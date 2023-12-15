@@ -32,7 +32,8 @@ public class PlatoViewModel extends AndroidViewModel {
 
     LiveData<List<Plato>> getAllPlatosPorNombreYCategoria() { return mAllPlatosPorNombreYCategoria; }
 
-    public void insert(Plato plato) { mRepository.insert(plato); }
+    public long insert(Plato plato) { return mRepository.insert(plato); }
     public void update(Plato plato) { mRepository.update(plato); }
     public void delete(Plato plato) { mRepository.delete(plato); }
+    public void deleteAll() { mRepository.deleteAll(); }
 }

@@ -4,45 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.Tests">
 
     <include
         android:id="@+id/include"
         layout="@layout/toolbar_layout" />
 
-    <Button
-        android:id="@+id/goToPlatos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PLATOS"
-        android:textSize="33dp"
-        android:background="@drawable/rounded_border_red"
-        app:layout_constraintBottom_toTopOf="@+id/goToPedidos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
-
-    <Button
-        android:id="@+id/goToPedidos"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="PEDIDOS"
-        android:textSize="33dp"
-        android:background="@drawable/rounded_border_red"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
-
     <TextView
-        android:id="@+id/goToTests"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Arrancar tests"
-        android:textSize="20dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="Tests"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <Button
+        android:id="@+id/testsCajaNegra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tests de caja negra"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/testsVolumen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tests de volumen"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/testsCajaNegra" />
+
+    <Button
+        android:id="@+id/testsSobrecarga"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tests de sobrecarga"
+        android:textSize="20dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/testsVolumen" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

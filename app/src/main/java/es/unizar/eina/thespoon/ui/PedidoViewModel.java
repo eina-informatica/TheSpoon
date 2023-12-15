@@ -53,5 +53,7 @@ public class PedidoViewModel extends AndroidViewModel {
 
     public void delete(Pedido pedido) { mRepository.delete(pedido); }
 
+    public void deleteAll() { mRepository.deleteAll(); }
+
 }
 
