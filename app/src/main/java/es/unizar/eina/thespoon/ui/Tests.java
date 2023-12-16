@@ -124,9 +124,9 @@ public class Tests extends AppCompatActivity {
     }
    // import org.junit.Test;
 
-    /*public class PlatoViewModelTest {
+    public class PlatoViewModelTest {
 
-        @Test
+
         public void testPlatoNombreCategoriaDescripcionPrecioSuccess() {
             // Test case 1
             // Expected result: Success
@@ -135,7 +135,7 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
+
         public void testPlatoNombreNullCategoriaDescripcionPrecio() {
             // Test case 2
             // Expected result: Error
@@ -144,7 +144,6 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
         public void testPlatoNombreCategoriaNullDescripcionPrecio() {
             // Test case 3
             // Expected result: Error
@@ -153,16 +152,16 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
+       /*
         public void testPlatoNombreCategoriaDescripcionPrecioFastFood() {
             // Test case 4
             // Expected result: Error
             // Classes covered: 11
             Plato plato = new Plato("Burger", "Descripción4", "Fast Food", 15.00);
             // Perform test assertions here
-        }
+        }*/
 
-        @Test
+
         public void testPlatoNombreCategoriaDescripcionPrecioInvalidCharacters() {
             // Test case 5
             // Expected result: Error
@@ -171,7 +170,7 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
+
         public void testPlatoNombreCategoriaDescripcionPrecioNegative() {
             // Test case 6
             // Expected result: Error
@@ -180,7 +179,6 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
         public void testPlatoNombreCategoriaDescripcionPrecioNonNumeric() {
             // Test case 7
             // Expected result: Error
@@ -192,7 +190,6 @@ public class Tests extends AppCompatActivity {
 
     public class PedidoViewModelTest {
 
-        @Test
         public void testPedidoNombreClienteTelefonoFechaHoraEstadoSuccess() {
             // Test case 1
             // Expected result: Success
@@ -201,7 +198,6 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
         public void testPedidoNombreClienteNullFechaHoraEstado() {
             // Test case 2
             // Expected result: Error
@@ -210,7 +206,6 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
         public void testPedidoNombreClienteVacioTelefonoFechaHoraPreparado() {
             // Test case 3
             // Expected result: Error
@@ -219,7 +214,6 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
         public void testPedidoNombreCliente3TelefonoFechaHoraRecogido() {
             // Test case 4
             // Expected result: Error
@@ -228,7 +222,6 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
         public void testPedidoNombreCliente3TelefonoNullFechaHoraSolicitado() {
             // Test case 5
             // Expected result: Error
@@ -237,7 +230,6 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
         public void testPedidoNombreCliente5TelefonoFechaHoraPreparado() {
             // Test case 6
             // Expected result: Error
@@ -246,25 +238,22 @@ public class Tests extends AppCompatActivity {
             // Perform test assertions here
         }
 
-        @Test
         public void testPedidoNombreCliente5TelefonoSegundoFechaHoraPreparado() {
             // Test case 7
             // Expected result: Error
             // Classes covered: 14
-            Pedido pedido = new Pedido("Cliente5", CategoriaPlato.SEGUNDO, "2023-12-05 00:00:00", EstadoPedido.PREPARADO);
+            Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 00:00:00", EstadoPedido.PREPARADO);
             // Perform test assertions here
         }
-
-        @Test
+/*
         public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
             // Test case 8
             // Expected result: Error
             // Classes covered: 15
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", "EN_CAMINO");
             // Perform test assertions here
-        }
+        }*/
 
-        @Test
         public void testPedidoNombreCliente5TelefonoFechaHoraEstadoNull() {
             // Test case 9
             // Expected result: Error
@@ -272,6 +261,6 @@ public class Tests extends AppCompatActivity {
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", null);
             // Perform test assertions here
         }
-    }*/
+    }
 
 }
