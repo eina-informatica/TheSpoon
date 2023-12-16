@@ -132,7 +132,6 @@ public class Tests extends AppCompatActivity {
         // Expected result: Success
         // Classes covered: 1, 2, 3, 5, 6
         Plato plato = new Plato("Pizza", "Descripción1", CategoriaPlato.PRIMERO, 15.99);
-        // Perform test assertions here
         long id = mPlatoViewModel.insert(plato);
     }
 
@@ -142,7 +141,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 8, 9
         Plato plato = new Plato(null, "Descripción2", CategoriaPlato.POSTRE, 5.00);
-        // Perform test assertions here
+
         long id = mPlatoViewModel.insert(plato);
     }
 
@@ -151,7 +150,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 10
         Plato plato = new Plato("Sushi", null, CategoriaPlato.SEGUNDO, 30.00);
-        // Perform test assertions here
+
         long id = mPlatoViewModel.insert(plato);
     }
 
@@ -161,7 +160,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 11
         Plato plato = new Plato("Burger", "Descripción4", "Fast Food", 15.00);
-        // Perform test assertions here
+
     }*/
 
 
@@ -170,7 +169,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 12
         Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, 15.00);
-        // Perform test assertions here
+
         long id = mPlatoViewModel.insert(plato);
     }
 
@@ -180,7 +179,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 13
         Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, -2.5);
-        // Perform test assertions here
+
         long id = mPlatoViewModel.insert(plato);
     }
 
@@ -191,7 +190,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Success
         // Classes covered: 1, 2, 3, 5, 6, 7, 8
         Pedido pedido = new Pedido("Pedro", "68476987", "2023-12-20 20:00:00", EstadoPedido.SOLICITADO);
-        // Perform test assertions here
+
         long id = mPedidoViewModel.insert(pedido);
     }
     public void testPedidoNombreClienteNullFechaHoraEstado() {
@@ -199,7 +198,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 9
         Pedido pedido = new Pedido(null, "555555555", "2023-12-05 20:00:00", EstadoPedido.SOLICITADO);
-        // Perform test assertions here
+
         long id = mPedidoViewModel.insert(pedido);
     }
         public void testPlatoNombreCategoriaDescripcionPrecioNonNumeric() {
@@ -207,7 +206,7 @@ public class Tests extends AppCompatActivity {
             // Expected result: Error
             // Classes covered: 14
             Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, Double.parseDouble("abc"));
-            // Perform test assertions here
+
             long id = mPlatoViewModel.insert(plato);
         }
         public void ejecutarPlatosCajaNegra() {
@@ -228,7 +227,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 10
         Pedido pedido = new Pedido("", "555555555", "2023-12-05 21:00:00", EstadoPedido.PREPARADO);
-        // Perform test assertions here
+
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -237,7 +236,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 11
         Pedido pedido = new Pedido("Cliente3", "555-1234", "2023-12-05 22:00:00", EstadoPedido.RECOGIDO);
-        // Perform test assertions here
+
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -246,7 +245,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 12
         Pedido pedido = new Pedido("Cliente3", null, "2023-12-05 23:00:00", EstadoPedido.SOLICITADO);
-        // Perform test assertions here
+
         long id = mPedidoViewModel.insert(pedido);
 
     }
@@ -256,7 +255,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 13
         Pedido pedido = new Pedido("Cliente5", "111111111", "2023-11-30 20:00:00", EstadoPedido.PREPARADO);
-        // Perform test assertions here
+
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -265,7 +264,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 14
         Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 00:00:00", EstadoPedido.PREPARADO);
-        // Perform test assertions here
+
         long id = mPedidoViewModel.insert(pedido);
     }
 /*
@@ -275,7 +274,7 @@ public class Tests extends AppCompatActivity {
         // Expected result: Error
         // Classes covered: 15
         Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", "EN_CAMINO");
-        // Perform test assertions here
+
     }*/
 
         /*public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
@@ -283,7 +282,7 @@ public class Tests extends AppCompatActivity {
             // Expected result: Error
             // Classes covered: 15
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", "EN_CAMINO");
-            // Perform test assertions here
+
         }*/
 
         public void testPedidoNombreCliente5TelefonoFechaHoraEstadoNull() {
@@ -291,7 +290,7 @@ public class Tests extends AppCompatActivity {
             // Expected result: Error
             // Classes covered: 16
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", null);
-            // Perform test assertions here
+
             long id = mPedidoViewModel.insert(pedido);
         }
         public void ejecutarPedidosCajaNegra(){
