@@ -33,6 +33,8 @@ public class Tests extends AppCompatActivity {
         testsCajaNegraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ejecutarPlatosCajaNegra();
+                ejecutarPedidosCajaNegra();
                 Toast.makeText(getApplicationContext(), "Tests de caja negra ejecutados", Toast.LENGTH_SHORT).show();
             }
         });
@@ -57,6 +59,7 @@ public class Tests extends AppCompatActivity {
             }
         });
     }
+
 
     public void ejecutarTestsVolumen() {
         // Se vacía la tabla de platos
@@ -122,9 +125,8 @@ public class Tests extends AppCompatActivity {
         }
         return descripcion.toString();
     }
-   // import org.junit.Test;
 
-    public class PlatoViewModelTest {
+
 
 
         public void testPlatoNombreCategoriaDescripcionPrecioSuccess() {
@@ -133,6 +135,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 1, 2, 3, 5, 6
             Plato plato = new Plato("Pizza", "Descripción1", CategoriaPlato.PRIMERO, 15.99);
             // Perform test assertions here
+            long id = mPlatoViewModel.insert(plato);
         }
 
 
@@ -142,6 +145,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 8, 9
             Plato plato = new Plato(null, "Descripción2", CategoriaPlato.POSTRE, 5.00);
             // Perform test assertions here
+            long id = mPlatoViewModel.insert(plato);
         }
 
         public void testPlatoNombreCategoriaNullDescripcionPrecio() {
@@ -150,6 +154,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 10
             Plato plato = new Plato("Sushi", null, CategoriaPlato.SEGUNDO, 30.00);
             // Perform test assertions here
+            long id = mPlatoViewModel.insert(plato);
         }
 
        /*
@@ -168,6 +173,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 12
             Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, 15.00);
             // Perform test assertions here
+            long id = mPlatoViewModel.insert(plato);
         }
 
 
@@ -177,6 +183,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 13
             Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, -2.5);
             // Perform test assertions here
+            long id = mPlatoViewModel.insert(plato);
         }
 
         public void testPlatoNombreCategoriaDescripcionPrecioNonNumeric() {
@@ -185,10 +192,20 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 14
             Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, Double.parseDouble("abc"));
             // Perform test assertions here
+            long id = mPlatoViewModel.insert(plato);
         }
-    }
+        public void ejecutarPlatosCajaNegra() {
+            testPlatoNombreCategoriaDescripcionPrecioSuccess();
+            testPlatoNombreNullCategoriaDescripcionPrecio();
+            testPlatoNombreCategoriaNullDescripcionPrecio();
+            //testPlatoNombreCategoriaDescripcionPrecioFastFood()
+            testPlatoNombreCategoriaDescripcionPrecioInvalidCharacters();
+            testPlatoNombreCategoriaDescripcionPrecioNegative();
+            testPlatoNombreCategoriaDescripcionPrecioNonNumeric();
+        }
 
-    public class PedidoViewModelTest {
+
+
 
         public void testPedidoNombreClienteTelefonoFechaHoraEstadoSuccess() {
             // Test case 1
@@ -196,6 +213,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 1, 2, 3, 5, 6, 7, 8
             Pedido pedido = new Pedido("Pedro", "68476987", "2023-12-20 20:00:00", EstadoPedido.SOLICITADO);
             // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
         }
 
         public void testPedidoNombreClienteNullFechaHoraEstado() {
@@ -204,6 +222,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 9
             Pedido pedido = new Pedido(null, "555555555", "2023-12-05 20:00:00", EstadoPedido.SOLICITADO);
             // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
         }
 
         public void testPedidoNombreClienteVacioTelefonoFechaHoraPreparado() {
@@ -212,6 +231,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 10
             Pedido pedido = new Pedido("", "555555555", "2023-12-05 21:00:00", EstadoPedido.PREPARADO);
             // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
         }
 
         public void testPedidoNombreCliente3TelefonoFechaHoraRecogido() {
@@ -220,6 +240,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 11
             Pedido pedido = new Pedido("Cliente3", "555-1234", "2023-12-05 22:00:00", EstadoPedido.RECOGIDO);
             // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
         }
 
         public void testPedidoNombreCliente3TelefonoNullFechaHoraSolicitado() {
@@ -228,6 +249,8 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 12
             Pedido pedido = new Pedido("Cliente3", null, "2023-12-05 23:00:00", EstadoPedido.SOLICITADO);
             // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
+
         }
 
         public void testPedidoNombreCliente5TelefonoFechaHoraPreparado() {
@@ -236,6 +259,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 13
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-11-30 20:00:00", EstadoPedido.PREPARADO);
             // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
         }
 
         public void testPedidoNombreCliente5TelefonoSegundoFechaHoraPreparado() {
@@ -244,6 +268,7 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 14
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 00:00:00", EstadoPedido.PREPARADO);
             // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
         }
 /*
         public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
@@ -260,7 +285,19 @@ public class Tests extends AppCompatActivity {
             // Classes covered: 16
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", null);
             // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
         }
-    }
+        public void ejecutarPedidosCajaNegra(){
+            testPedidoNombreClienteTelefonoFechaHoraEstadoSuccess();
+            testPedidoNombreClienteNullFechaHoraEstado();
+            testPedidoNombreClienteVacioTelefonoFechaHoraPreparado();
+            testPedidoNombreCliente3TelefonoFechaHoraRecogido();
+            testPedidoNombreCliente3TelefonoNullFechaHoraSolicitado();
+            testPedidoNombreCliente5TelefonoFechaHoraPreparado();
+            testPedidoNombreCliente5TelefonoSegundoFechaHoraPreparado();
+            //testPedidoNombreCliente5TelefonoFechaHoraEnCamino()
+            testPedidoNombreCliente5TelefonoFechaHoraEstadoNull();
+
+        }
 
 }
