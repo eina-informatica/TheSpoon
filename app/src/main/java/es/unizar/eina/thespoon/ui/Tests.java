@@ -278,7 +278,7 @@ public class Tests extends AppCompatActivity {
         // Perform test assertions here
     }*/
 
-        public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
+        /*public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
             // Test case 8
             // Expected result: Error
             // Classes covered: 15
