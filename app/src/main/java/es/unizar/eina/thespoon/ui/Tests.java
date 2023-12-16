@@ -182,52 +182,48 @@ public class Tests extends AppCompatActivity {
 
         long id = mPlatoViewModel.insert(plato);
     }
+    public void testPlatoNombreCategoriaDescripcionPrecioNonNumeric() {
+        // Test case 7
+        // Expected result: Error
+        // Classes covered: 14
+        Plato plato = new Plato("Nombre5",  "Descripción4", CategoriaPlato.SEGUNDO, Double.parseDouble("abc"));
 
+        long id = mPlatoViewModel.insert(plato);
+    }
+    public void ejecutarPlatosCajaNegra() {
+        try {
+            testPlatoNombreCategoriaDescripcionPrecioSuccess();
+            testPlatoNombreNullCategoriaDescripcionPrecio();
+            testPlatoNombreCategoriaNullDescripcionPrecio();
+            //testPlatoNombreCategoriaDescripcionPrecioFastFood()
+            testPlatoNombreCategoriaDescripcionPrecioInvalidCharacters();
+            testPlatoNombreCategoriaDescripcionPrecioNegative();
+            testPlatoNombreCategoriaDescripcionPrecioNonNumeric();
+        }catch (Exception e){}
 
+    }
 
     public void testPedidoNombreClienteTelefonoFechaHoraEstadoSuccess() {
         // Test case 1
         // Expected result: Success
         // Classes covered: 1, 2, 3, 5, 6, 7, 8
         Pedido pedido = new Pedido("Pedro", "68476987", "23/10/2024 20:00:00", EstadoPedido.SOLICITADO);
-
         long id = mPedidoViewModel.insert(pedido);
     }
+
     public void testPedidoNombreClienteNullFechaHoraEstado() {
         // Test case 2
         // Expected result: Error
         // Classes covered: 9
         Pedido pedido = new Pedido(null, "555555555", "23/10/2024 20:00:00", EstadoPedido.SOLICITADO);
-
         long id = mPedidoViewModel.insert(pedido);
     }
-        public void testPlatoNombreCategoriaDescripcionPrecioNonNumeric() {
-            // Test case 7
-            // Expected result: Error
-            // Classes covered: 14
-            Plato plato = new Plato("Nombre5",  "Descripción4", CategoriaPlato.SEGUNDO, Double.parseDouble("abc"));
-
-            long id = mPlatoViewModel.insert(plato);
-        }
-        public void ejecutarPlatosCajaNegra() {
-            try {
-                testPlatoNombreCategoriaDescripcionPrecioSuccess();
-                testPlatoNombreNullCategoriaDescripcionPrecio();
-                testPlatoNombreCategoriaNullDescripcionPrecio();
-                //testPlatoNombreCategoriaDescripcionPrecioFastFood()
-                testPlatoNombreCategoriaDescripcionPrecioInvalidCharacters();
-                testPlatoNombreCategoriaDescripcionPrecioNegative();
-                testPlatoNombreCategoriaDescripcionPrecioNonNumeric();
-            }catch (Exception e){}
-
-        }
 
     public void testPedidoNombreClienteVacioTelefonoFechaHoraPreparado() {
         // Test case 3
         // Expected result: Error
         // Classes covered: 10
-        Pedido pedido = new Pedido("", "555555555", "2023-12-05 21:00:00", EstadoPedido.PREPARADO);
-
+        Pedido pedido = new Pedido("", "555555555", "05/12/2023 21:00:00", EstadoPedido.PREPARADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -235,8 +231,7 @@ public class Tests extends AppCompatActivity {
         // Test case 4
         // Expected result: Error
         // Classes covered: 11
-        Pedido pedido = new Pedido("Cliente3", "555-1234", "2023-12-05 22:00:00", EstadoPedido.RECOGIDO);
-
+        Pedido pedido = new Pedido("Cliente3", "555-1234", "05/12/2023 22:00:00", EstadoPedido.RECOGIDO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -244,18 +239,15 @@ public class Tests extends AppCompatActivity {
         // Test case 5
         // Expected result: Error
         // Classes covered: 12
-        Pedido pedido = new Pedido("Cliente3", "", "2023-12-05 23:00:00", EstadoPedido.SOLICITADO);
-
+        Pedido pedido = new Pedido("Cliente3", "", "05/12/2023 23:00:00", EstadoPedido.SOLICITADO);
         long id = mPedidoViewModel.insert(pedido);
-
     }
 
     public void testPedidoNombreCliente5TelefonoFechaHoraPreparado() {
         // Test case 6
         // Expected result: Error
         // Classes covered: 13
-        Pedido pedido = new Pedido("Cliente5", "111111111", "2023-11-30 20:00:00", EstadoPedido.PREPARADO);
-
+        Pedido pedido = new Pedido("Cliente5", "111111111", "30/11/2023 20:00:00", EstadoPedido.PREPARADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -263,8 +255,7 @@ public class Tests extends AppCompatActivity {
         // Test case 7
         // Expected result: Error
         // Classes covered: 14
-        Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 00:00:00", EstadoPedido.PREPARADO);
-
+        Pedido pedido = new Pedido("Cliente5", "111111111", "05/12/2023 00:00:00", EstadoPedido.PREPARADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -272,25 +263,17 @@ public class Tests extends AppCompatActivity {
         // Test case 8
         // Expected result: Error
         // Classes covered: 15
-        Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", "EN_CAMINO");
-
+        Pedido pedido = new Pedido("Cliente5", "111111111", "05/12/2023 22:30:00", "EN_CAMINO");
     }*/
 
-        /*public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
-            // Test case 8
-            // Expected result: Error
-            // Classes covered: 15
-            Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", "EN_CAMINO");
-        }*/
+    public void testPedidoNombreCliente5TelefonoFechaHoraEstadoNull() {
+        // Test case 9
+        // Expected result: Error
+        // Classes covered: 16
+        Pedido pedido = new Pedido("Cliente5", "111111111", "05/12/2023 22:30:00", null);
+        long id = mPedidoViewModel.insert(pedido);
 
-        public void testPedidoNombreCliente5TelefonoFechaHoraEstadoNull() {
-            // Test case 9
-            // Expected result: Error
-            // Classes covered: 16
-            Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", null);
-
-            long id = mPedidoViewModel.insert(pedido);
-        }
+    }
         public void ejecutarPedidosCajaNegra(){
             try {
                 testPedidoNombreClienteTelefonoFechaHoraEstadoSuccess();
