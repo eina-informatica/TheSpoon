@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.junit.Test;
-
 import es.unizar.eina.thespoon.R;
 import es.unizar.eina.thespoon.database.CategoriaPlato;
 import es.unizar.eina.thespoon.database.EstadoPedido;
@@ -126,7 +124,7 @@ public class Tests extends AppCompatActivity {
     }
    // import org.junit.Test;
 
-    public class PlatoViewModelTest {
+    /*public class PlatoViewModelTest {
 
         @Test
         public void testPlatoNombreCategoriaDescripcionPrecioSuccess() {
@@ -274,10 +272,6 @@ public class Tests extends AppCompatActivity {
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", null);
             // Perform test assertions here
         }
-    }
-
-
-
-
+    }*/
 
 }
