@@ -125,6 +125,7 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PedidoEdit.this, AddPlatoToPedido.class);
+                intent.putExtra(PLATOS, AddPlatoSerializer.serialize(platoList));
                 startActivityForResult(intent, ACTIVITY_PLATOS_ADD);
             }
         });
@@ -204,6 +205,8 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
                 case ACTIVITY_PLATOS_ADD:
                     if (resultCode == RESULT_OK) {
                         platos = extras.getString(PLATOS);
+                        platoList.clear();
+                        mAdapter.notifyDataSetChanged();
                         platoList = AddPlatoSerializer.deserialize(platos);
                         // Actualizar recyclerView
                         mAdapter.submitList(platoList);

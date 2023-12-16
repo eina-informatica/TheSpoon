@@ -19,9 +19,11 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import es.unizar.eina.thespoon.R;
 import es.unizar.eina.thespoon.database.Plato;
+import es.unizar.eina.thespoon.database.PlatoPedido;
 import es.unizar.eina.thespoon.database.SDF;
 
 public class AddPlatoToPedido extends AppCompatActivity implements AddPlatoListAdapter.PriceChangeListener {
@@ -69,16 +71,7 @@ public class AddPlatoToPedido extends AppCompatActivity implements AddPlatoListA
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        allPlatos = new ArrayList<>();
-        allPlatosLiveData.observe(this, platos -> {
-            for (Plato plato : platos) {
-                Pair<Plato, Integer> pair = new Pair<>(plato, 0);
-                allPlatos.add(pair);
-            }
-            // Update the cached copy of the plates in the adapter.
-            mAdapter.submitList(allPlatos);
-        });
-        mAdapter.setList(allPlatos);
+        populateFields();
 
         mAddPlatos = findViewById(R.id.addPlatos);
         mAddPlatos.setOnClickListener(new View.OnClickListener() {
@@ -116,4 +109,59 @@ public class AddPlatoToPedido extends AppCompatActivity implements AddPlatoListA
 
     @Override
     public void onQuantityChanged(List<Pair<Plato, Integer>> platoList) {}
+
+    private void populateFields() {
+        List<Pair<Plato, Integer>> platoList = new ArrayList<>();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String platosString = extras.getString(PLATOS);
+            if (!TextUtils.isEmpty(platosString)) {
+                platoList = AddPlatoSerializer.deserialize(platosString);
+            }
+        }
+
+        allPlatos = new ArrayList<>();
+        List<Pair<Plato, Integer>> finalPlatoList = platoList;
+        allPlatosLiveData.observe(this, platos -> {
+            for (Plato plato : platos) {
+                boolean encontrado = false; // Inicialmente suponemos que no se ha añadido este plato anteriormente
+                Pair<Plato, Integer> newPair = null;
+                for (Pair<Plato, Integer> pair : finalPlatoList) {
+                    if (pair.first.getId() == plato.getId()) {
+                        encontrado = true;
+                        newPair = new Pair<>(plato, pair.second);
+                    }
+                }
+                if (!encontrado) {
+                    newPair = new Pair<>(plato, 0);
+                }
+                if (newPair != null) {
+                    allPlatos.add(newPair);
+                }
+            }
+            // Update the cached copy of the plates in the adapter.
+            mAdapter.submitList(allPlatos);
+        });
+        mAdapter.setList(allPlatos);
+        /*Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            String platosString = extras.getString(PLATOS);
+            if (!TextUtils.isEmpty(platosString)) {
+                List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(platosString);
+                ListIterator<Pair<Plato, Integer>> iterator = allPlatos.listIterator();
+                while (iterator.hasNext()) {
+                    Pair<Plato, Integer> pair1 = iterator.next();
+                    // Si las IDs coinciden, cambiamos la cantidad del plato
+                    for (Pair<Plato, Integer> pair2 : platoList) {
+                        if (pair1.first.getId() == pair2.first.getId()) {
+                            Pair<Plato, Integer> updatedPair = new Pair<>(pair1.first, pair2.second);
+                            iterator.set(updatedPair);
+                        }
+                    }
+                }
+                mAdapter.submitList(allPlatos);
+                mAdapter.setList(allPlatos);
+            }
+        }*/
+    }
 }
