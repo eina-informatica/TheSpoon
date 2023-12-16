@@ -54,8 +54,6 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
         holder.mPedidoEditButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                PedidoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoViewModel.class);
-
                 // Retrieve the position of the clicked item
                 int clickedPosition = holder.getAdapterPosition();
 
@@ -80,14 +78,21 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
             @Override
             public void onClick(View view){
                 if (view.getContext() instanceof ViewModelStoreOwner) {
-                    PedidoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoViewModel.class);
+                    PedidoViewModel mPedidoViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoViewModel.class);
+                    PedidoPlatoViewModel mPedidoPlatoViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoPlatoViewModel.class);
 
                     // Retrieve the position of the clicked item
                     int clickedPosition = holder.getAdapterPosition();
 
                     // Get the item associated with the clicked position
                     Pedido pedidoToDelete = getItem(clickedPosition);
-                    mNoteViewModel.delete(pedidoToDelete);
+                    int pedidoId = pedidoToDelete.getId();
+
+                    // Eliminar platos asociados a ese pedido
+                    mPedidoPlatoViewModel.deleteAllFromPedido(pedidoId);
+
+                    // Eliminar pedido
+                    mPedidoViewModel.delete(pedidoToDelete);
 
                     // Notify the adapter that an item has been removed
                     notifyItemRemoved(clickedPosition);
@@ -100,6 +105,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                 }
             }
         });
+
         holder.mPedidoItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

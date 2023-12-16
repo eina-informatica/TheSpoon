@@ -26,8 +26,9 @@ public interface PedidoPlatoDao {
     @Query("DELETE FROM PedidoPlato WHERE pedidoId = :pedidoId")
     void deleteAllFromPedido(int pedidoId);
 
-    /*@Query("SELECT * FROM PedidoPlato ORDER BY cantidad ASC")
-    LiveData<List<PedidoPlato>> getOrderedPedidosPlatos();*/
+    @Query("DELETE FROM PedidoPlato WHERE platoId = :platoId")
+    void deleteAllFromPlato(int platoId);
+
     @Query("SELECT * FROM Plato INNER JOIN PedidoPlato ON Plato.id = PedidoPlato.platoId WHERE PedidoPlato.pedidoId = :pedidoId")
     LiveData<List<PlatoPedido>> getPlatosPorPedidoId(int pedidoId);
 }

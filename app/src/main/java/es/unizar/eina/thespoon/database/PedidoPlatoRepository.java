@@ -69,13 +69,21 @@ public class PedidoPlatoRepository {
         return result[0];
     }
 
-    /** Elimina todos los platos
+    /** Elimina todos los platos relacionados con un pedido
      * @param pedidoId
-     * @return un valor entero con el número de filas eliminadas.
      */
     public void deleteAllFromPedido(int pedidoId) {
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             mPedidoPlatoDao.deleteAllFromPedido(pedidoId);
+        });
+    }
+
+    /** Elimina todas las relaciones en las que interviene un plato
+     * @param platoId
+     */
+    public void deleteAllFromPlato(int platoId) {
+        TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
+            mPedidoPlatoDao.deleteAllFromPedido(platoId);
         });
     }
 }

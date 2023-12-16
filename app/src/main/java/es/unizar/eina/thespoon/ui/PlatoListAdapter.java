@@ -52,8 +52,6 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
         holder.mPlatoEditButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                PlatoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PlatoViewModel.class);
-
                 // Retrieve the position of the clicked item
                 int clickedPosition = holder.getAdapterPosition();
 
@@ -78,14 +76,21 @@ public class PlatoListAdapter extends ListAdapter<Plato, PlatoViewHolder> {
             @Override
             public void onClick(View view){
                 if (view.getContext() instanceof ViewModelStoreOwner) {
-                    PlatoViewModel mNoteViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PlatoViewModel.class);
+                    PlatoViewModel mPlatoViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PlatoViewModel.class);
+                    PedidoPlatoViewModel mPedidoPlatoViewModel = new ViewModelProvider((ViewModelStoreOwner) view.getContext()).get(PedidoPlatoViewModel.class);
 
                     // Retrieve the position of the clicked item
                     int clickedPosition = holder.getAdapterPosition();
 
                     // Get the item associated with the clicked position
                     Plato platoToDelete = getItem(clickedPosition);
-                    mNoteViewModel.delete(platoToDelete);
+                    int platoId = platoToDelete.getId();
+
+                    // Eliminar todas las relaciones con las pedido en las que interviene el plato
+                    mPedidoPlatoViewModel.deleteAllFromPlato(platoId);
+
+                    // Eliminar plato
+                    mPlatoViewModel.delete(platoToDelete);
 
                     // Notify the adapter that an item has been removed
                     notifyItemRemoved(clickedPosition);
