@@ -188,7 +188,7 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                         List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(
                                 extras.getString(PedidoEdit.PEDIDO_PLATOS));
                         for (Pair<Plato, Integer> pair : platoList) {
-                            PedidoPlato pp = new PedidoPlato((int) pedidoId, pair.first.getId(), pair.second);
+                            PedidoPlato pp = new PedidoPlato((int) pedidoId, pair.first.getId(), pair.second, pair.first.getPrecio());
                             mPedidoPlatoViewModel.insert(pp);
                         }
                     }
@@ -208,7 +208,7 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                         List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(
                                 extras.getString(PedidoEdit.PEDIDO_PLATOS));
                         for (Pair<Plato, Integer> pair : platoList) {
-                            PedidoPlato pp = new PedidoPlato((int) id, pair.first.getId(), pair.second);
+                            PedidoPlato pp = new PedidoPlato((int) id, pair.first.getId(), pair.second, pair.first.getPrecio());
                             mPedidoPlatoViewModel.insert(pp);
                         }
                     }

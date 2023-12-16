@@ -19,11 +19,15 @@ public class PedidoPlato {
     @ColumnInfo(name = "cantidad")
     private int cantidad;
 
+    @NonNull
+    @ColumnInfo(name = "precioPlato")
+    private double precio;
 
-    public PedidoPlato(@NonNull int pedidoId, @NonNull int platoId, @NonNull int cantidad) {
+    public PedidoPlato(@NonNull int pedidoId, @NonNull int platoId, @NonNull int cantidad, @NonNull double precio) {
         this.pedidoId = pedidoId;
         this.platoId = platoId;
         this.cantidad = cantidad;
+        this.precio = precio;
     }
 
     /** Devuelve la parte de la clave primaria correspondiente al platoId */
@@ -46,4 +50,7 @@ public class PedidoPlato {
     public int getCantidad(){
         return this.cantidad;
     }
+
+    /** Devuelve la cantidad del plato "platoId" que hay en el pedido "pedidoId" */
+    public double getPrecio() { return this.precio; }
 }

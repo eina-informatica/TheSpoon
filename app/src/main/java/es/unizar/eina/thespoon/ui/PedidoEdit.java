@@ -268,6 +268,7 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
             mPedidoPlatoViewModel.getPlatosPorPedidoId(mRowId).observe(this, pedidoPlatos -> {
                 for (PlatoPedido pp : pedidoPlatos) {
                     Pair<Plato, Integer> pair = new Pair<>(pp.plato, pp.pedidoPlato.getCantidad());
+                    pair.first.setPrecio(pp.pedidoPlato.getPrecio());
                     platoList.add(pair);
                 }
                 mAdapter.submitList(platoList);
