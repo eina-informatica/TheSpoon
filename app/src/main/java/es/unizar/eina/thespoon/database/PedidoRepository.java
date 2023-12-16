@@ -2,10 +2,13 @@ package es.unizar.eina.thespoon.database;
 
 
 import android.app.Application;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -51,9 +54,11 @@ public class PedidoRepository {
         // You must call this on a non-UI thread or your app will throw an exception. Room ensures
         // that you're not doing any long running operations on the main thread, blocking the UI.
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
-            result[0] = mPedidoDao.insert(pedido);
-            if (mPedidoDao.getPedidoCount() > 2000) {
-                Log.i("Inserción de pedido", "Se ha superado el límite de 2000 pedidos");
+            if (pedidoCorrecto(pedido)) {
+                result[0] = mPedidoDao.insert(pedido);
+                if (mPedidoDao.getPedidoCount() > 2000) {
+                    Log.i("Inserción de pedido", "Se ha superado el límite de 2000 pedidos");
+                }
             }
             latch.countDown(); // Signal that the operation is complete
         });
@@ -73,13 +78,20 @@ public class PedidoRepository {
      */
     public int update(Pedido pedido) {
         final int[] result = {0};
+        CountDownLatch latch = new CountDownLatch(1);
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
-            Log.d("ID", String.valueOf(pedido.getId()));
-            Log.d("Nombre cliente", pedido.getNombreCliente());
-            Log.d("Teléfono cliente", pedido.getTelefonoCliente());
-            Log.d("Estado pedido", String.valueOf(pedido.getEstado()));
-            result[0] = mPedidoDao.update(pedido);
+            if (pedidoCorrecto(pedido)) {
+                result[0] = mPedidoDao.update(pedido);
+            }
+            latch.countDown(); // Signal that the operation is complete
         });
+
+        try {
+            latch.await(); // Wait until the count reaches zero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return result[0];
     }
 
@@ -89,9 +101,18 @@ public class PedidoRepository {
      */
     public int delete(Pedido pedido) {
         final int[] result = {0};
+        CountDownLatch latch = new CountDownLatch(1);
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPedidoDao.delete(pedido);
+            latch.countDown(); // Signal that the operation is complete
         });
+
+        try {
+            latch.await(); // Wait until the count reaches zero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return result[0];
     }
 
@@ -108,5 +129,57 @@ public class PedidoRepository {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean pedidoCorrecto(Pedido pedido) {
+        if (TextUtils.isEmpty(pedido.getNombreCliente())) {
+            Log.e("Pedido", "El nombre de un cliente no puede estar vacío");
+            return false;
+        } else if (TextUtils.isEmpty(pedido.getTelefonoCliente())) {
+            Log.e("Pedido", "El teléfono de un cliente no puede estar vacío");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean fechaCorrecta(String fechaHora) {
+        Date dateActual = Calendar.getInstance().getTime();
+        Date dateIntroducido = SDF.parse(fechaHora);
+
+        // La fecha y hora de recogida deben de ser posteriores a la fecha y hora actual
+        if (dateIntroducido.compareTo(dateActual) <= 0) {
+            Log.e("Pedido", "La fecha y hora de recogida deben de ser posteriores a la fecha y hora actual");
+            return false;
+        }
+
+        // Convertir Date a Calendar
+        Calendar date = Calendar.getInstance();
+        date.setTime(dateIntroducido);
+
+        // Comprobar que el día de la semana está entre el martes y el domingo
+        if (date.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+            Log.e("Pedido", "La tienda solo está abierta de martes a domingo");
+            return false;
+        };
+
+        // Comprobar que el pedido se va a recoger entre las 19:30 y las 23:00pm
+        if (!isTimeBetween(date, 19, 30, 23, 0)) {
+            Log.e("Pedido", "El pedido se ha de recoger entre las 19:30 y las 23.00pm");
+            return false;
+        }
+
+        return true;
+    }
+
+    private static boolean isTimeBetween(Calendar targetCal, int startHour, int startMinute, int endHour, int endMinute) {
+        Calendar startCal = (Calendar) targetCal.clone();
+        startCal.set(Calendar.HOUR_OF_DAY, startHour);
+        startCal.set(Calendar.MINUTE, startMinute);
+
+        Calendar endCal = (Calendar) targetCal.clone();
+        endCal.set(Calendar.HOUR_OF_DAY, endHour);
+        endCal.set(Calendar.MINUTE, endMinute);
+
+        return targetCal.after(startCal) && targetCal.before(endCal);
     }
 }

@@ -99,14 +99,14 @@ public class Tests extends AppCompatActivity {
 
         // Intentar insertar platos con descripciones de longitud creciente
         for (int i = 1; i <= 50000; i++) {
-            String descripcion = generarDescripcionConLongitud(i);
-            plato = new Plato("Plato" + i, descripcion, CategoriaPlato.PRIMERO, 10.0);
-            plato.setId(idPlato);
-
-            // Registrar el tamaño del texto insertado
-            Log.d("PruebaSobrecarga", "Tamaño del texto insertado: " + i);
-
             try {
+                String descripcion = generarDescripcionConLongitud(i);
+                plato = new Plato("Plato" + i, descripcion, CategoriaPlato.PRIMERO, 10.0);
+                plato.setId(idPlato);
+
+                // Registrar el tamaño del texto insertado
+                Log.d("PruebaSobrecarga", "Tamaño del texto insertado: " + i);
+
                 // Intentar insertar el plato
                 mPlatoViewModel.update(plato);
             } catch (Exception e) {
@@ -189,7 +189,7 @@ public class Tests extends AppCompatActivity {
         // Test case 1
         // Expected result: Success
         // Classes covered: 1, 2, 3, 5, 6, 7, 8
-        Pedido pedido = new Pedido("Pedro", "68476987", "2023-12-20 20:00:00", EstadoPedido.SOLICITADO);
+        Pedido pedido = new Pedido("Pedro", "68476987", "23/10/2024 20:00:00", EstadoPedido.SOLICITADO);
 
         long id = mPedidoViewModel.insert(pedido);
     }
@@ -197,7 +197,7 @@ public class Tests extends AppCompatActivity {
         // Test case 2
         // Expected result: Error
         // Classes covered: 9
-        Pedido pedido = new Pedido(null, "555555555", "2023-12-05 20:00:00", EstadoPedido.SOLICITADO);
+        Pedido pedido = new Pedido(null, "555555555", "23/10/2024 20:00:00", EstadoPedido.SOLICITADO);
 
         long id = mPedidoViewModel.insert(pedido);
     }
@@ -205,7 +205,7 @@ public class Tests extends AppCompatActivity {
             // Test case 7
             // Expected result: Error
             // Classes covered: 14
-            Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, Double.parseDouble("abc"));
+            Plato plato = new Plato("Nombre5",  "Descripción4", CategoriaPlato.SEGUNDO, Double.parseDouble("abc"));
 
             long id = mPlatoViewModel.insert(plato);
         }
@@ -244,7 +244,7 @@ public class Tests extends AppCompatActivity {
         // Test case 5
         // Expected result: Error
         // Classes covered: 12
-        Pedido pedido = new Pedido("Cliente3", null, "2023-12-05 23:00:00", EstadoPedido.SOLICITADO);
+        Pedido pedido = new Pedido("Cliente3", "", "2023-12-05 23:00:00", EstadoPedido.SOLICITADO);
 
         long id = mPedidoViewModel.insert(pedido);
 
@@ -267,9 +267,8 @@ public class Tests extends AppCompatActivity {
 
         long id = mPedidoViewModel.insert(pedido);
     }
-/*
 
-    public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
+    /* public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
         // Test case 8
         // Expected result: Error
         // Classes covered: 15
@@ -282,7 +281,6 @@ public class Tests extends AppCompatActivity {
             // Expected result: Error
             // Classes covered: 15
             Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", "EN_CAMINO");
-
         }*/
 
         public void testPedidoNombreCliente5TelefonoFechaHoraEstadoNull() {

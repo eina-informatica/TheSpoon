@@ -57,7 +57,7 @@ public class PlatoRepository {
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPlatoDao.insert(plato);
             if (mPlatoDao.getPlatoCount() > 100) {
-                Log.e("Inserción de plato", "Se ha superado el límite de 100 platos");
+                Log.i("Inserción de plato", "Se ha superado el límite de 100 platos");
             }
             latch.countDown(); // Signal that the operation is complete
         });
@@ -77,9 +77,17 @@ public class PlatoRepository {
      */
     public int update(Plato plato) {
         final int[] result = {0};
+        CountDownLatch latch = new CountDownLatch(1);
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPlatoDao.update(plato);
+            latch.countDown(); // Signal that the operation is complete
         });
+
+        try {
+            latch.await(); // Wait until the count reaches zero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return result[0];
     }
@@ -90,9 +98,18 @@ public class PlatoRepository {
      */
     public int delete(Plato plato) {
         final int[] result = {0};
+        CountDownLatch latch = new CountDownLatch(1);
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPlatoDao.delete(plato);
+            latch.countDown(); // Signal that the operation is complete
         });
+
+        try {
+            latch.await(); // Wait until the count reaches zero
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return result[0];
     }
 
