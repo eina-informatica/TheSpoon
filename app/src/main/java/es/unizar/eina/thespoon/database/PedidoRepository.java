@@ -52,6 +52,9 @@ public class PedidoRepository {
         // that you're not doing any long running operations on the main thread, blocking the UI.
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPedidoDao.insert(pedido);
+            if (mPedidoDao.getPedidoCount() > 2000) {
+                Log.i("Inserción de pedido", "Se ha superado el límite de 2000 pedidos");
+            }
             latch.countDown(); // Signal that the operation is complete
         });
 

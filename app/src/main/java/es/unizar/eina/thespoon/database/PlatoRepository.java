@@ -56,6 +56,9 @@ public class PlatoRepository {
         // that you're not doing any long running operations on the main thread, blocking the UI.
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
             result[0] = mPlatoDao.insert(plato);
+            if (mPlatoDao.getPlatoCount() > 100) {
+                Log.e("Inserción de plato", "Se ha superado el límite de 100 platos");
+            }
             latch.countDown(); // Signal that the operation is complete
         });
 

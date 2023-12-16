@@ -34,5 +34,8 @@ public interface PlatoDao {
 
     @Query("SELECT * FROM Plato ORDER BY nombre ASC, categoria DESC")
     LiveData<List<Plato>> getOrderedPlatosPorNombreYCategoria();
+
+    @Query("SELECT COUNT(*) FROM Plato")
+    int getPlatoCount();
 }
 

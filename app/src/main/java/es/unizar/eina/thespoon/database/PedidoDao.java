@@ -41,4 +41,7 @@ public interface PedidoDao {
     LiveData<List<Pedido>> getOrderedPedidosPorNombreYEstado();
     @Query("SELECT * FROM Pedido WHERE estado = :estadoSeleccionado")
     LiveData<List<Pedido>> getPedidosPorEstado(EstadoPedido estadoSeleccionado);
+
+    @Query("SELECT COUNT(*) FROM Pedido")
+    int getPedidoCount();
 }
