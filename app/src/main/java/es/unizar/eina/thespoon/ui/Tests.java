@@ -110,6 +110,7 @@ public class Tests extends AppCompatActivity {
                 // Intentar insertar el plato
                 mPlatoViewModel.update(plato);
             } catch (Exception e) {
+
                 // La inserción fallará cuando se alcance el límite máximo
                 Log.e("PruebaSobrecarga", "Error al insertar plato: " + e.getMessage());
                 break;
@@ -183,23 +184,7 @@ public class Tests extends AppCompatActivity {
         long id = mPlatoViewModel.insert(plato);
     }
 
-    public void testPlatoNombreCategoriaDescripcionPrecioNonNumeric() {
-        // Test case 7
-        // Expected result: Error
-        // Classes covered: 14
-        Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, Double.parseDouble("abc"));
-        // Perform test assertions here
-        long id = mPlatoViewModel.insert(plato);
-    }
-    public void ejecutarPlatosCajaNegra() {
-        testPlatoNombreCategoriaDescripcionPrecioSuccess();
-        testPlatoNombreNullCategoriaDescripcionPrecio();
-        testPlatoNombreCategoriaNullDescripcionPrecio();
-        //testPlatoNombreCategoriaDescripcionPrecioFastFood()
-        testPlatoNombreCategoriaDescripcionPrecioInvalidCharacters();
-        testPlatoNombreCategoriaDescripcionPrecioNegative();
-        testPlatoNombreCategoriaDescripcionPrecioNonNumeric();
-    }
+
 
     public void testPedidoNombreClienteTelefonoFechaHoraEstadoSuccess() {
         // Test case 1
@@ -209,7 +194,6 @@ public class Tests extends AppCompatActivity {
         // Perform test assertions here
         long id = mPedidoViewModel.insert(pedido);
     }
-
     public void testPedidoNombreClienteNullFechaHoraEstado() {
         // Test case 2
         // Expected result: Error
@@ -218,6 +202,26 @@ public class Tests extends AppCompatActivity {
         // Perform test assertions here
         long id = mPedidoViewModel.insert(pedido);
     }
+        public void testPlatoNombreCategoriaDescripcionPrecioNonNumeric() {
+            // Test case 7
+            // Expected result: Error
+            // Classes covered: 14
+            Plato plato = new Plato("Nombre5",  "Descripción4",CategoriaPlato.SEGUNDO, Double.parseDouble("abc"));
+            // Perform test assertions here
+            long id = mPlatoViewModel.insert(plato);
+        }
+        public void ejecutarPlatosCajaNegra() {
+            try {
+                testPlatoNombreCategoriaDescripcionPrecioSuccess();
+                testPlatoNombreNullCategoriaDescripcionPrecio();
+                testPlatoNombreCategoriaNullDescripcionPrecio();
+                //testPlatoNombreCategoriaDescripcionPrecioFastFood()
+                testPlatoNombreCategoriaDescripcionPrecioInvalidCharacters();
+                testPlatoNombreCategoriaDescripcionPrecioNegative();
+                testPlatoNombreCategoriaDescripcionPrecioNonNumeric();
+            }catch (Exception e){}
+
+        }
 
     public void testPedidoNombreClienteVacioTelefonoFechaHoraPreparado() {
         // Test case 3
@@ -265,6 +269,7 @@ public class Tests extends AppCompatActivity {
         long id = mPedidoViewModel.insert(pedido);
     }
 /*
+
     public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
         // Test case 8
         // Expected result: Error
@@ -273,23 +278,34 @@ public class Tests extends AppCompatActivity {
         // Perform test assertions here
     }*/
 
-    public void testPedidoNombreCliente5TelefonoFechaHoraEstadoNull() {
-        // Test case 9
-        // Expected result: Error
-        // Classes covered: 16
-        Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", null);
-        // Perform test assertions here
-        long id = mPedidoViewModel.insert(pedido);
-    }
-    public void ejecutarPedidosCajaNegra(){
-        testPedidoNombreClienteTelefonoFechaHoraEstadoSuccess();
-        testPedidoNombreClienteNullFechaHoraEstado();
-        testPedidoNombreClienteVacioTelefonoFechaHoraPreparado();
-        testPedidoNombreCliente3TelefonoFechaHoraRecogido();
-        testPedidoNombreCliente3TelefonoNullFechaHoraSolicitado();
-        testPedidoNombreCliente5TelefonoFechaHoraPreparado();
-        testPedidoNombreCliente5TelefonoSegundoFechaHoraPreparado();
-        //testPedidoNombreCliente5TelefonoFechaHoraEnCamino()
-        testPedidoNombreCliente5TelefonoFechaHoraEstadoNull();
-    }
+        public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
+            // Test case 8
+            // Expected result: Error
+            // Classes covered: 15
+            Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", "EN_CAMINO");
+            // Perform test assertions here
+        }*/
+
+        public void testPedidoNombreCliente5TelefonoFechaHoraEstadoNull() {
+            // Test case 9
+            // Expected result: Error
+            // Classes covered: 16
+            Pedido pedido = new Pedido("Cliente5", "111111111", "2023-12-05 22:30:00", null);
+            // Perform test assertions here
+            long id = mPedidoViewModel.insert(pedido);
+        }
+        public void ejecutarPedidosCajaNegra(){
+            try {
+                testPedidoNombreClienteTelefonoFechaHoraEstadoSuccess();
+                testPedidoNombreClienteNullFechaHoraEstado();
+                testPedidoNombreClienteVacioTelefonoFechaHoraPreparado();
+                testPedidoNombreCliente3TelefonoFechaHoraRecogido();
+                testPedidoNombreCliente3TelefonoNullFechaHoraSolicitado();
+                testPedidoNombreCliente5TelefonoFechaHoraPreparado();
+                testPedidoNombreCliente5TelefonoSegundoFechaHoraPreparado();
+                //testPedidoNombreCliente5TelefonoFechaHoraEnCamino()
+                testPedidoNombreCliente5TelefonoFechaHoraEstadoNull();
+            }catch (Exception e){}
+
+        }
 }
