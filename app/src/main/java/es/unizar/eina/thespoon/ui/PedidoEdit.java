@@ -182,11 +182,11 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
                     replyIntent.putExtra(PedidoEdit.PEDIDO_ID, mRowId.intValue());
                 }
                 setResult(RESULT_OK, replyIntent);
+                finish();
             }else {
                 setResult(RESULT_CANCELED, replyIntent);
-
             }
-            finish();
+
         });
     }
 
