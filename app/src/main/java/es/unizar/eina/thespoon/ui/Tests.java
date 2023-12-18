@@ -207,7 +207,7 @@ public class Tests extends AppCompatActivity {
         // Test case 1
         // Expected result: Success
         // Classes covered: 1, 2, 3, 5, 6, 7, 8
-        Pedido pedido = new Pedido("Pedro", "68476987", "23/10/2024 20:00:00", EstadoPedido.SOLICITADO);
+        Pedido pedido = new Pedido("Pedro", "68476987", "20/01/2024 20:00:00", EstadoPedido.SOLICITADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -215,7 +215,7 @@ public class Tests extends AppCompatActivity {
         // Test case 2
         // Expected result: Error
         // Classes covered: 9
-        Pedido pedido = new Pedido(null, "555555555", "23/10/2024 20:00:00", EstadoPedido.SOLICITADO);
+        Pedido pedido = new Pedido(null, "555555555", "20/01/2024 20:00:00", EstadoPedido.SOLICITADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -223,7 +223,7 @@ public class Tests extends AppCompatActivity {
         // Test case 3
         // Expected result: Error
         // Classes covered: 10
-        Pedido pedido = new Pedido("", "555555555", "05/12/2023 21:00:00", EstadoPedido.PREPARADO);
+        Pedido pedido = new Pedido("", "555555555", "20/01/2024 21:00:00", EstadoPedido.PREPARADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -231,7 +231,7 @@ public class Tests extends AppCompatActivity {
         // Test case 4
         // Expected result: Error
         // Classes covered: 11
-        Pedido pedido = new Pedido("Cliente3", "555-1234", "05/12/2023 22:00:00", EstadoPedido.RECOGIDO);
+        Pedido pedido = new Pedido("Cliente3", "555-1234", "20/01/2024 22:00:00", EstadoPedido.RECOGIDO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -239,7 +239,7 @@ public class Tests extends AppCompatActivity {
         // Test case 5
         // Expected result: Error
         // Classes covered: 12
-        Pedido pedido = new Pedido("Cliente3", "", "05/12/2023 23:00:00", EstadoPedido.SOLICITADO);
+        Pedido pedido = new Pedido("Cliente3", "", "20/01/2024 23:00:00", EstadoPedido.SOLICITADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -255,7 +255,7 @@ public class Tests extends AppCompatActivity {
         // Test case 7
         // Expected result: Error
         // Classes covered: 14
-        Pedido pedido = new Pedido("Cliente5", "111111111", "05/12/2023 00:00:00", EstadoPedido.PREPARADO);
+        Pedido pedido = new Pedido("Cliente5", "111111111", "20/01/2024 19:00:00", EstadoPedido.PREPARADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -270,7 +270,7 @@ public class Tests extends AppCompatActivity {
         // Test case 9
         // Expected result: Error
         // Classes covered: 16
-        Pedido pedido = new Pedido("Cliente5", "111111111", "05/12/2023 22:30:00", null);
+        Pedido pedido = new Pedido("Cliente5", "111111111", "20/01/2024 22:30:00", null);
         long id = mPedidoViewModel.insert(pedido);
 
     }

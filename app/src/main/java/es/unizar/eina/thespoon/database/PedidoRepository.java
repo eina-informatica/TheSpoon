@@ -138,6 +138,11 @@ public class PedidoRepository {
         } else if (TextUtils.isEmpty(pedido.getTelefonoCliente())) {
             Log.e("Pedido", "El teléfono de un cliente no puede estar vacío");
             return false;
+        } else if (!fechaCorrecta(pedido.getFechaHoraRecogida())) {
+            return false;
+        } else if (pedido.getEstado() == null) {
+            Log.e("Pedido", "El pedido no puede tener estado nulo");
+            return false;
         }
         return true;
     }
