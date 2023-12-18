@@ -31,9 +31,12 @@ import java.util.Calendar;
 import java.util.List;
 
 import es.unizar.eina.thespoon.R;
+import es.unizar.eina.thespoon.database.EstadoPedido;
+import es.unizar.eina.thespoon.database.Pedido;
 import es.unizar.eina.thespoon.database.Plato;
 import es.unizar.eina.thespoon.database.PlatoPedido;
 import es.unizar.eina.thespoon.database.SDF;
+import es.unizar.eina.thespoon.database.Cmp;
 
 /** Pantalla utilizada para la creación o edición de un PEDIDO */
 public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter.PriceChangeListener {
@@ -161,13 +164,15 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
 
         mSaveButton.setOnClickListener(view -> {
             Intent replyIntent = new Intent();
+            EstadoPedido[] estados = EstadoPedido.values();
+            EstadoPedido estadoPedidoSeleccionado = estados[estadoSeleccionado];
             if (TextUtils.isEmpty(mClienteText.getText()) ||
                 TextUtils.isEmpty(mTelefonoText.getText()) ||
                 !fechaEscogida ||
                 !horaEscogida ||
                 estadoSeleccionado == -1) {
                 setResult(RESULT_CANCELED, replyIntent);
-            } else {
+            } else if (Cmp.pedidoCorrecto(new Pedido(mClienteText.getText().toString(), mTelefonoText.getText().toString(), SDF.format(date.getTime()), estadoPedidoSeleccionado),true,this)) {
                 replyIntent.putExtra(PedidoEdit.PEDIDO_CLIENTE, mClienteText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_TELEFONO, mTelefonoText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_FECHA_HORA, SDF.format(date.getTime()));
@@ -177,6 +182,9 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
                     replyIntent.putExtra(PedidoEdit.PEDIDO_ID, mRowId.intValue());
                 }
                 setResult(RESULT_OK, replyIntent);
+            }else {
+                setResult(RESULT_CANCELED, replyIntent);
+
             }
             finish();
         });

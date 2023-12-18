@@ -207,7 +207,7 @@ public class Tests extends AppCompatActivity {
         // Test case 1
         // Expected result: Success
         // Classes covered: 1, 2, 3, 5, 6, 7, 8
-        Pedido pedido = new Pedido("Pedro", "68476987", "20/01/2024 20:00:00", EstadoPedido.SOLICITADO);
+        Pedido pedido = new Pedido("Pedro", "697697697", "20/01/2024 20:00:00", EstadoPedido.SOLICITADO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -231,7 +231,7 @@ public class Tests extends AppCompatActivity {
         // Test case 4
         // Expected result: Error
         // Classes covered: 11
-        Pedido pedido = new Pedido("Cliente3", "555-1234", "20/01/2024 22:00:00", EstadoPedido.RECOGIDO);
+        Pedido pedido = new Pedido("Cliente3", "abec", "20/01/2024 22:00:00", EstadoPedido.RECOGIDO);
         long id = mPedidoViewModel.insert(pedido);
     }
 
@@ -258,7 +258,13 @@ public class Tests extends AppCompatActivity {
         Pedido pedido = new Pedido("Cliente5", "111111111", "20/01/2024 19:00:00", EstadoPedido.PREPARADO);
         long id = mPedidoViewModel.insert(pedido);
     }
-
+    public void testPedidoNombreCliente5TelefonoSegundoFechaHoraPreparado2() {
+        // Test case 7
+        // Expected result: Error
+        // Classes covered: 14
+        Pedido pedido = new Pedido("Cliente5", "111111111", "21/01/2024 00:00:03", EstadoPedido.PREPARADO);
+        long id = mPedidoViewModel.insert(pedido);
+    }
     /* public void testPedidoNombreCliente5TelefonoFechaHoraEnCamino() {
         // Test case 8
         // Expected result: Error
@@ -284,6 +290,7 @@ public class Tests extends AppCompatActivity {
                 testPedidoNombreCliente5TelefonoFechaHoraPreparado();
                 testPedidoNombreCliente5TelefonoSegundoFechaHoraPreparado();
                 //testPedidoNombreCliente5TelefonoFechaHoraEnCamino()
+                testPedidoNombreCliente5TelefonoSegundoFechaHoraPreparado2();
                 testPedidoNombreCliente5TelefonoFechaHoraEstadoNull();
             }catch (Exception e){}
 
