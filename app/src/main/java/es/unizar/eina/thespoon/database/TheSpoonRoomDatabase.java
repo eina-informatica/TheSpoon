@@ -47,11 +47,16 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
         // If you want to keep data through app restarts,
         // comment out the following block
         databaseWriteExecutor.execute(() -> {
-            // Populate the database in the background.
-            // If you want to start with more platos, just add them.
+            PedidoPlatoDao pedidoPlatoDao = INSTANCE.pedidoPlatoDao();
+            pedidoPlatoDao.deleteAll();
+
             PlatoDao platoDao = INSTANCE.platoDao();
             platoDao.deleteAll();
 
+            PedidoDao pedidoDao = INSTANCE.pedidoDao();
+            pedidoDao.deleteAll();
+
+            // Poblar base de datos con platos
             Plato plato = new Plato("Macarrones a la boloñesa", "- Macarrones\n- Salda boloñesa", CategoriaPlato.PRIMERO, 8);
             platoDao.insert(plato);
             plato = new Plato("Torrija", "Pan brioche infusionado con helado de guirlache y petazetas de chocolate", CategoriaPlato.POSTRE, 7);
@@ -67,10 +72,7 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
             plato = new Plato("Tataki baturro", "- Carne de ternera del Pirineo macerada\n- Tomate\n- Crema de borraja", CategoriaPlato.SEGUNDO, 10);
             platoDao.insert(plato);
 
-            // Populate database with pedidos
-            PedidoDao pedidoDao = INSTANCE.pedidoDao();
-            pedidoDao.deleteAll();
-
+            // Poblar base de datos con pedidos
             Calendar date = Calendar.getInstance();
             date.set(2023, Calendar.NOVEMBER, 18, 9, 33);
             Pedido pedido = new Pedido("Pablo", "675123456", SDF.format(date.getTime()), EstadoPedido.SOLICITADO);
@@ -84,21 +86,8 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
             pedido = new Pedido("Jorge", "123456789", SDF.format(date.getTime()), EstadoPedido.RECOGIDO);
             pedidoDao.insert(pedido);
 
-            // Additional orders
-            Calendar date4 = Calendar.getInstance();
-            date.set(2023, Calendar.MARCH, 15, 19, 45);
-            pedido = new Pedido("Laura", "987654321", SDF.format(date.getTime()), EstadoPedido.PREPARADO);
-            pedidoDao.insert(pedido);
+            // Poblar base de datos con pedidoPlatos (platos que están asociados a un pedido)
 
-            Calendar date5 = Calendar.getInstance();
-            date.set(2023, Calendar.JULY, 10, 14, 20);
-            pedido = new Pedido("Carlos", "555555555", SDF.format(date.getTime()), EstadoPedido.SOLICITADO);
-            pedidoDao.insert(pedido);
-
-            Calendar date6 = Calendar.getInstance();
-            date.set(2023, Calendar.JANUARY, 5, 10, 0);
-            pedido = new Pedido("Ana", "111111111", SDF.format(date.getTime()), EstadoPedido.RECOGIDO);
-            pedidoDao.insert(pedido);
         });
         }
     };

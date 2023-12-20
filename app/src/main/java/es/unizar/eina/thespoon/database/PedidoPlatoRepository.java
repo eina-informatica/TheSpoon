@@ -83,7 +83,7 @@ public class PedidoPlatoRepository {
      */
     public void deleteAllFromPlato(int platoId) {
         TheSpoonRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mPedidoPlatoDao.deleteAllFromPedido(platoId);
+            mPedidoPlatoDao.deleteAllFromPlato(platoId);
         });
     }
 }

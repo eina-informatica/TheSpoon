@@ -101,7 +101,6 @@ public class CMP {
 
     public static boolean isPhoneNumber(String input) {
         // Define the pattern for a typical US phone number
-        //String phoneNumberRegex = "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$";
         String phoneNumberRegex = "^\\(?(\\d+)\\)?[- ]?(\\d+)[- ]?(\\d+)$";
         // Create a Pattern object
         Pattern pattern = Pattern.compile(phoneNumberRegex);
