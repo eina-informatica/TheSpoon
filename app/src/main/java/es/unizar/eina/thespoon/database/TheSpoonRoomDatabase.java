@@ -87,6 +87,10 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
             pedidoDao.insert(pedido);
 
             // Poblar base de datos con pedidoPlatos (platos que están asociados a un pedido)
+            PedidoPlato pedidoplato= new PedidoPlato(1,2,2,7);
+            pedidoPlatoDao.insert(pedidoplato);
+            pedidoplato=new PedidoPlato(2,5,67,11);
+            pedidoPlatoDao.insert(pedidoplato);
 
         });
         }
