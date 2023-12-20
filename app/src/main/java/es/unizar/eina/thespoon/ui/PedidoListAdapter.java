@@ -149,6 +149,7 @@ public class PedidoListAdapter extends ListAdapter<Pedido, PedidoViewHolder> {
                         sendAbstraction.send(pedidoToView.getTelefonoCliente(), "Detalles del pedido:\n"+whatsappMessage);
                     }
                 });
+
                 builder.setNeutralButton("Cerrar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
