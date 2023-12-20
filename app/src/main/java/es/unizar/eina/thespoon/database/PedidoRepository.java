@@ -2,19 +2,14 @@ package es.unizar.eina.thespoon.database;
 
 
 import android.app.Application;
-import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
-import es.unizar.eina.thespoon.ui.Pedidos;
-
-public class PedidoRepository extends Cmp{
+public class PedidoRepository extends CMP {
 
     private PedidoDao mPedidoDao;
     private LiveData<List<Pedido>> mAllPedidos;

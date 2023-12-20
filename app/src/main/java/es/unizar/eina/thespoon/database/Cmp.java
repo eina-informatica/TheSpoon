@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Cmp {
+/** Clase con métodos para comprobar que un pedido es correcto */
+public class CMP {
     public static boolean pedidoCorrecto(Pedido pedido, boolean showToast, Context context) {
         if (TextUtils.isEmpty(pedido.getNombreCliente())) {
             String errorMessage = "El nombre de un cliente no puede estar vacío";
@@ -94,7 +95,8 @@ public class Cmp {
         endCal.set(Calendar.HOUR_OF_DAY, endHour);
         endCal.set(Calendar.MINUTE, endMinute);
 
-        return targetCal.after(startCal) && targetCal.before(endCal);
+        return (targetCal.after(startCal) || targetCal.equals(startCal)) &&
+                (targetCal.before(endCal) || targetCal.equals(endCal));
     }
 
     public static boolean isPhoneNumber(String input) {

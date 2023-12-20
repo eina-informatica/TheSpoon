@@ -7,7 +7,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,7 +20,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,7 +34,7 @@ import es.unizar.eina.thespoon.database.Pedido;
 import es.unizar.eina.thespoon.database.Plato;
 import es.unizar.eina.thespoon.database.PlatoPedido;
 import es.unizar.eina.thespoon.database.SDF;
-import es.unizar.eina.thespoon.database.Cmp;
+import es.unizar.eina.thespoon.database.CMP;
 
 /** Pantalla utilizada para la creación o edición de un PEDIDO */
 public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter.PriceChangeListener {
@@ -172,7 +170,7 @@ public class PedidoEdit extends AppCompatActivity implements AddPlatoListAdapter
                 !horaEscogida ||
                 estadoSeleccionado == -1) {
                 setResult(RESULT_CANCELED, replyIntent);
-            } else if (Cmp.pedidoCorrecto(new Pedido(mClienteText.getText().toString(), mTelefonoText.getText().toString(), SDF.format(date.getTime()), estadoPedidoSeleccionado),true,this)) {
+            } else if (CMP.pedidoCorrecto(new Pedido(mClienteText.getText().toString(), mTelefonoText.getText().toString(), SDF.format(date.getTime()), estadoPedidoSeleccionado),true,this)) {
                 replyIntent.putExtra(PedidoEdit.PEDIDO_CLIENTE, mClienteText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_TELEFONO, mTelefonoText.getText().toString());
                 replyIntent.putExtra(PedidoEdit.PEDIDO_FECHA_HORA, SDF.format(date.getTime()));

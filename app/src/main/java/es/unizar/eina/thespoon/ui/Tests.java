@@ -71,22 +71,14 @@ public class Tests extends AppCompatActivity {
             mPlatoViewModel.insert(plato);
         }
 
-        // Clase de equivalencia no válida (Intentar cargar más de 100 platos)
-                /*Plato platoInvalido = new Plato("PlatoInvalido", "DescripciónInvalida", CategoriaPlato.SEGUNDO, -5.5);
-                mPlatoViewModel.insert(platoInvalido); // Esto debería manejar el error apropiadamente*/
-
         // Se vacía la tabla de pedidos
         mPedidoViewModel.deleteAll();
 
         // Se crean 2000 pedidos
         for (int i = 1; i <= 2001; i++) {
-            Pedido pedido = new Pedido("Cliente " + i, "123456789" + i, "18/11/2023 09:33:27", EstadoPedido.SOLICITADO);
+            Pedido pedido = new Pedido("Cliente " + i, "123456789" + i, "14/02/2024 20:00:00", EstadoPedido.SOLICITADO);
             mPedidoViewModel.insert(pedido);
         }
-
-        // Clase de equivalencia no válida (Intentar cargar más de 2000 pedidos)
-                /*Pedido pedidoInvalido = new Pedido("ClienteInvalido", "987654321", "2023-12-01 21:00:00", EstadoPedido.PREPARADO);
-                mPedidoViewModel.insert(pedidoInvalido); // Esto debería manejar el error apropiadamente*/
     }
 
     public void ejecutarTestsSobrecarga() {
@@ -98,7 +90,7 @@ public class Tests extends AppCompatActivity {
         int idPlato = (int) mPlatoViewModel.insert(plato);
 
         // Intentar insertar platos con descripciones de longitud creciente
-        for (int i = 1; i <= 50000; i++) {
+        for (int i = 1; i <= 100000; i++) {
             try {
                 String descripcion = generarDescripcionConLongitud(i);
                 plato = new Plato("Plato" + i, descripcion, CategoriaPlato.PRIMERO, 10.0);

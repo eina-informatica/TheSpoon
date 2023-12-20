@@ -6,6 +6,7 @@ import static es.unizar.eina.thespoon.R.string;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -185,11 +186,13 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                                 EstadoPedido.values()[extras.getInt(PedidoEdit.PEDIDO_ESTADO)]
                         );
                         long pedidoId = mPedidoViewModel.insert(newPedido);
-                        List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(
-                                extras.getString(PedidoEdit.PEDIDO_PLATOS));
-                        for (Pair<Plato, Integer> pair : platoList) {
-                            PedidoPlato pp = new PedidoPlato((int) pedidoId, pair.first.getId(), pair.second, pair.first.getPrecio());
-                            mPedidoPlatoViewModel.insert(pp);
+                        String pedidoPlatos = extras.getString(PedidoEdit.PEDIDO_PLATOS);
+                        if (!TextUtils.isEmpty(pedidoPlatos)) {
+                            List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(pedidoPlatos);
+                            for (Pair<Plato, Integer> pair : platoList) {
+                                PedidoPlato pp = new PedidoPlato((int) pedidoId, pair.first.getId(), pair.second, pair.first.getPrecio());
+                                mPedidoPlatoViewModel.insert(pp);
+                            }
                         }
                     }
                     break;
@@ -205,11 +208,13 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
                         updatedPedido.setId(id);
                         mPedidoViewModel.update(updatedPedido);
                         mPedidoPlatoViewModel.deleteAllFromPedido(id);
-                        List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(
-                                extras.getString(PedidoEdit.PEDIDO_PLATOS));
-                        for (Pair<Plato, Integer> pair : platoList) {
-                            PedidoPlato pp = new PedidoPlato((int) id, pair.first.getId(), pair.second, pair.first.getPrecio());
-                            mPedidoPlatoViewModel.insert(pp);
+                        String pedidoPlatos = extras.getString(PedidoEdit.PEDIDO_PLATOS);
+                        if (!TextUtils.isEmpty(pedidoPlatos)) {
+                            List<Pair<Plato, Integer>> platoList = AddPlatoSerializer.deserialize(pedidoPlatos);
+                            for (Pair<Plato, Integer> pair : platoList) {
+                                PedidoPlato pp = new PedidoPlato((int) id, pair.first.getId(), pair.second, pair.first.getPrecio());
+                                mPedidoPlatoViewModel.insert(pp);
+                            }
                         }
                     }
                     break;
