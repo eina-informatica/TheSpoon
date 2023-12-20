@@ -16,34 +16,24 @@ import es.unizar.eina.thespoon.database.Plato;
 public class PedidoViewModel extends AndroidViewModel {
 
     private PedidoRepository mRepository;
-
-    private final LiveData<List<Pedido>> mAllPedidos;
-    private final LiveData<List<Pedido>> mAllPedidosPorEstado; // Pedidos ordenados por estado
-
-    private final LiveData<List<Pedido>> mAllPedidosPorNombreYEstado; // Pedidos ordenados por nombre y estado
     private LiveData<List<Pedido>> mPedidosFiltrados;
 
     public PedidoViewModel(Application application) {
         super(application);
         mRepository = new PedidoRepository(application);
-        mAllPedidos = mRepository.getAllPedidos();
-        mAllPedidosPorEstado = mRepository.getAllPedidosPorEstado();
-        mAllPedidosPorNombreYEstado = mRepository.getAllPedidosPorNombreYEstado();
-        mPedidosFiltrados = mAllPedidos; // Inicialmente, muestra todos los pedidos
-        //mPedidosEstado=mRepository.getPedidosPorEstado(EstadoPedido estadoSeleccionado);
     }
 
-    LiveData<List<Pedido>> getAllPedidos() { return mAllPedidos; }
-    LiveData<List<Pedido>> getAllPedidosPorEstado() { return mAllPedidosPorEstado; }
+    LiveData<List<Pedido>> getAllPedidos(EstadoPedido estadoSeleccionado) { return  mRepository.getAllPedidos(estadoSeleccionado); }
+    LiveData<List<Pedido>> getAllPedidosPorEstado(EstadoPedido estadoSeleccionado) { return mRepository.getAllPedidosPorEstado(estadoSeleccionado); }
 
-    LiveData<List<Pedido>> getAllPedidosPorNombreYEstado() { return mAllPedidosPorNombreYEstado; }
-    LiveData<List<Pedido>> getPedidosFiltrados() {
+    LiveData<List<Pedido>> getAllPedidosPorNombreYEstado(EstadoPedido estadoSeleccionado) { return mRepository.getAllPedidosPorNombreYEstado(estadoSeleccionado); }
+    /*LiveData<List<Pedido>> getPedidosFiltrados() {
         return mPedidosFiltrados;
     }
 
     void filtrarPedidosPorEstado(EstadoPedido estadoSeleccionado) {
         mPedidosFiltrados = mRepository.getPedidosPorEstado(estadoSeleccionado);
-    }
+    }*/
 
     public long insert(Pedido pedido) {
         return mRepository.insert(pedido);

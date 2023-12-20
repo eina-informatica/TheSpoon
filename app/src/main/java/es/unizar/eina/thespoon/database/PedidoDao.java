@@ -28,19 +28,20 @@ public interface PedidoDao {
     @Query("DELETE FROM Pedido")
     void deleteAll();
 
-    @Query("SELECT * FROM Pedido ORDER BY nombreCliente ASC")
-    LiveData<List<Pedido>> getOrderedPlatos();
+    @Query("SELECT * FROM Pedido WHERE estado IN (:estadosSeleccionados) ORDER BY nombreCliente ASC")
+    LiveData<List<Pedido>> getOrderedPlatos(List<String> estadosSeleccionados);
 
-    @Query("SELECT * FROM Pedido ORDER BY " +
+    @Query("SELECT * FROM Pedido WHERE estado IN (:estadosSeleccionados) ORDER BY " +
             "CASE WHEN estado = 'SOLICITADO' THEN 1 " +
             "WHEN estado = 'PREPARADO' THEN 2 " +
             "WHEN estado = 'RECOGIDO' THEN 3 ELSE 4 END")
-    LiveData<List<Pedido>> getOrderedPedidosPorEstado();
+    LiveData<List<Pedido>> getOrderedPedidosPorEstado(List<String> estadosSeleccionados);
 
-    @Query("SELECT * FROM Pedido ORDER BY nombreCliente ASC, estado DESC")
-    LiveData<List<Pedido>> getOrderedPedidosPorNombreYEstado();
-    @Query("SELECT * FROM Pedido WHERE estado = :estadoSeleccionado")
-    LiveData<List<Pedido>> getPedidosPorEstado(EstadoPedido estadoSeleccionado);
+    @Query("SELECT * FROM Pedido WHERE estado IN (:estadosSeleccionados) ORDER BY nombreCliente ASC, estado DESC")
+    LiveData<List<Pedido>> getOrderedPedidosPorNombreYEstado(List<String> estadosSeleccionados);
+
+    /*@Query("SELECT * FROM Pedido WHERE estado = :estadoSeleccionado")
+    LiveData<List<Pedido>> getPedidosPorEstado(EstadoPedido estadoSeleccionado);*/
 
     @Query("SELECT COUNT(*) FROM Pedido")
     int getPedidoCount();

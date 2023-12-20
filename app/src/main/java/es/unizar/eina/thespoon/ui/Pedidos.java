@@ -54,6 +54,10 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
 
     public ActivityResultLauncher<Intent> activityResultLauncher;
 
+    // "filtroEstado" permite filtrar por estado, inicialmento obtenemos todos los pedidos
+    EstadoPedido filtroEstado = null;
+    String criterioOrden = "nombre";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +71,7 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
 
         mPedidoViewModel = new ViewModelProvider(this).get(PedidoViewModel.class);
 
-        mPedidoViewModel.getAllPedidos().observe(this, pedidos -> {
+        mPedidoViewModel.getAllPedidos(null).observe(this, pedidos -> {
             // Update the cached copy of the notes in the adapter.
             mAdapter.submitList(pedidos);
         });
@@ -106,57 +110,45 @@ public class Pedidos extends AppCompatActivity implements PopupMenu.OnMenuItemCl
     }
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        Toast.makeText(this, "Ordenar por: " + item.getTitle(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
         int itemId = item.getItemId();
         if (itemId == R.id.ordenarPorNombre) {
-            mPedidoViewModel.getAllPedidos().observe(this, pedidos -> {
-                // Update the cached copy of the plates in the adapter.
-                mAdapter.submitList(pedidos);
-            });
-            return true;
+            criterioOrden = "nombre";
         } else if (itemId == id.ordenarPorEstado) {
-            mPedidoViewModel.getAllPedidosPorEstado().observe(this, pedidos -> {
-                // Update the cached copy of the plates in the adapter.
-                mAdapter.submitList(pedidos);
-            });
-            return true;
+            criterioOrden = "estado";
         } else if (itemId == id.ordenarPorAmbos) {
-            mPedidoViewModel.getAllPedidosPorNombreYEstado().observe(this, pedidos -> {
-                // Update the cached copy of the plates in the adapter.
-                mAdapter.submitList(pedidos);
-            });
-            return true;
+            criterioOrden = "ambos";
         } else if (itemId == R.id.filtrarSolicitados) {
-        // Filtrar por estado "Solicitado"
-        mPedidoViewModel.filtrarPedidosPorEstado(EstadoPedido.SOLICITADO);
-        mPedidoViewModel.getPedidosFiltrados().observe(this, pedidos -> {
-            mAdapter.submitList(pedidos);
-        });
-        return true;
-    } else if (itemId == R.id.filtrarPreparados) {
-        // Filtrar por estado "Preparado"
-        mPedidoViewModel.filtrarPedidosPorEstado(EstadoPedido.PREPARADO);
-        mPedidoViewModel.getPedidosFiltrados().observe(this, pedidos -> {
-            mAdapter.submitList(pedidos);
-        });
-        return true;
-    } else if (itemId == R.id.filtrarRecogidos) {
-        // Filtrar por estado "Recogido"
-        mPedidoViewModel.filtrarPedidosPorEstado(EstadoPedido.RECOGIDO);
-        mPedidoViewModel.getPedidosFiltrados().observe(this, pedidos -> {
-            mAdapter.submitList(pedidos);
-        });
+            filtroEstado = EstadoPedido.SOLICITADO;
+        } else if (itemId == R.id.filtrarPreparados) {
+            filtroEstado = EstadoPedido.PREPARADO;
+        } else if (itemId == R.id.filtrarRecogidos) {
+            filtroEstado = EstadoPedido.RECOGIDO;
+        } else if (itemId == R.id.filtrarTodos){
+            filtroEstado = null;
+        }
+        switch(criterioOrden) {
+            case "nombre":
+                mPedidoViewModel.getAllPedidos(filtroEstado).observe(this, pedidos -> {
+                    // Update the cached copy of the plates in the adapter.
+                    mAdapter.submitList(pedidos);
+                });
+                break;
+            case "estado":
+                mPedidoViewModel.getAllPedidosPorEstado(filtroEstado).observe(this, pedidos -> {
+                    // Update the cached copy of the plates in the adapter.
+                    mAdapter.submitList(pedidos);
+                });
+                break;
+            case "ambos":
+                mPedidoViewModel.getAllPedidosPorNombreYEstado(filtroEstado).observe(this, pedidos -> {
+                    // Update the cached copy of the plates in the adapter.
+                    mAdapter.submitList(pedidos);
+                });
+                break;
+        }
         return true;
     }
-    else if (itemId == R.id.filtrarTodos){
-        mPedidoViewModel.getAllPedidos().observe(this, pedidos -> {
-            // Update the cached copy of the plates in the adapter.
-            mAdapter.submitList(pedidos);
-        });
-        return true;
-    }
-    return false;
-}
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data == null) {

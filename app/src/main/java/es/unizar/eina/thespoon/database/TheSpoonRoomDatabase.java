@@ -86,10 +86,24 @@ public abstract class TheSpoonRoomDatabase extends RoomDatabase {
             pedido = new Pedido("Jorge", "123456789", SDF.format(date.getTime()), EstadoPedido.RECOGIDO);
             pedidoDao.insert(pedido);
 
+            // Additional orders
+            Calendar date4 = Calendar.getInstance();
+            date.set(2023, Calendar.MARCH, 15, 19, 45);
+            pedido = new Pedido("Laura", "987654321", SDF.format(date.getTime()), EstadoPedido.PREPARADO);
+            pedidoDao.insert(pedido);
+            Calendar date5 = Calendar.getInstance();
+            date.set(2023, Calendar.JULY, 10, 14, 20);
+            pedido = new Pedido("Carlos", "555555555", SDF.format(date.getTime()), EstadoPedido.SOLICITADO);
+            pedidoDao.insert(pedido);
+            Calendar date6 = Calendar.getInstance();
+            date.set(2023, Calendar.JANUARY, 5, 10, 0);
+            pedido = new Pedido("Ana", "111111111", SDF.format(date.getTime()), EstadoPedido.RECOGIDO);
+            pedidoDao.insert(pedido);
+
             // Poblar base de datos con pedidoPlatos (platos que están asociados a un pedido)
-            PedidoPlato pedidoplato= new PedidoPlato(1,2,2,7);
+            PedidoPlato pedidoplato = new PedidoPlato(1,2,2,7);
             pedidoPlatoDao.insert(pedidoplato);
-            pedidoplato=new PedidoPlato(2,5,67,11);
+            pedidoplato =new PedidoPlato(2,5,67,11);
             pedidoPlatoDao.insert(pedidoplato);
 
         });

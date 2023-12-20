@@ -29,10 +29,13 @@ public interface PlatoDao {
     @Query("SELECT * FROM Plato ORDER BY nombre ASC")
     LiveData<List<Plato>> getOrderedPlatos();
 
-    @Query("SELECT * FROM Plato ORDER BY categoria DESC")
+    @Query("SELECT * FROM Plato ORDER BY " +
+            "CASE WHEN categoria = 'PRIMERO' THEN 1 " +
+            "WHEN categoria = 'SEGUNDO' THEN 2 " +
+            "WHEN categoria = 'POSTRE' THEN 3 ELSE 4 END")
     LiveData<List<Plato>> getOrderedPlatosPorCategoria();
 
-    @Query("SELECT * FROM Plato ORDER BY nombre ASC, categoria DESC")
+    @Query("SELECT * FROM Plato ORDER BY nombre ASC, categoria ASC")
     LiveData<List<Plato>> getOrderedPlatosPorNombreYCategoria();
 
     @Query("SELECT COUNT(*) FROM Plato")

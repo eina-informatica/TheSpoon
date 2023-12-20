@@ -6,15 +6,13 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 public class PedidoRepository extends CMP {
 
     private PedidoDao mPedidoDao;
-    private LiveData<List<Pedido>> mAllPedidos;
-    public LiveData<List<Pedido>> mAllPedidosPorEstado;
-    public LiveData<List<Pedido>> mAllPedidosPorNombreYEstado;
 
     // Pedido that in order to unit test the PedidoRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
@@ -23,21 +21,25 @@ public class PedidoRepository extends CMP {
     public PedidoRepository(Application application) {
         TheSpoonRoomDatabase db = TheSpoonRoomDatabase.getDatabase(application);
         mPedidoDao = db.pedidoDao();
-        mAllPedidos = mPedidoDao.getOrderedPlatos();
-        mAllPedidosPorEstado=mPedidoDao.getOrderedPedidosPorEstado();
-        mAllPedidosPorNombreYEstado=mPedidoDao.getOrderedPedidosPorNombreYEstado();
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<Pedido>> getAllPedidos() {
-        return mAllPedidos;
+    public LiveData<List<Pedido>> getAllPedidos(EstadoPedido estadoSeleccionado) {
+        return mPedidoDao.getOrderedPlatos(estadoPedidoToList(estadoSeleccionado));
     }
-    public LiveData<List<Pedido>> getAllPedidosPorEstado() { return mAllPedidosPorEstado; }
-    public LiveData<List<Pedido>> getAllPedidosPorNombreYEstado() { return mAllPedidosPorNombreYEstado; }
-    public LiveData<List<Pedido>> getPedidosPorEstado(EstadoPedido estadoSeleccionado) {
+
+    public LiveData<List<Pedido>> getAllPedidosPorEstado(EstadoPedido estadoSeleccionado) {
+        return mPedidoDao.getOrderedPedidosPorEstado(estadoPedidoToList(estadoSeleccionado));
+    }
+
+    public LiveData<List<Pedido>> getAllPedidosPorNombreYEstado(EstadoPedido estadoSeleccionado) {
+        return mPedidoDao.getOrderedPedidosPorNombreYEstado(estadoPedidoToList(estadoSeleccionado));
+    }
+
+    /*public LiveData<List<Pedido>> getPedidosPorEstado(EstadoPedido estadoSeleccionado) {
         return mPedidoDao.getPedidosPorEstado(estadoSeleccionado);
-    }
+    }*/
 
     /** Inserta un pedido
      * @param pedido
@@ -126,4 +128,17 @@ public class PedidoRepository extends CMP {
         }
     }
 
+    /** Convierte EstadoPedido a String[], si EstadoPedido es NULL
+     * devuelve un String[] con todos los estados de pedido posible */
+    private ArrayList<String> estadoPedidoToList(EstadoPedido estadoPedido) {
+        ArrayList lista = new ArrayList();
+        if (estadoPedido != null) {
+            lista.add(estadoPedido.toString());
+        } else {
+            for (EstadoPedido estado : EstadoPedido.values()) {
+                lista.add(estado.toString());
+            }
+        }
+        return lista;
+    }
 }
